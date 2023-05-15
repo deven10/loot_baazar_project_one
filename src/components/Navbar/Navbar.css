@@ -1,0 +1,86 @@
+/* importing fonts */
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+
+/* start main Navbar */
+.nav{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ebebf1;
+    padding: 10px 50px;
+}
+/* End Main Navbar */
+
+/* start Nav */
+.nav-container{
+    display: flex;
+    column-gap: 25px;
+}
+
+.nav-links{
+    display: flex;
+    column-gap: 10px;
+}
+
+.navLink{
+    background-color: #cccff6;
+    border: 0;
+    border-radius: 5px;
+    transition: .2s ease;
+    padding: 10px 25px;
+    list-style: none;
+    font-size: 18px;
+    font-family: sans-serif;
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.navLink:hover{
+    background-color: #a7acf2;
+}
+
+.nav-icon{
+    font-size: 22px;
+}
+
+.more-options{
+    background-color: red;
+}
+
+.profile-link, .logout-button{
+    text-decoration: none;
+    border: 0;
+    outline: none;
+    background-color: transparent;
+    list-style: none;
+    font-size: 16px;
+    text-align: center;
+    color: #000;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+}
+
+.three-dots{
+    margin-left: 30px;
+}
+/* end Nav */
+
+/* start Logo */
+.logo{
+    font-size: 30px;
+    font-weight: 500;
+    font-family: 'Satisfy', cursive;
+    color: #000;
+    letter-spacing: .5px;
+    margin: 0;
+    cursor: pointer;
+    text-decoration: none;
+    list-style: none;
+}
+/* End logo */

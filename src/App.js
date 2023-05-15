@@ -1,41 +1,65 @@
+// libraries
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import Lottie from "lottie-react";
+
+// component / pages
+import { Navbar } from "./components/Navbar/Navbar";
+import { Home } from "./pages/Home/Home";
+import { Shop } from "./pages/Shop/Shop";
+import { Cart } from "./pages/Cart/Cart";
+import { Wishlist } from "./pages/Wishlist/Wishlist";
+import { SingleProduct } from "./pages/Shop/SingleProduct";
+import { Profile } from "./pages/Profile/Profile";
+import { Login } from "./pages/Login/Login";
+import { Register } from "./pages/Register/Register";
+import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
+
+// lottie files
+import HomeLoading from "./lottie-files/home-loading.json";
+
+// private routes
+import { IfLoggedIn } from "./components/PrivateRoutes/IfLoggedIn";
+
+// styling
 import "./App.css";
-import logo from "./logo.png";
 
 function App() {
+  const [abc, setAbc] = useState(true);
+
+  setTimeout(() => {
+    setAbc(false);
+  }, 2500);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} alt="mockBee logo" width="180" height="180" />
-        <h1 className="brand-title">
-          Welcome to <span>mockBee!</span>
-        </h1>
-        <p className="brand-description">
-          Get started by editing <code>src/App.js</code>
-        </p>
-        <div className="links">
-          <a
-            href="https://mockbee.netlify.app/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Explore mockBee
-          </a>
-          <a
-            href="https://mockbee.netlify.app/docs/api/introduction"
-            target="_blank"
-            rel="noreferrer"
-          >
-            API Documentation
-          </a>
-          <a
-            href="https://github.com/neogcamp/mockBee"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Contribute
-          </a>
+      {abc ? (
+        <div className="loading-animation default-bg-color">
+          <div className="animation">
+            <Lottie loop animationData={HomeLoading} />
+          </div>
         </div>
-      </header>
+      ) : (
+        <div>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+
+            {/* if logint token private routings */}
+            {/* <Route element={<IfLoggedIn />}> */}
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/shop" element={<Shop />} />
+            <Route path="/shop/:productId" element={<SingleProduct />} />
+            <Route path="/profile" element={<Profile />} />
+            {/* </Route> */}
+            {/* if login token private routing ended */}
+          </Routes>
+        </div>
+      )}
     </div>
   );
 }
