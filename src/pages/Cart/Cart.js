@@ -44,7 +44,7 @@ export const Cart = () => {
           {data.map((item) => {
             const { id, name, image, salePrice, regularPrice } = item;
             return (
-              <div className="cart-item">
+              <div key={id} className="cart-item">
                 <div className="cart-item-image">
                   <img src={image} alt={name} />
                 </div>
@@ -79,21 +79,23 @@ export const Cart = () => {
           })}
         </div>
         <div className="checkout-cart">
-          <p>PRICE DETAILS</p>
-          <p>
+          <p className="checkout-cart-title">PRICE DETAILS</p>
+          <p className="checkout-cart-price checkout-group">
             <span> Price (2 item)</span> <span>₹2000</span>
           </p>
-          <p>
+          <p className="checkout-cart-discount checkout-group">
             <span>Discount</span> <span>-₹800</span>
           </p>
-          <p>
+          <p className="checkout-cart-delivery-charges checkout-group">
             <span>Delivery Charges</span> <span>₹399</span>
           </p>
-          <p>
+          <p className="checkout-cart-discount-total-amount checkout-group">
             <span>TOTAL AMOUNT</span> <span>₹2499</span>{" "}
           </p>
-          <p>You will save ₹699 on this order</p>
-          <button>Place Order</button>
+          <p className="checkout-cart-offer">
+            You will save ₹699 on this order
+          </p>
+          <button className="place-order-button">Place Order</button>
         </div>
       </section>
     </div>

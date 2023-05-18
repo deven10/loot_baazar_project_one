@@ -84,3 +84,7 @@
     list-style: none;
 }
 /* End logo */
+
+.react-tooltip{
+    z-index: 2;
+}

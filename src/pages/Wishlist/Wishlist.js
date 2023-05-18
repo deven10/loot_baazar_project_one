@@ -55,7 +55,7 @@ export const Wishlist = () => {
   ];
 
   return (
-    <div className="container default-bg-color">
+    <div className="main-wishlist-page default-bg-color">
       <h2 className="page-heading">My Wishlist</h2>
       <div className="wishlist-items">
         {data.map((item) => {
@@ -65,9 +65,9 @@ export const Wishlist = () => {
               <div className="relative-position">
                 <span className="like-icon">
                   {liked ? (
-                    <i class="fa-solid fa-heart color-red heart"></i>
+                    <i className="fa-solid fa-heart color-red heart"></i>
                   ) : (
-                    <i class="fa-regular fa-heart heart"></i>
+                    <i className="fa-regular fa-heart heart"></i>
                   )}
                 </span>
                 <img className="wishlist-item-img" src={image} alt={name} />

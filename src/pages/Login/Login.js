@@ -1,13 +1,22 @@
 // libraries
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 // components
+import { ReactToastify } from "../../utility/ReactToastify";
 
 // styling
+import "react-toastify/dist/ReactToastify.css";
 import "../../stylesheet/FormStyling.css";
 
 export const Login = () => {
+  // states
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
   const navigate = useNavigate();
   const LoginToken = localStorage.getItem("LoginToken");
 
@@ -17,18 +26,50 @@ export const Login = () => {
     }
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const checkUser = async () => {
+    try {
+      const data = {
+        email: user.email,
+        password: user.password,
+      };
 
-    // if (data.get("email") && data.get("password")) {
-    //   localStorage.setItem("LoginToken", Date.now());
-    //   navigate("/");
-    // }
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
 
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
+      const result = await response.json();
+      if (result.errors) {
+        result.errors.map((e) => ReactToastify(e, "error"));
+      } else {
+        ReactToastify("Success", "success");
+        clearState();
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (user.email !== "" && user.password !== "") {
+      checkUser();
+    } else {
+      ReactToastify("Please enter your Login Email & Password", "error");
+    }
+  };
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+    setUser((prevState) => ({
+      ...prevState,
+      [id]: value,
+    }));
+  };
+
+  const clearState = () => {
+    setUser({ email: "", password: "" });
   };
 
   return (
@@ -40,9 +81,12 @@ export const Login = () => {
             Email address
           </label>
           <input
+            id="email"
             className="form-input"
             type="email"
             required
+            value={user.email}
+            onChange={handleChange}
             placeholder="Enter your Email address..."
           />
         </div>
@@ -51,6 +95,9 @@ export const Login = () => {
             Password
           </label>
           <input
+            id="password"
+            value={user.password}
+            onChange={handleChange}
             className="form-input"
             type="password"
             required
@@ -79,6 +126,7 @@ export const Login = () => {
           Create New Account?
         </Link>
       </form>
+      <ToastContainer />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 // libraries
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Lottie from "lottie-react";
 
@@ -14,6 +14,7 @@ import { Profile } from "./pages/Profile/Profile";
 import { Login } from "./pages/Login/Login";
 import { Register } from "./pages/Register/Register";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
+import { TestApi } from "./pages/Mockman/TestApi";
 
 // lottie files
 import HomeLoading from "./lottie-files/home-loading.json";
@@ -55,6 +56,7 @@ function App() {
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:productId" element={<SingleProduct />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/mockman" element={<TestApi />} />
             {/* </Route> */}
             {/* if login token private routing ended */}
           </Routes>

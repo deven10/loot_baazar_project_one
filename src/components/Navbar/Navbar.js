@@ -17,7 +17,7 @@ import "react-tooltip/dist/react-tooltip.css";
 const Logo = () => {
   return (
     <Link to="/" className="logo">
-      Loot Lo 😋
+      Loot Baazar 🚀
     </Link>
   );
 };
