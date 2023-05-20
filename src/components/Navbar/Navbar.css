@@ -88,3 +88,14 @@
 .react-tooltip{
     z-index: 2;
 }
+
+.searchbar{
+    text-overflow: ellipsis;
+    padding: 5px 10px;
+    width: 30%;
+    border-radius: 5px;
+    border: 0;
+    color: #000;
+    font-size: 18px;
+    font-family: 'Roboto';
+}

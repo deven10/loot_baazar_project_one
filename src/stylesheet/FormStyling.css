@@ -117,8 +117,12 @@
 }
 
 .checkbox-input{
-    height: 17px;
-    width: 17px;
-    margin-right: 7px;
-    margin-bottom: 5px;
+    height: 18px;
+    width: 18px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.form-check{
+    padding: 0;
 }

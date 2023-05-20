@@ -1,7 +1,6 @@
 // libraries
 import React, { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 
 // components
 import { ReactToastify } from "../../utility/ReactToastify";
@@ -18,9 +17,9 @@ export const Login = () => {
   });
 
   const navigate = useNavigate();
-  const LoginToken = localStorage.getItem("LoginToken");
 
   useEffect(() => {
+    const LoginToken = localStorage.getItem("token");
     if (LoginToken) {
       navigate("/");
     }
@@ -42,21 +41,51 @@ export const Login = () => {
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
       } else {
-        ReactToastify("Success", "success");
+        localStorage.setItem("token", result.encodedToken);
+        ReactToastify("Logged in Successfully", "success");
         clearState();
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const loginAsGuest = async () => {
+    try {
+      const data = {
+        email: "adarshbalika@gmail.com",
+        password: "adarshbalika",
+      };
 
-    if (user.email !== "" && user.password !== "") {
-      checkUser();
-    } else {
-      ReactToastify("Please enter your Login Email & Password", "error");
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+      if (result.errors) {
+        result.errors.map((e) => ReactToastify(e, "error"));
+      } else {
+        localStorage.setItem("token", result.encodedToken);
+        ReactToastify("Logged in Successfully as Guest", "success");
+        clearState();
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleSubmit = (type) => {
+    if (type === "not guest") {
+      if (user.email !== "" && user.password !== "") {
+        checkUser();
+      } else {
+        ReactToastify("Please enter your Login Email & Password", "error");
+      }
+    } else if (type === "guest") {
+      loginAsGuest();
     }
   };
 
@@ -74,7 +103,7 @@ export const Login = () => {
 
   return (
     <div className="main-form-page">
-      <form className="form" onSubmit={handleSubmit}>
+      <form className="form">
         <h2>Login</h2>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
@@ -84,7 +113,6 @@ export const Login = () => {
             id="email"
             className="form-input"
             type="email"
-            required
             value={user.email}
             onChange={handleChange}
             placeholder="Enter your Email address..."
@@ -100,7 +128,6 @@ export const Login = () => {
             onChange={handleChange}
             className="form-input"
             type="password"
-            required
             placeholder="Enter your Password..."
           />
         </div>
@@ -121,12 +148,28 @@ export const Login = () => {
           </div>
         </div>
 
-        <button className="form-button">Login</button>
+        <button
+          className="form-button"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit("not guest");
+          }}
+        >
+          Login
+        </button>
+        <button
+          className="form-button"
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit("guest");
+          }}
+        >
+          Login as Guest
+        </button>
         <Link to="/register" className="form-toggle-link">
           Create New Account?
         </Link>
       </form>
-      <ToastContainer />
     </div>
   );
 };

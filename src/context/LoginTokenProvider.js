@@ -6,7 +6,7 @@ export const LoginTokenProvider = ({ children }) => {
   let LoginToken;
 
   useEffect(() => {
-    LoginToken = localStorage.getItem("LoginToken");
+    LoginToken = localStorage.getItem("token");
   }, []);
 
   return (

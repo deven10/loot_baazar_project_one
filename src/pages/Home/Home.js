@@ -14,7 +14,7 @@ import "./Home.css";
 
 export const Home = () => {
   return (
-    <div className="main">
+    <div className="main default-bg-color">
       <section className="slider">
         <div
           id="carouselExampleControlsNoTouching"
@@ -87,17 +87,20 @@ export const Home = () => {
         </div>
       </section>
       <section className="categories">
-        <div class="category">
-          <img src={AIO} alt="All In One" />
-          <p>All In One</p>
-        </div>
-        <div class="category">
-          <img src={Laptops} alt="Laptops" />
-          <p>Laptops</p>
-        </div>
-        <div class="category">
-          <img src={Printers} alt="Printers" />
-          <p>Printers</p>
+        <h2>Shop by Category</h2>
+        <div className="categories-parent">
+          <div className="category">
+            <img src={AIO} alt="All In One" />
+            <p>All In One</p>
+          </div>
+          <div className="category">
+            <img src={Laptops} alt="Laptops" />
+            <p>Laptops</p>
+          </div>
+          <div className="category">
+            <img src={Printers} alt="Printers" />
+            <p>Printers</p>
+          </div>
         </div>
       </section>
     </div>

@@ -2,9 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Lottie from "lottie-react";
+import { ToastContainer } from "react-toastify";
 
 // component / pages
 import { Navbar } from "./components/Navbar/Navbar";
+import { Footer } from "./components/Footer/Footer";
 import { Home } from "./pages/Home/Home";
 import { Shop } from "./pages/Shop/Shop";
 import { Cart } from "./pages/Cart/Cart";
@@ -48,18 +50,18 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
-
-            {/* if logint token private routings */}
-            {/* <Route element={<IfLoggedIn />}> */}
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:productId" element={<SingleProduct />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/mockman" element={<TestApi />} />
-            {/* </Route> */}
-            {/* if login token private routing ended */}
+
+            <Route element={<IfLoggedIn />}>
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/wishlist" element={<Wishlist />} />
+            </Route>
           </Routes>
+          <Footer />
+          <ToastContainer />
         </div>
       )}
     </div>

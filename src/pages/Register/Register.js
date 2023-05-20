@@ -1,7 +1,6 @@
 // libraries
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
 
 // components
 import { ReactToastify } from "../../utility/ReactToastify";
@@ -10,6 +9,8 @@ import { ReactToastify } from "../../utility/ReactToastify";
 import "../../stylesheet/FormStyling.css";
 
 export const Register = () => {
+  const navigate = useNavigate();
+
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -52,6 +53,8 @@ export const Register = () => {
       } else {
         ReactToastify("User Created 🚀", "success");
         clearState();
+        localStorage.setItem("token", result.encodedToken);
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
@@ -128,7 +131,6 @@ export const Register = () => {
           Already have an account?
         </Link>
       </form>
-      <ToastContainer />
     </div>
   );
 };

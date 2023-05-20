@@ -23,7 +23,7 @@ const Logo = () => {
 };
 
 const Nav = () => {
-  const LoginToken = localStorage.getItem("LoginToken");
+  const LoginToken = localStorage.getItem("token");
   const navigate = useNavigate();
 
   const ThreeDots = () => {
@@ -88,23 +88,6 @@ const Nav = () => {
   return (
     <div className="nav-container">
       <div className="nav-links">
-        {LoginToken ? (
-          ""
-        ) : (
-          <>
-            <Tooltip id="login-tooltip" />
-            <NavLink
-              data-tooltip-id="login-tooltip"
-              data-tooltip-content="Login"
-              data-tooltip-place="bottom"
-              className="navLink"
-              to="/login"
-            >
-              <span>Login</span>
-            </NavLink>
-          </>
-        )}
-
         <Tooltip id="Cart-tooltip" />
         <NavLink
           data-tooltip-id="Cart-tooltip"
@@ -126,9 +109,32 @@ const Nav = () => {
         >
           <i className="fa-regular fa-heart nav-icon"></i>
         </NavLink>
+
+        {LoginToken ? (
+          ""
+        ) : (
+          <>
+            <Tooltip id="login-tooltip" />
+            <NavLink
+              data-tooltip-id="login-tooltip"
+              data-tooltip-content="Login"
+              data-tooltip-place="bottom"
+              className="navLink"
+              to="/login"
+            >
+              <span>Login</span>
+            </NavLink>
+          </>
+        )}
         {LoginToken ? <ThreeDots /> : ""}
       </div>
     </div>
+  );
+};
+
+const Searchbar = () => {
+  return (
+    <input type="text" placeholder="Search Product..." className="searchbar" />
   );
 };
 
@@ -136,6 +142,7 @@ export const Navbar = () => {
   return (
     <nav className="nav">
       <Logo />
+      <Searchbar />
       <Nav />
     </nav>
   );
