@@ -1,0 +1,152 @@
+.filters{
+    /* background-color: pink; */
+    padding: 10px 30px;
+}
+
+.filter-group{
+    /* background-color: greenyellow; */
+    padding: 10px 0px;
+}
+
+.filters-heading{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.p-styling p{
+    margin: 0px 0px 5px 0px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.filters-price-range{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+}
+
+.price-range{
+    width: 100%;
+}
+
+input#AIO, input#Laptops, input#Printers{
+    margin-right: 8px;
+}
+
+input#rating-4, input#rating-3, input#rating-2, input#rating-1{
+    margin-right: 8px;
+}
+
+input#sortby-low, input#sortby-high{
+    margin-right: 8px;
+}
+
+.remove-filters-button{
+    border: 0;
+    padding: 0;
+    margin: 0;
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.all-products{
+    padding-bottom: 20px;
+}
+
+.products{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    row-gap: 15px;
+}
+
+.product-item{
+    display: flex;
+    align-items: start;
+    background-color: #f6f6f6;
+    border: 1px solid #e9e9e9;
+}
+
+.product-details{
+    padding: 10px 20px;
+}
+
+.product-item-name{
+    font-size: 18px;
+    font-family: 'Roboto';
+    color: #000;
+}
+
+.product-details p{
+    margin: 0;
+}
+
+/* .product-img{
+    background-color: red;
+    height: 100%;
+    width: 300px;
+} */
+
+.product-item-image{
+    width: 300px;
+    height: 300px;
+}
+
+.product-item-price{
+    display: flex;
+    align-items: center;
+    column-gap: 20px;
+}
+
+.selling-price{
+    font-size: 24px;
+    font-family: 'Poppins', sans-serif;
+    color: #000;
+    font-weight: 600;
+}
+
+.mrp-price{
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+.line-through{
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
+.products-count{
+    font-size: 18px;
+    color: #333;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+}
+
+.add-to-cart-btn{
+    margin-top: 20px;
+    border: 0;
+    border-radius: 5px;
+    padding: 10px 25px;
+    background-color: #cccff6;
+    color: #333;
+    font-weight: 600;
+    font-family: 'Roboto';
+    letter-spacing: .6px;
+    font-size: 18px;
+}
+
+p.product-rating{
+    font-size: 18px;
+    font-weight: 400;
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+.star-icon{
+    color: orange;
+    font-size: 20px;
+}

@@ -88,15 +88,15 @@ const Nav = () => {
   return (
     <div className="nav-container">
       <div className="nav-links">
-        <Tooltip id="Cart-tooltip" />
+        <Tooltip id="Shop-tooltip" />
         <NavLink
-          data-tooltip-id="Cart-tooltip"
-          data-tooltip-content="Cart"
+          data-tooltip-id="Shop-tooltip"
+          data-tooltip-content="Shop"
           data-tooltip-place="bottom"
           className="navLink"
-          to="/cart"
+          to="/shop"
         >
-          <i className="fa-solid fa-cart-shopping nav-icon"></i>
+          <i className="fa-solid fa-shop"></i>
         </NavLink>
 
         <Tooltip id="Wishlist-tooltip" />
@@ -108,6 +108,17 @@ const Nav = () => {
           to="/wishlist"
         >
           <i className="fa-regular fa-heart nav-icon"></i>
+        </NavLink>
+
+        <Tooltip id="Cart-tooltip" />
+        <NavLink
+          data-tooltip-id="Cart-tooltip"
+          data-tooltip-content="Cart"
+          data-tooltip-place="bottom"
+          className="navLink"
+          to="/cart"
+        >
+          <i className="fa-solid fa-cart-shopping nav-icon"></i>
         </NavLink>
 
         {LoginToken ? (
