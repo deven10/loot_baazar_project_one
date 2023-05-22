@@ -35,6 +35,8 @@ export const products = [
     mrp: 103999,
     categoryName: "Laptops",
     productRating: 3,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -45,6 +47,8 @@ export const products = [
     mrp: 35499,
     categoryName: "Printers",
     productRating: 4,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -55,6 +59,8 @@ export const products = [
     mrp: 218999,
     categoryName: "AIO",
     productRating: 5,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -65,6 +71,8 @@ export const products = [
     mrp: 162999,
     categoryName: "Laptops",
     productRating: 3,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -75,6 +83,8 @@ export const products = [
     mrp: 64999,
     categoryName: "AIO",
     productRating: 4,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -85,6 +95,8 @@ export const products = [
     mrp: 139999,
     categoryName: "AIO",
     productRating: 4,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -95,6 +107,8 @@ export const products = [
     mrp: 58999,
     categoryName: "Printers",
     productRating: 2,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -105,6 +119,8 @@ export const products = [
     mrp: 110999,
     categoryName: "Laptops",
     productRating: 5,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -115,6 +131,8 @@ export const products = [
     mrp: 525999,
     categoryName: "Laptops",
     productRating: 4,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -125,6 +143,8 @@ export const products = [
     mrp: 46999,
     categoryName: "Printers",
     productRating: 3,
+    inCart: false,
+    inWishlist: false,
   },
   {
     _id: uuid(),
@@ -135,5 +155,7 @@ export const products = [
     mrp: 210999,
     categoryName: "AIO",
     productRating: 4,
+    inCart: false,
+    inWishlist: false,
   },
 ];

@@ -10,6 +10,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 // components
 import { ContextToken } from "../../context/LoginTokenProvider";
 import { ContextCart } from "../../context/CartContext";
+import { ContextWishlist } from "../../context/WishlistContext";
 
 // styling
 import "./Navbar.css";
@@ -31,6 +32,7 @@ const Searchbar = () => {
 
 const Nav = () => {
   const { cart } = useContext(ContextCart);
+  const { wishlist } = useContext(ContextWishlist);
 
   const LoginToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -117,7 +119,11 @@ const Nav = () => {
           to="/wishlist"
         >
           <i className="fa-regular fa-heart nav-icon"></i>
-          <span className="wishlist-items-count">2</span>
+          {wishlist.length > 0 ? (
+            <span className="wishlist-items-count">{wishlist.length}</span>
+          ) : (
+            ""
+          )}
         </NavLink>
 
         <Tooltip id="Cart-tooltip" />

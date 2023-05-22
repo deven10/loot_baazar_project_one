@@ -1,0 +1,6 @@
+.product{
+    /* background-color: red; */
+    padding: 25px;
+    height: calc(100vh - 67px);
+    width: 100%;
+}

@@ -12,10 +12,7 @@ export const CartContext = ({ children }) => {
         product: item,
       };
 
-      console.log("data => ", data);
-
       const token = localStorage.getItem("token");
-      console.log(token);
 
       const response = await fetch("/api/user/cart", {
         method: "POST",
@@ -27,7 +24,6 @@ export const CartContext = ({ children }) => {
       });
 
       const result = await response.json();
-      console.log(result);
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
       } else {
@@ -43,8 +39,10 @@ export const CartContext = ({ children }) => {
     addToCart(product);
   };
 
+  const removeFromCart = (productId) => {};
+
   return (
-    <ContextCart.Provider value={{ name: "deven", cart, handleCart }}>
+    <ContextCart.Provider value={{ cart, handleCart, removeFromCart }}>
       {children}
     </ContextCart.Provider>
   );

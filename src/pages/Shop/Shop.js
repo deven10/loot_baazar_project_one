@@ -3,16 +3,19 @@ import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
+import { Link } from "react-router-dom";
 
 // components, utility functions
 import { ReactToastify } from "../../utility/ReactToastify";
 import { ContextCart } from "../../context/CartContext";
+import { ContextWishlist } from "../../context/WishlistContext";
 
 // styling
 import "./Shop.css";
 
 export const Shop = () => {
-  const { handleCart } = useContext(ContextCart);
+  const { handleCart, removeFromCart } = useContext(ContextCart);
+  const { handleWishlist, removeFromWishlist } = useContext(ContextWishlist);
 
   // states
   const [products, setProducts] = useState([]);
@@ -33,11 +36,8 @@ export const Shop = () => {
         method: "GET",
       });
 
-      const result = await response.json();
-      console.log(result);
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+      if (response.status === 200) {
+        const result = await response.json();
         setProducts(result.products);
       }
     } catch (error) {
@@ -120,6 +120,7 @@ export const Shop = () => {
   const filterByCategory = categoryFilter(filterByPrice);
   const filterByRating = ratingFilter(filterByCategory);
   const productsArray = sortByFilter(filterByRating);
+  console.log(productsArray);
 
   return (
     <div className="main-shop default-bg-color">
@@ -316,25 +317,44 @@ export const Shop = () => {
                     mrp,
                     categoryName,
                     productRating,
+                    inCart,
+                    inWishlist,
                   } = product;
                   return (
                     <div className="product-item" key={id}>
                       <div className="relative-position product-img">
-                        <img
-                          className="product-item-image"
-                          src={image}
-                          alt={name}
-                        />
+                        <Link to={`/shop/${id}`}>
+                          <img
+                            className="product-item-image"
+                            src={image}
+                            alt={name}
+                          />
+                        </Link>
                         <span className="like-icon">
-                          {liked ? (
-                            <i className="fa-solid fa-heart color-red heart"></i>
+                          {inWishlist ? (
+                            <i
+                              className="fa-solid fa-heart color-red heart"
+                              onClick={() => {
+                                removeFromWishlist(id);
+                              }}
+                            ></i>
                           ) : (
-                            <i className="fa-regular fa-heart heart"></i>
+                            <i
+                              className="fa-regular fa-heart heart"
+                              onClick={() => {
+                                handleWishlist(product);
+                                product.inWishlist = true;
+                              }}
+                            ></i>
                           )}
                         </span>
                       </div>
                       <div className="product-details">
-                        <p className="product-item-name mb-3">{name}</p>
+                        <p className="product-item-name mb-3">
+                          <Link className="product-link" to={`/shop/${id}`}>
+                            {name}
+                          </Link>
+                        </p>
                         <p className="product-item-price">
                           <span className="selling-price">
                             <sup>₹</sup>
@@ -345,16 +365,25 @@ export const Shop = () => {
                             <span className="line-through">₹{mrp}/- </span>
                           </span>
                         </p>
-                        <p className="product-rating mt-3">
+                        <p className="product-rating mt-3 mb-4">
                           Product Rating: {productRating}{" "}
                           <i className="fa-solid fa-star star-icon"></i>
                         </p>
-                        <button
-                          className="add-to-cart-btn"
-                          onClick={() => handleCart(product)}
-                        >
-                          Add to Cart
-                        </button>
+                        {inCart ? (
+                          <Link className="add-to-cart-link" to="/cart">
+                            Go to Cart
+                          </Link>
+                        ) : (
+                          <button
+                            className="add-to-cart-btn"
+                            onClick={() => {
+                              handleCart(product);
+                              product.inCart = true;
+                            }}
+                          >
+                            Add to Cart
+                          </button>
+                        )}
                       </div>
                     </div>
                   );

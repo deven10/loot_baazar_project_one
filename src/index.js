@@ -7,6 +7,7 @@ import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
 import { CartContext, ContextCart } from "./context/CartContext";
+import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
 
 makeServer();
 
@@ -16,7 +17,9 @@ root.render(
     <BrowserRouter>
       {/* <LoginTokenProvider> */}
       <CartContext>
-        <App />
+        <WishlistContext>
+          <App />
+        </WishlistContext>
       </CartContext>
       {/* </LoginTokenProvider> */}
     </BrowserRouter>
@@ -28,4 +31,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-export { ContextToken, ContextCart };
+export { ContextToken, ContextCart, ContextWishlist };
