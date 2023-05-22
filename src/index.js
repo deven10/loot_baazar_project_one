@@ -6,6 +6,7 @@ import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
+import { CartContext, ContextCart } from "./context/CartContext";
 
 makeServer();
 
@@ -13,9 +14,11 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoginTokenProvider>
+      {/* <LoginTokenProvider> */}
+      <CartContext>
         <App />
-      </LoginTokenProvider>
+      </CartContext>
+      {/* </LoginTokenProvider> */}
     </BrowserRouter>
   </React.StrictMode>
 );
@@ -25,4 +28,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-export { ContextToken };
+export { ContextToken, ContextCart };

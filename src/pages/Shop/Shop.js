@@ -1,13 +1,20 @@
-import React, { useEffect, useState } from "react";
+// libraries
+import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 
+// components, utility functions
+import { ReactToastify } from "../../utility/ReactToastify";
+import { ContextCart } from "../../context/CartContext";
+
+// styling
 import "./Shop.css";
 
-import { ReactToastify } from "../../utility/ReactToastify";
-
 export const Shop = () => {
+  const { handleCart } = useContext(ContextCart);
+
+  // states
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -60,8 +67,6 @@ export const Shop = () => {
     }
   };
 
-  // useEffect(() => console.log(category), [category]);
-
   const priceFilter = (dataset) => {
     return dataset.filter(
       (product) => Number(product.price) <= Number(priceRange)
@@ -101,7 +106,6 @@ export const Shop = () => {
   };
 
   const categoryFilter = (dataset) => {
-    console.log(dataset, category);
     if (category.length <= 0) {
       return dataset;
     } else {
@@ -344,7 +348,12 @@ export const Shop = () => {
                           Product Rating: {productRating}{" "}
                           <i className="fa-solid fa-star star-icon"></i>
                         </p>
-                        <button className="add-to-cart-btn">Add to Cart</button>
+                        <button
+                          className="add-to-cart-btn"
+                          onClick={() => handleCart(product)}
+                        >
+                          Add to Cart
+                        </button>
                       </div>
                     </div>
                   );

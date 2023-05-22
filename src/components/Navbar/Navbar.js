@@ -1,5 +1,5 @@
 // libraries
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -9,6 +9,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // components
 import { ContextToken } from "../../context/LoginTokenProvider";
+import { ContextCart } from "../../context/CartContext";
 
 // styling
 import "./Navbar.css";
@@ -22,7 +23,15 @@ const Logo = () => {
   );
 };
 
+const Searchbar = () => {
+  return (
+    <input type="text" placeholder="Search Product..." className="searchbar" />
+  );
+};
+
 const Nav = () => {
+  const { cart } = useContext(ContextCart);
+
   const LoginToken = localStorage.getItem("token");
   const navigate = useNavigate();
 
@@ -108,6 +117,7 @@ const Nav = () => {
           to="/wishlist"
         >
           <i className="fa-regular fa-heart nav-icon"></i>
+          <span className="wishlist-items-count">2</span>
         </NavLink>
 
         <Tooltip id="Cart-tooltip" />
@@ -119,6 +129,11 @@ const Nav = () => {
           to="/cart"
         >
           <i className="fa-solid fa-cart-shopping nav-icon"></i>
+          {cart.length > 0 ? (
+            <span className="cart-items-count">{cart.length}</span>
+          ) : (
+            ""
+          )}
         </NavLink>
 
         {LoginToken ? (
@@ -140,12 +155,6 @@ const Nav = () => {
         {LoginToken ? <ThreeDots /> : ""}
       </div>
     </div>
-  );
-};
-
-const Searchbar = () => {
-  return (
-    <input type="text" placeholder="Search Product..." className="searchbar" />
   );
 };
 
