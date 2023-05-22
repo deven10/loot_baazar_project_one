@@ -34,6 +34,7 @@ export const Shop = () => {
       });
 
       const result = await response.json();
+      console.log(result);
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
       } else {

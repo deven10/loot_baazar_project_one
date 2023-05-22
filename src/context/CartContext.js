@@ -42,6 +42,7 @@ export const CartContext = ({ children }) => {
   const handleCart = (product) => {
     addToCart(product);
   };
+
   return (
     <ContextCart.Provider value={{ name: "deven", cart, handleCart }}>
       {children}
