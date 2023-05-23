@@ -13,7 +13,9 @@ import "./Home.css";
 
 export const Home = () => {
   const [categories, setCategories] = useState([]);
+
   const getCategories = async () => {
+    console.log("inside categories");
     try {
       const response = await fetch("/api/categories", {
         method: "GET",
@@ -21,6 +23,7 @@ export const Home = () => {
 
       if (response.status === 200) {
         const result = await response.json();
+        console.log(result);
         setCategories(result.categories);
       } else {
         if (response.status === 500) {
@@ -110,7 +113,7 @@ export const Home = () => {
       <section className="categories">
         <h2>Shop by Category</h2>
         <div className="categories-parent">
-          {categories.map((category) => {
+          {categories?.map((category) => {
             const { image, description, categoryName, _id } = category;
             return (
               <div className="category" key={_id}>
