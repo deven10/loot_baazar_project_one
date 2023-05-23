@@ -135,7 +135,7 @@ const Nav = () => {
           to="/cart"
         >
           <i className="fa-solid fa-cart-shopping nav-icon"></i>
-          {cart.length > 0 ? (
+          {cart?.length > 0 ? (
             <span className="cart-items-count">{cart.length}</span>
           ) : (
             ""

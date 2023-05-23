@@ -44,6 +44,7 @@ export const Wishlist = () => {
       if (response.status === 200) {
         const result = await response.json();
         setWishlist(result.wishlist);
+        console.log("wishlist => ", result.wishlist);
       }
     } catch (error) {
       console.log(error);
@@ -52,7 +53,9 @@ export const Wishlist = () => {
     }
   };
 
-  useEffect(() => getWishlist, []);
+  useEffect(() => {
+    getWishlist();
+  }, []);
 
   return (
     <div className="main-wishlist-page default-bg-color">

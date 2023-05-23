@@ -31,17 +31,15 @@ export const Shop = () => {
   }
 
   const getProducts = async () => {
-    console.log("inside get products");
     try {
       const response = await fetch("/api/products", {
         method: "GET",
       });
 
-      console.log("response = ", response);
       if (response.status === 200) {
         const result = await response.json();
-        console.log("result = ", result);
         setProducts(result.products);
+        console.log("all products => ", result.products);
       }
     } catch (error) {
       console.log(error);
@@ -125,7 +123,6 @@ export const Shop = () => {
   const filterByCategory = categoryFilter(filterByPrice);
   const filterByRating = ratingFilter(filterByCategory);
   const productsArray = sortByFilter(filterByRating);
-  // console.log(products);
 
   return (
     <div className="main-shop default-bg-color">

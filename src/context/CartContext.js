@@ -23,12 +23,13 @@ export const CartContext = ({ children }) => {
         },
       });
 
-      const result = await response.json();
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+      if (response.status === 201) {
+        const result = await response.json();
+        console.log("result => ", result);
         setCart(result.cart);
         ReactToastify("Product Added to Cart", "success");
+      } else if (response.status === 500) {
+        ReactToastify("Please Login first", "error");
       }
     } catch (error) {
       console.log(error);

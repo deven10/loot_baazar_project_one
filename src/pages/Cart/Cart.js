@@ -43,6 +43,7 @@ export const Cart = () => {
       if (response.status === 200) {
         const result = await response.json();
         setCart(result.cart);
+        console.log("cart => ", result.cart);
       }
     } catch (error) {
       console.log(error);
@@ -51,7 +52,9 @@ export const Cart = () => {
     }
   };
 
-  useEffect(() => getCart, []);
+  useEffect(() => {
+    getCart();
+  }, []);
 
   const totalPrice = cart.reduce((acc, curr) => acc + curr, 0);
 

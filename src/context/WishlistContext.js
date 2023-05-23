@@ -24,12 +24,12 @@ export const WishlistContext = ({ children }) => {
         },
       });
 
-      const result = await response.json();
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+      if (response.status === 201) {
+        const result = await response.json();
         setWishlist(result.wishlist);
         ReactToastify("Product Added to Wishlist", "success");
+      } else if (response.status === 500) {
+        ReactToastify("Please Login first", "error");
       }
     } catch (error) {
       console.log(error);
