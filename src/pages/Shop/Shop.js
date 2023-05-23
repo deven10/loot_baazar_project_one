@@ -31,13 +31,16 @@ export const Shop = () => {
   }
 
   const getProducts = async () => {
+    console.log("inside get products");
     try {
       const response = await fetch("/api/products", {
         method: "GET",
       });
 
+      console.log("response = ", response);
       if (response.status === 200) {
         const result = await response.json();
+        console.log("result = ", result);
         setProducts(result.products);
       }
     } catch (error) {
@@ -120,7 +123,7 @@ export const Shop = () => {
   const filterByCategory = categoryFilter(filterByPrice);
   const filterByRating = ratingFilter(filterByCategory);
   const productsArray = sortByFilter(filterByRating);
-  console.log(productsArray);
+  // console.log(products);
 
   return (
     <div className="main-shop default-bg-color">
@@ -309,6 +312,7 @@ export const Shop = () => {
               ) : (
                 productsArray.map((product) => {
                   const {
+                    _id,
                     id,
                     name,
                     image,
@@ -321,9 +325,9 @@ export const Shop = () => {
                     inWishlist,
                   } = product;
                   return (
-                    <div className="product-item" key={id}>
+                    <div className="product-item" key={_id}>
                       <div className="relative-position product-img">
-                        <Link to={`/shop/${id}`}>
+                        <Link to={`/shop/${_id}`}>
                           <img
                             className="product-item-image"
                             src={image}
@@ -335,7 +339,7 @@ export const Shop = () => {
                             <i
                               className="fa-solid fa-heart color-red heart"
                               onClick={() => {
-                                removeFromWishlist(id);
+                                removeFromWishlist(_id);
                               }}
                             ></i>
                           ) : (
@@ -351,7 +355,7 @@ export const Shop = () => {
                       </div>
                       <div className="product-details">
                         <p className="product-item-name mb-3">
-                          <Link className="product-link" to={`/shop/${id}`}>
+                          <Link className="product-link" to={`/shop/${_id}`}>
                             {name}
                           </Link>
                         </p>

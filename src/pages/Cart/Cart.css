@@ -1,6 +1,7 @@
 .cart-container{
     width: 100%;
     padding: 0px 0px 25px 0px;
+    height: calc(100vh - 67px);
 }
 
 .cart-main{
@@ -9,6 +10,23 @@
     align-items: start;
     padding: 0px 50px;
     column-gap: 15px;
+}
+
+.empty-cart{
+    height: 50%;
+    width: 70%;
+    margin: auto;
+    text-align: center;
+}
+
+.shop-now-link{
+    text-decoration: none;
+    color: #000;
+}
+
+.shop-now-link:hover{
+    color: #333;
+    text-decoration: underline;
 }
 
 .cart-items{

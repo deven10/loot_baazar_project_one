@@ -1,14 +1,25 @@
 import React, { useContext, useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
+import Lottie from "lottie-react";
+import { Link } from "react-router-dom";
 
 import { ContextCart } from "../../context/CartContext";
+
+// lottie files
+import EmptyLoader from "../../lottie-files/empty-loader.json";
 
 import "./Cart.css";
 
 const EmptyCart = () => {
   return (
     <div className="empty-cart">
-      <h2>Your Cart is empty...</h2>
+      <h3>
+        Your Cart is empty 🙁...{" "}
+        <Link className="shop-now-link" to="/shop">
+          Shop Now!
+        </Link>
+      </h3>
+      <Lottie loop animationData={EmptyLoader} />
     </div>
   );
 };

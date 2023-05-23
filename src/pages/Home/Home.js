@@ -1,18 +1,39 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { ReactToastify } from "../../utility/ReactToastify";
 
 // importing images
 import img1 from "../../images/home-img-1.png";
 import img2 from "../../images/home-img-2.png";
 import img4 from "../../images/home-img-4.jpg";
 import img5 from "../../images/home-img-5.png";
-import AIO from "../../images/AIO.jpg";
-import Laptops from "../../images/LAPTOP.jpg";
-import Printers from "../../images/PRINTER.jpg";
 
 import "./Home.css";
 
 export const Home = () => {
+  const [categories, setCategories] = useState([]);
+  const getCategories = async () => {
+    try {
+      const response = await fetch("/api/categories", {
+        method: "GET",
+      });
+
+      if (response.status === 200) {
+        const result = await response.json();
+        setCategories(result.categories);
+      } else {
+        if (response.status === 500) {
+          ReactToastify("Something went wrong", "error");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => getCategories, []);
+
   return (
     <div className="main default-bg-color">
       <section className="slider">
@@ -89,18 +110,15 @@ export const Home = () => {
       <section className="categories">
         <h2>Shop by Category</h2>
         <div className="categories-parent">
-          <div className="category">
-            <img src={AIO} alt="All In One" />
-            <p>All In One</p>
-          </div>
-          <div className="category">
-            <img src={Laptops} alt="Laptops" />
-            <p>Laptops</p>
-          </div>
-          <div className="category">
-            <img src={Printers} alt="Printers" />
-            <p>Printers</p>
-          </div>
+          {categories.map((category) => {
+            const { image, description, categoryName, _id } = category;
+            return (
+              <div className="category" key={_id}>
+                <img src={image} alt={description} />
+                <p>{categoryName}</p>
+              </div>
+            );
+          })}
         </div>
       </section>
     </div>

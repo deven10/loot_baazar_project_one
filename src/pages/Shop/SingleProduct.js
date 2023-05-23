@@ -12,16 +12,13 @@ export const SingleProduct = () => {
 
   const getProduct = async () => {
     try {
-      const response = await fetch(`/api/products`, {
-        // /${productId}
+      const response = await fetch(`/api/products/${productId}`, {
         method: "GET",
       });
 
       if (response.status === 200) {
         const result = await response.json();
-        setProduct(result.products.filter(({ id }) => id === productId)[0]);
-        // console.log(result);
-        // setProduct(result.product);
+        setProduct(result.product);
       }
     } catch (error) {
       console.log(error);
@@ -31,19 +28,6 @@ export const SingleProduct = () => {
   };
 
   useEffect(() => getProduct, []);
-
-  // const {
-  //   id,
-  //   name,
-  //   image,
-  //   price,
-  //   liked,
-  //   mrp,
-  //   categoryName,
-  //   productRating,
-  //   inCart,
-  //   inWishlist,
-  // } = product;
 
   return (
     <div className="product default-bg-color">
@@ -64,7 +48,7 @@ export const SingleProduct = () => {
           visible={true}
         />
       ) : (
-        <div className="product-item" key={product.id}>
+        <div className="product-item" key={product._id}>
           <div className="relative-position product-img">
             <img
               className="product-item-image"
