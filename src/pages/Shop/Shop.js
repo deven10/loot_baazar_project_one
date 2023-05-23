@@ -50,7 +50,9 @@ export const Shop = () => {
     }
   };
 
-  useEffect(() => getProducts, []);
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const handleClear = () => {
     setSortBy("");

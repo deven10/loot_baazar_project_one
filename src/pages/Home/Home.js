@@ -35,7 +35,9 @@ export const Home = () => {
     }
   };
 
-  useEffect(() => getCategories, []);
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <div className="main default-bg-color">
