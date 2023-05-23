@@ -82,18 +82,23 @@ export const Wishlist = () => {
             const { id, name, image, price, liked } = product;
             return (
               <div className="wishlist-item" key={id}>
-                <div className="relative-position">
-                  <span className="like-icon">
-                    {liked ? (
-                      <i className="fa-solid fa-heart color-red heart"></i>
-                    ) : (
-                      <i className="fa-regular fa-heart heart"></i>
-                    )}
-                  </span>
-                  <img className="wishlist-item-img" src={image} alt={name} />
+                <div className="wrapper">
+                  <div className="relative-position">
+                    <span className="like-icon">
+                      {liked ? (
+                        <i className="fa-solid fa-heart color-red heart"></i>
+                      ) : (
+                        <i className="fa-regular fa-heart heart"></i>
+                      )}
+                    </span>
+                    <img className="wishlist-item-img" src={image} alt={name} />
+                  </div>
+
+                  <div className="paragraphs">
+                    <p className="wishlist-item-name">{name}</p>
+                    <p className="wishlist-item-price">₹ {price}/-</p>
+                  </div>
                 </div>
-                <p className="wishlist-item-name">{name}</p>
-                <p className="wishlist-item-price">₹ {price}/-</p>
                 <button className="add-to-cart-button">Add to Cart</button>
               </div>
             );
