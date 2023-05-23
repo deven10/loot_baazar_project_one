@@ -5,14 +5,16 @@ export const ContextCart = createContext();
 
 export const CartContext = ({ children }) => {
   const [cart, setCart] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
 
+  const token = localStorage.getItem("token");
+
+  // API call function for adding product in cart
   const addToCart = async (item) => {
     try {
       const data = {
         product: item,
       };
-
-      const token = localStorage.getItem("token");
 
       const response = await fetch("/api/user/cart", {
         method: "POST",
@@ -25,8 +27,13 @@ export const CartContext = ({ children }) => {
 
       if (response.status === 201) {
         const result = await response.json();
-        console.log("result => ", result);
+
+        // main dataset
         setCart(result.cart);
+
+        // copy dataset for all products page
+        setCartProducts([...cartProducts, item]);
+
         ReactToastify("Product Added to Cart", "success");
       } else if (response.status === 500) {
         ReactToastify("Please Login first", "error");
@@ -36,14 +43,58 @@ export const CartContext = ({ children }) => {
     }
   };
 
+  // this function is used to call 'add product in cart API'
   const handleCart = (product) => {
-    addToCart(product);
+    if (token) {
+      addToCart(product);
+    } else {
+      ReactToastify("Please login first", "error");
+    }
   };
 
-  const removeFromCart = (productId) => {};
+  // API call function for removing a product from cart
+  const removeProductFromCart = async (productId) => {
+    try {
+      const response = await fetch(`/api/user/cart/${productId}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `${token}`,
+        },
+      });
+
+      if (response.status === 200) {
+        const result = await response.json();
+        setCart(result.cart);
+        setCartProducts(cartProducts.filter(({ _id }) => _id !== productId));
+        ReactToastify("Product Removed from Cart", "warn");
+      } else if (response.status === 500) {
+        ReactToastify("Please Login first", "error");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // this function is used to call 'removre a product from cart API'
+  const removeFromCart = (productId) => {
+    if (token) {
+      removeProductFromCart(productId);
+    } else {
+      ReactToastify("Please login first", "error");
+    }
+  };
 
   return (
-    <ContextCart.Provider value={{ cart, handleCart, removeFromCart }}>
+    <ContextCart.Provider
+      value={{
+        cart,
+        setCart,
+        handleCart,
+        removeFromCart,
+        cartProducts,
+        setCartProducts,
+      }}
+    >
       {children}
     </ContextCart.Provider>
   );

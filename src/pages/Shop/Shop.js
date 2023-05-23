@@ -14,8 +14,11 @@ import { ContextWishlist } from "../../context/WishlistContext";
 import "./Shop.css";
 
 export const Shop = () => {
-  const { handleCart, removeFromCart } = useContext(ContextCart);
-  const { handleWishlist, removeFromWishlist } = useContext(ContextWishlist);
+  const token = localStorage.getItem("token");
+
+  const { handleCart, removeFromCart, cartProducts } = useContext(ContextCart);
+  const { handleWishlist, removeFromWishlist, wishlistProducts } =
+    useContext(ContextWishlist);
 
   // states
   const [products, setProducts] = useState([]);
@@ -39,7 +42,6 @@ export const Shop = () => {
       if (response.status === 200) {
         const result = await response.json();
         setProducts(result.products);
-        console.log("all products => ", result.products);
       }
     } catch (error) {
       console.log(error);
@@ -334,7 +336,9 @@ export const Shop = () => {
                           />
                         </Link>
                         <span className="like-icon">
-                          {inWishlist ? (
+                          {wishlistProducts.find(
+                            (product) => product._id === _id
+                          ) ? (
                             <i
                               className="fa-solid fa-heart color-red heart"
                               onClick={() => {
@@ -346,7 +350,6 @@ export const Shop = () => {
                               className="fa-regular fa-heart heart"
                               onClick={() => {
                                 handleWishlist(product);
-                                product.inWishlist = true;
                               }}
                             ></i>
                           )}
@@ -372,7 +375,7 @@ export const Shop = () => {
                           Product Rating: {productRating}{" "}
                           <i className="fa-solid fa-star star-icon"></i>
                         </p>
-                        {inCart ? (
+                        {cartProducts.find((product) => product._id === _id) ? (
                           <Link className="add-to-cart-link" to="/cart">
                             Go to Cart
                           </Link>
@@ -381,7 +384,6 @@ export const Shop = () => {
                             className="add-to-cart-btn"
                             onClick={() => {
                               handleCart(product);
-                              product.inCart = true;
                             }}
                           >
                             Add to Cart

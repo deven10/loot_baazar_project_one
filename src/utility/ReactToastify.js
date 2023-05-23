@@ -26,6 +26,10 @@ export const ReactToastify = (msg, type) => {
       toast.info(msg, options);
       break;
 
+    case "warn":
+      toast.warn(msg, options);
+      break;
+
     default:
       break;
   }

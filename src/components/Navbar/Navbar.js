@@ -31,8 +31,8 @@ const Searchbar = () => {
 };
 
 const Nav = () => {
-  const { cart } = useContext(ContextCart);
-  const { wishlist } = useContext(ContextWishlist);
+  const { cart, setCart } = useContext(ContextCart);
+  const { wishlist, setWishlist } = useContext(ContextWishlist);
 
   const LoginToken = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -49,6 +49,8 @@ const Nav = () => {
 
     const handleSignOut = () => {
       localStorage.clear();
+      setCart([]);
+      setWishlist([]);
       navigate("/");
     };
 
