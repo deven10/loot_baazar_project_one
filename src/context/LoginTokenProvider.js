@@ -1,17 +1,14 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 export const ContextToken = createContext();
 
 export const LoginTokenProvider = ({ children }) => {
-  let LoginToken;
-
+  const [token, setToken] = useState(null);
   useEffect(() => {
-    LoginToken = localStorage.getItem("token");
+    setToken(localStorage.getItem("token"));
   }, []);
 
   return (
-    <ContextToken.Provider value={{ LoginToken }}>
-      {children}
-    </ContextToken.Provider>
+    <ContextToken.Provider value={{ token }}>{children}</ContextToken.Provider>
   );
 };

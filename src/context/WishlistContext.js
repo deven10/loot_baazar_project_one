@@ -1,6 +1,6 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 import { ReactToastify } from "../utility/ReactToastify";
-import { useEffect } from "react";
+import { ContextToken } from "./LoginTokenProvider";
 
 export const ContextWishlist = createContext();
 
@@ -8,7 +8,7 @@ export const WishlistContext = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [wishlistProducts, setWishlistProducts] = useState([]);
 
-  const token = localStorage.getItem("token");
+  const { token } = useContext(ContextToken);
 
   // API call function for adding product in wishlist
   const addToWishlist = async (item) => {

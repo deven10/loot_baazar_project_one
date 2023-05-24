@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import "./Wishlist.css";
 
 import { ContextWishlist } from "../../context/WishlistContext";
+import { ContextCart } from "../../context/CartContext";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
@@ -25,7 +26,9 @@ const EmptyWishlist = () => {
 };
 
 export const Wishlist = () => {
-  // const { wishlist } = useContext(ContextWishlist);
+  const { wishlistProducts, removeFromWishlist, handleWishlist } =
+    useContext(ContextWishlist);
+  const { cartProducts, handleCart } = useContext(ContextCart);
 
   const [wishlist, setWishlist] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -43,8 +46,9 @@ export const Wishlist = () => {
 
       if (response.status === 200) {
         const result = await response.json();
+        // console.log(result.wishlist);
+        // console.log("wishlistProducts = ", wishlistProducts);
         setWishlist(result.wishlist);
-        console.log("wishlist => ", result.wishlist);
       }
     } catch (error) {
       console.log(error);
@@ -79,16 +83,27 @@ export const Wishlist = () => {
           />
         ) : wishlist.length > 0 ? (
           wishlist.map((product) => {
-            const { id, name, image, price, liked } = product;
+            const { id, name, image, price, liked, _id } = product;
             return (
-              <div className="wishlist-item" key={id}>
+              <div className="wishlist-item" key={_id}>
                 <div className="wrapper">
                   <div className="relative-position">
                     <span className="like-icon">
-                      {liked ? (
-                        <i className="fa-solid fa-heart color-red heart"></i>
+                      {wishlistProducts.find((item) => item._id === _id) ? (
+                        <i
+                          className="fa-solid fa-heart color-red heart"
+                          onClick={() => {
+                            removeFromWishlist(_id);
+                            getWishlist();
+                          }}
+                        ></i>
                       ) : (
-                        <i className="fa-regular fa-heart heart"></i>
+                        <i
+                          className="fa-regular fa-heart heart"
+                          onClick={() => {
+                            handleWishlist(product);
+                          }}
+                        ></i>
                       )}
                     </span>
                     <img className="wishlist-item-img" src={image} alt={name} />
@@ -99,7 +114,20 @@ export const Wishlist = () => {
                     <p className="wishlist-item-price">₹ {price}/-</p>
                   </div>
                 </div>
-                <button className="add-to-cart-button">Add to Cart</button>
+                {cartProducts.find((product) => product._id === _id) ? (
+                  <Link className="add-to-cart-link" to="/cart">
+                    Go to Cart
+                  </Link>
+                ) : (
+                  <button
+                    className="add-to-cart-button"
+                    onClick={() => {
+                      handleCart(product);
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                )}
               </div>
             );
           })

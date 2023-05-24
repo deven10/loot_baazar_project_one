@@ -4,6 +4,7 @@ import Lottie from "lottie-react";
 import { Link } from "react-router-dom";
 
 import { ContextCart } from "../../context/CartContext";
+import { ContextWishlist } from "../../context/WishlistContext";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
@@ -25,7 +26,11 @@ const EmptyCart = () => {
 };
 
 export const Cart = () => {
-  // const { cart } = useContext(ContextCart);
+  const { wishlistProducts, removeFromWishlist, handleWishlist, wishlist } =
+    useContext(ContextWishlist);
+  const { cartProducts, removeFromCart, handleCart } = useContext(ContextCart);
+
+  // states
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -42,8 +47,8 @@ export const Cart = () => {
 
       if (response.status === 200) {
         const result = await response.json();
+        // console.log("cart result => ", result);
         setCart(result.cart);
-        console.log("cart => ", result.cart);
       }
     } catch (error) {
       console.log(error);
@@ -82,10 +87,12 @@ export const Cart = () => {
           <>
             <div className="cart-items">
               {cart.length > 0 ? (
-                cart.map((item) => {
-                  const { id, name, image, price, productRating, mrp } = item;
+                cart.map((product) => {
+                  const { id, name, image, price, productRating, mrp, _id } =
+                    product;
+
                   return (
-                    <div key={id} className="cart-item">
+                    <div key={_id} className="cart-item">
                       <div className="cart-item-image">
                         <img src={image} alt={name} />
                       </div>
@@ -108,12 +115,34 @@ export const Cart = () => {
                             </button>
                           </div>
                         </div>
-                        <button className="remove-from-cart cart-item-button">
+                        <button
+                          onClick={() => {
+                            removeFromCart(_id);
+                            getCart();
+                          }}
+                          className="remove-from-cart cart-item-button"
+                        >
                           Remove from Cart
                         </button>
-                        <button className="move-to-wishlist cart-item-button">
-                          Move to Wishlist
-                        </button>
+                        {wishlistProducts.find((item) => {
+                          {
+                            /* console.log(item, product, item._id === _id); */
+                          }
+                          return item._id === _id;
+                        }) ? (
+                          ""
+                        ) : (
+                          <button
+                            onClick={() => {
+                              handleWishlist(product);
+                              removeFromCart(_id);
+                              getCart();
+                            }}
+                            className="move-to-wishlist cart-item-button"
+                          >
+                            Move to Wishlist
+                          </button>
+                        )}
                       </div>
                     </div>
                   );

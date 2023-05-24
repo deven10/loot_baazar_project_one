@@ -15,13 +15,13 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <LoginTokenProvider> */}
-      <CartContext>
-        <WishlistContext>
-          <App />
-        </WishlistContext>
-      </CartContext>
-      {/* </LoginTokenProvider> */}
+      <LoginTokenProvider>
+        <CartContext>
+          <WishlistContext>
+            <App />
+          </WishlistContext>
+        </CartContext>
+      </LoginTokenProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

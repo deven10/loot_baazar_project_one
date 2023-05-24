@@ -6,7 +6,6 @@ import Slider from "@mui/material/Slider";
 import { Link } from "react-router-dom";
 
 // components, utility functions
-import { ReactToastify } from "../../utility/ReactToastify";
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
 
@@ -14,8 +13,6 @@ import { ContextWishlist } from "../../context/WishlistContext";
 import "./Shop.css";
 
 export const Shop = () => {
-  const token = localStorage.getItem("token");
-
   const { handleCart, removeFromCart, cartProducts } = useContext(ContextCart);
   const { handleWishlist, removeFromWishlist, wishlistProducts } =
     useContext(ContextWishlist);
@@ -322,8 +319,6 @@ export const Shop = () => {
                     mrp,
                     categoryName,
                     productRating,
-                    inCart,
-                    inWishlist,
                   } = product;
                   return (
                     <div className="product-item" key={_id}>
