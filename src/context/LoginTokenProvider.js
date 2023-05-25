@@ -1,14 +1,91 @@
 import React, { createContext, useEffect, useState } from "react";
+import { ReactToastify } from "../utility/ReactToastify";
+import { useNavigate } from "react-router-dom";
 
 export const ContextToken = createContext();
 
 export const LoginTokenProvider = ({ children }) => {
+  const navigate = useNavigate();
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
   const [token, setToken] = useState(null);
+
   useEffect(() => {
-    setToken(localStorage.getItem("token"));
+    const loginToken = localStorage.getItem("token");
+    if (loginToken) {
+      setToken(loginToken);
+    }
   }, []);
 
+  const checkUser = async () => {
+    try {
+      const data = {
+        email: user.email,
+        password: user.password,
+      };
+
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.errors) {
+        result.errors.map((e) => ReactToastify(e, "error"));
+      } else {
+        localStorage.setItem("token", result.encodedToken);
+        setToken(result.encodedToken);
+        ReactToastify("Logged in Successfully", "success");
+        clearState();
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const loginAsGuest = async () => {
+    try {
+      const data = {
+        email: "adarshbalika@gmail.com",
+        password: "adarshbalika",
+      };
+
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        body: JSON.stringify(data),
+      });
+
+      const result = await response.json();
+
+      if (result.errors) {
+        result.errors.map((e) => ReactToastify(e, "error"));
+      } else {
+        localStorage.setItem("token", result.encodedToken);
+        setToken(result.encodedToken);
+        ReactToastify("Logged in Successfully as Guest", "success");
+        clearState();
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const clearState = () => {
+    setUser({ email: "", password: "" });
+  };
+
   return (
-    <ContextToken.Provider value={{ token }}>{children}</ContextToken.Provider>
+    <ContextToken.Provider
+      value={{ user, setUser, checkUser, loginAsGuest, token }}
+    >
+      {children}
+    </ContextToken.Provider>
   );
 };

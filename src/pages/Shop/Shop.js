@@ -13,7 +13,7 @@ import { ContextWishlist } from "../../context/WishlistContext";
 import "./Shop.css";
 
 export const Shop = () => {
-  const { handleCart, removeFromCart, cartProducts } = useContext(ContextCart);
+  const { handleCart, cartProducts } = useContext(ContextCart);
   const { handleWishlist, removeFromWishlist, wishlistProducts } =
     useContext(ContextWishlist);
 

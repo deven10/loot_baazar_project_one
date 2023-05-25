@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
+import { ContextToken } from "../../context/LoginTokenProvider";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
@@ -26,6 +27,8 @@ const EmptyCart = () => {
 };
 
 export const Cart = () => {
+  const { token } = useContext(ContextToken);
+
   const { wishlistProducts, removeFromWishlist, handleWishlist, wishlist } =
     useContext(ContextWishlist);
   const { cartProducts, removeFromCart, handleCart } = useContext(ContextCart);
@@ -36,8 +39,6 @@ export const Cart = () => {
 
   const getCart = async () => {
     try {
-      const token = localStorage.getItem("token");
-
       const response = await fetch("/api/user/cart", {
         method: "GET",
         headers: {

@@ -1,5 +1,5 @@
 // libraries
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Lottie from "lottie-react";
 import { ToastContainer } from "react-toastify";

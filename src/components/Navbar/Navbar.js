@@ -8,9 +8,9 @@ import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 // components
-import { ContextToken } from "../../context/LoginTokenProvider";
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
+import { ContextToken } from "../../context/LoginTokenProvider";
 
 // styling
 import "./Navbar.css";
@@ -34,7 +34,10 @@ const Nav = () => {
   const { cart, setCart } = useContext(ContextCart);
   const { wishlist, setWishlist } = useContext(ContextWishlist);
 
-  const LoginToken = localStorage.getItem("token");
+  const { token } = useContext(ContextToken);
+
+  // const token = localStorage.getItem("token");
+
   const navigate = useNavigate();
 
   const ThreeDots = () => {
@@ -144,7 +147,7 @@ const Nav = () => {
           )}
         </NavLink>
 
-        {LoginToken ? (
+        {token ? (
           ""
         ) : (
           <>
@@ -160,7 +163,7 @@ const Nav = () => {
             </NavLink>
           </>
         )}
-        {LoginToken ? <ThreeDots /> : ""}
+        {token ? <ThreeDots /> : ""}
       </div>
     </div>
   );

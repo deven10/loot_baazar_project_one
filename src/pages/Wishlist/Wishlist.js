@@ -7,6 +7,7 @@ import "./Wishlist.css";
 
 import { ContextWishlist } from "../../context/WishlistContext";
 import { ContextCart } from "../../context/CartContext";
+import { ContextToken } from "../../context/LoginTokenProvider";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
@@ -26,6 +27,8 @@ const EmptyWishlist = () => {
 };
 
 export const Wishlist = () => {
+  const { token } = useContext(ContextToken);
+
   const { wishlistProducts, removeFromWishlist, handleWishlist } =
     useContext(ContextWishlist);
   const { cartProducts, handleCart } = useContext(ContextCart);
@@ -35,8 +38,6 @@ export const Wishlist = () => {
 
   const getWishlist = async () => {
     try {
-      const token = localStorage.getItem("token");
-
       const response = await fetch("/api/user/wishlist", {
         method: "GET",
         headers: {

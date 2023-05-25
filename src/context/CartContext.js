@@ -1,5 +1,6 @@
 import { createContext, useState, useContext } from "react";
 import { ReactToastify } from "../utility/ReactToastify";
+
 import { ContextToken } from "./LoginTokenProvider";
 
 export const ContextCart = createContext();
@@ -65,7 +66,6 @@ export const CartContext = ({ children }) => {
 
       if (response.status === 200) {
         const result = await response.json();
-        // console.log("cart context result => ", result);
         setCart(result.cart);
         setCartProducts(cartProducts.filter(({ _id }) => _id !== productId));
         ReactToastify("Product Removed from Cart", "warn");
