@@ -35,9 +35,6 @@ const Nav = () => {
   const { wishlist, setWishlist } = useContext(ContextWishlist);
 
   const { token } = useContext(ContextToken);
-
-  // const token = localStorage.getItem("token");
-
   const navigate = useNavigate();
 
   const ThreeDots = () => {
@@ -54,7 +51,7 @@ const Nav = () => {
       localStorage.clear();
       setCart([]);
       setWishlist([]);
-      navigate("/");
+      window.location.reload();
     };
 
     return (
