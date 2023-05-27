@@ -19,7 +19,6 @@ export const LoginTokenProvider = ({ children }) => {
     if (loginToken) {
       setToken(loginToken);
     }
-    console.log("loginToken = ", loginToken);
   }, []);
 
   const checkUser = async () => {
@@ -35,16 +34,22 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      console.log("login Result = ", result);
 
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+      if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully", "success");
         clearState();
         navigate("/");
+      } else {
+        if (result.errors) {
+          result.errors.map((e) => ReactToastify(e, "error"));
+        } else {
+          ReactToastify(
+            "Something went wrong, please try again later!",
+            "error"
+          );
+        }
       }
     } catch (error) {
       console.log(error);
@@ -63,7 +68,6 @@ export const LoginTokenProvider = ({ children }) => {
         body: JSON.stringify(data),
       });
 
-      console.log("response login => ", response);
       const result = await response.json();
 
       if (response.status === 200) {
