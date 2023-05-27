@@ -19,6 +19,7 @@ export const LoginTokenProvider = ({ children }) => {
     if (loginToken) {
       setToken(loginToken);
     }
+    console.log("loginToken = ", loginToken);
   }, []);
 
   const checkUser = async () => {
@@ -34,6 +35,7 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
+      console.log("login Result = ", result);
 
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
@@ -62,7 +64,7 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
-
+      console.log("login Result = ", result);
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
       } else {
