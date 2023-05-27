@@ -64,17 +64,23 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       console.log("response login => ", response);
-
       const result = await response.json();
-      // console.log("login Result = ", result);
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
-      } else {
+
+      if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully as Guest", "success");
         clearState();
         navigate("/");
+      } else {
+        if (result.errors) {
+          result.errors.map((e) => ReactToastify(e, "error"));
+        } else {
+          ReactToastify(
+            "Something went wrong, please try again later!",
+            "error"
+          );
+        }
       }
     } catch (error) {
       console.log(error);
