@@ -63,8 +63,10 @@ export const LoginTokenProvider = ({ children }) => {
         body: JSON.stringify(data),
       });
 
+      console.log("response login => ", response);
+
       const result = await response.json();
-      console.log("login Result = ", result);
+      // console.log("login Result = ", result);
       if (result.errors) {
         result.errors.map((e) => ReactToastify(e, "error"));
       } else {
