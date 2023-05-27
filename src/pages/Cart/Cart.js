@@ -31,36 +31,14 @@ export const Cart = () => {
 
   const { wishlistProducts, removeFromWishlist, handleWishlist, wishlist } =
     useContext(ContextWishlist);
-  const { cartProducts, removeFromCart, handleCart } = useContext(ContextCart);
-
-  // states
-  const [cart, setCart] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getCart = async () => {
-    try {
-      const response = await fetch("/api/user/cart", {
-        method: "GET",
-        headers: {
-          authorization: `${token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        const result = await response.json();
-        // console.log("cart result => ", result);
-        setCart(result.cart);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    getCart();
-  }, []);
+  const {
+    cartProducts,
+    removeFromCart,
+    handleCart,
+    updateCart,
+    cart,
+    loading,
+  } = useContext(ContextCart);
 
   const totalPrice = cart.reduce((acc, curr) => acc + curr, 0);
 
@@ -89,8 +67,26 @@ export const Cart = () => {
             <div className="cart-items">
               {cart.length > 0 ? (
                 cart.map((product) => {
-                  const { id, name, image, price, productRating, mrp, _id } =
-                    product;
+                  const {
+                    categoryName,
+                    createdAt,
+                    id,
+                    image,
+                    inCart,
+                    inWishlist,
+                    liked,
+                    mrp,
+                    name,
+                    price,
+                    productRating,
+                    qty,
+                    updatedAt,
+                    _id,
+                  } = product;
+
+                  const discountOnProduct = Math.round(
+                    100 - (price / mrp) * 100
+                  );
 
                   return (
                     <div key={_id} className="cart-item">
@@ -103,15 +99,23 @@ export const Cart = () => {
                           <span className="sale-price">₹{price}</span>{" "}
                           <span className="regular-price">₹{mrp}</span>
                         </p>
-                        <p className="cart-item-offer">50% off</p>
+                        <p className="cart-item-offer">
+                          {discountOnProduct}% off
+                        </p>
                         <div className="cart-item-quantity">
                           <label className="cart-item-label">Quantity</label>
                           <div className="update-quantity">
-                            <button className="decrease-cart-quantity cart-button">
+                            <button
+                              onClick={() => updateCart(_id, "decrement")}
+                              className="decrease-cart-quantity cart-button"
+                            >
                               -
                             </button>
-                            <label className="quantity-label">2</label>
-                            <button className="increase-cart-quantity cart-button">
+                            <label className="quantity-label">{qty}</label>
+                            <button
+                              onClick={() => updateCart(_id, "increment")}
+                              className="increase-cart-quantity cart-button"
+                            >
                               +
                             </button>
                           </div>
@@ -119,16 +123,12 @@ export const Cart = () => {
                         <button
                           onClick={() => {
                             removeFromCart(_id);
-                            getCart();
                           }}
                           className="remove-from-cart cart-item-button"
                         >
                           Remove from Cart
                         </button>
                         {wishlistProducts.find((item) => {
-                          {
-                            /* console.log(item, product, item._id === _id); */
-                          }
                           return item._id === _id;
                         }) ? (
                           ""
@@ -137,7 +137,6 @@ export const Cart = () => {
                             onClick={() => {
                               handleWishlist(product);
                               removeFromCart(_id);
-                              getCart();
                             }}
                             className="move-to-wishlist cart-item-button"
                           >
