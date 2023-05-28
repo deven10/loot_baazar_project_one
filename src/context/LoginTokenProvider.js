@@ -16,6 +16,7 @@ export const LoginTokenProvider = ({ children }) => {
 
   useEffect(() => {
     const loginToken = localStorage.getItem("token");
+    console.log(loginToken);
     if (loginToken) {
       setToken(loginToken);
     }
@@ -34,6 +35,8 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
+      console.log("response => ", response);
+      console.log("resutlt => ", result);
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
@@ -69,6 +72,8 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
+      console.log("response => ", response);
+      console.log("resutlt => ", result);
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
