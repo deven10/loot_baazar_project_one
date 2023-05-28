@@ -51,6 +51,7 @@ const Nav = () => {
       localStorage.clear();
       setCart([]);
       setWishlist([]);
+      navigate("/");
       window.location.reload();
     };
 
