@@ -16,7 +16,6 @@ export const LoginTokenProvider = ({ children }) => {
 
   useEffect(() => {
     const loginToken = localStorage.getItem("token");
-    console.log(loginToken);
     if (loginToken) {
       setToken(loginToken);
     }
@@ -35,11 +34,10 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      console.log("response => ", response);
-      console.log("resutlt => ", result);
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
+        localStorage.setItem("user", JSON.stringify(result.foundUser));
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully", "success");
         clearState();
@@ -72,11 +70,10 @@ export const LoginTokenProvider = ({ children }) => {
       });
 
       const result = await response.json();
-      console.log("response => ", response);
-      console.log("resutlt => ", result);
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
+        localStorage.setItem("user", JSON.stringify(result.foundUser));
         setToken(result.encodedToken);
         ReactToastify("Logged in Successfully as Guest", "success");
         clearState();
