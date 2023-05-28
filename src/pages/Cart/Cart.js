@@ -40,7 +40,15 @@ export const Cart = () => {
     loading,
   } = useContext(ContextCart);
 
-  const totalPrice = cart.reduce((acc, curr) => acc + curr, 0);
+  const checkoutPrice = cart.reduce(
+    (acc, { mrp, price }) => ({
+      ...acc,
+      mrpPrice: acc.mrpPrice + mrp,
+      actualPrice: acc.actualPrice + price,
+      discount: acc.mrpPrice - acc.actualPrice,
+    }),
+    { mrpPrice: 0, actualPrice: 0, discount: 0 }
+  );
 
   return (
     <div className="cart-container default-bg-color">
@@ -156,20 +164,21 @@ export const Cart = () => {
                 <p className="checkout-cart-title">PRICE DETAILS</p>
                 <p className="checkout-cart-price checkout-group">
                   <span> Price ({cart.length} item)</span>{" "}
-                  <span>₹{totalPrice}</span>
+                  <span>₹{checkoutPrice.mrpPrice}</span>
                 </p>
                 <p className="checkout-cart-discount checkout-group">
-                  <span>Discount</span> <span>-₹500</span>
+                  <span>Discount</span> <span>- ₹{checkoutPrice.discount}</span>
                 </p>
                 <p className="checkout-cart-delivery-charges checkout-group">
-                  <span>Delivery Charges</span> <span>₹400</span>
+                  <span>Delivery Charges</span> <span>FREE</span>
                 </p>
                 <p className="checkout-cart-discount-total-amount checkout-group">
                   <span>TOTAL AMOUNT</span>{" "}
-                  <span>₹{totalPrice - 500 + 400}</span>{" "}
+                  <span>₹{checkoutPrice.actualPrice}</span>{" "}
                 </p>
-                <p className="checkout-cart-offer">
-                  You will save ₹699 on this order
+                <p className="checkout-cart-offer text-center">
+                  You will save <strong>₹{checkoutPrice.discount}</strong> on
+                  this order
                 </p>
                 <button className="place-order-button">Place Order</button>
               </div>
