@@ -30,12 +30,12 @@
 .categories{
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: start;
     padding: 20px 0px;
+    width: 100%;
 }
 
 .categories h2{
+    justify-self: start;
     margin: 5px 50px;
     padding: 0;
     font-family: 'Poppins', sans-serif
@@ -43,6 +43,8 @@
 
 .categories-parent{
     display: flex;
+    justify-content: space-around;
+    align-items: center;
     column-gap: 30px;
     margin: 15px 50px;
 }

@@ -8,6 +8,40 @@
 }
 
 .tabs{
-    width: 60%;
+    width: 50%;
     margin: 10px auto;
+}
+
+.react-tabs__tab{
+    width: 50%;
+    text-align: center;
+}
+
+.tabPanel{
+    padding: 15px 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #bababa;
+}
+
+.tab-div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+.tab-div p{
+    text-align: left;
+    width: 100%;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: .6px;
+}
+
+.tab-div p span{
+    text-decoration: underline;
+    margin-right: 5px;
 }
