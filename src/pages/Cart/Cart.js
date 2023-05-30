@@ -41,11 +41,11 @@ export const Cart = () => {
   } = useContext(ContextCart);
 
   const checkoutPrice = cart.reduce(
-    (acc, { mrp, price }) => ({
+    (acc, { mrp, price, qty }) => ({
       ...acc,
-      mrpPrice: acc.mrpPrice + mrp,
-      actualPrice: acc.actualPrice + price,
-      discount: acc.mrpPrice - acc.actualPrice,
+      mrpPrice: acc.mrpPrice + mrp * qty,
+      actualPrice: acc.actualPrice + price * qty,
+      discount: acc.discount + (mrp - price) * qty,
     }),
     { mrpPrice: 0, actualPrice: 0, discount: 0 }
   );

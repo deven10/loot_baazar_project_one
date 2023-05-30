@@ -109,7 +109,7 @@ export const CartContext = ({ children }) => {
       if (response.status === 200) {
         const result = await response.json();
         setCart(result.cart);
-        setCartProducts(cartProducts.filter(({ _id }) => _id !== productId));
+        setCartProducts(result.cart);
         getCart();
       } else if (response.status === 500) {
         ReactToastify("Please Login first", "error");
