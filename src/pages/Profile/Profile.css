@@ -12,36 +12,66 @@
     margin: 10px auto;
 }
 
-.react-tabs__tab{
-    width: 50%;
+.tabs-heading {
+    display: flex;
+    align-items: center;
+}
+
+.tabs-heading p{
+    margin: 0;
+    flex: 1;
     text-align: center;
+    font-size: 18px;
+    font-family: 'Roboto', sans-serif;
+    color: #000;
+    font-weight: 500;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
-.tabPanel{
+.tabs-content{
     padding: 15px 25px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid #bababa;
+    border: 1px solid #ccc;
+    border-top: 0;
 }
 
-.tab-div{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 60%;
+.myprofile{
+    width: 70%;
+    margin: auto;
 }
 
 .tab-div p{
-    text-align: left;
-    width: 100%;
-    font-size: 18px;
+    margin: 5px 0px;
     font-family: 'Roboto', sans-serif;
+    font-weight: 500;
     letter-spacing: .6px;
 }
 
-.tab-div p span{
+.tab-div p span {
+    font-weight: 600;
     text-decoration: underline;
-    margin-right: 5px;
+}
+
+.add-address{
+    border: 1px solid #333;
+    border-radius: 5px;
+    color: #000;
+    background-color: transparent;
+    padding: 5px 10px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+}
+
+.add-address:hover{
+    border-color: #2cc0fa;
+}
+
+.addresses p{
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+}
+
+.added-addresses p{
+    border: 0;
+    margin: 0;
 }
