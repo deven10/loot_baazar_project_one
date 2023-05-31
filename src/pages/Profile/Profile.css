@@ -52,21 +52,36 @@
     text-decoration: underline;
 }
 
-.add-address{
+.edit-address, .remove-address, .add-new-address{
     border: 1px solid #333;
     border-radius: 5px;
-    color: #000;
     background-color: transparent;
     padding: 5px 10px;
     font-family: 'Poppins', sans-serif;
     font-size: 14px;
+    margin-right: 10px;
 }
 
-.add-address:hover{
+.remove-address{
+    color: #dc3030;
+}
+.remove-address:hover{
+    border-color: #dc3030;
+}
+
+.edit-address{
+    color: #333;
+}
+.edit-address:hover{
     border-color: #2cc0fa;
 }
 
-.addresses p{
+.add-new-address{
+    background-color: #333;
+    color: #fff;
+}
+
+.addresses > p{
     margin-bottom: 10px;
     border-bottom: 1px solid #000;
 }
@@ -74,4 +89,37 @@
 .added-addresses p{
     border: 0;
     margin: 0;
+}
+
+.address-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 8px;
+}
+
+.profile-form-group{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-form-group .form-label{
+    margin: 0;
+    flex: 1;
+}
+
+.profile-form-group input{
+    flex: 2;
+    padding: 3px 8px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.profile-form-group input:hover{
+    border-color: #04b5fa;
 }
