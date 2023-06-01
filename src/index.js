@@ -8,6 +8,7 @@ import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
 import { CartContext, ContextCart } from "./context/CartContext";
 import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
+import { ContextSearch, SearchContext } from "./context/SearchContext";
 
 makeServer();
 
@@ -18,7 +19,9 @@ root.render(
       <LoginTokenProvider>
         <CartContext>
           <WishlistContext>
-            <App />
+            <SearchContext>
+              <App />
+            </SearchContext>
           </WishlistContext>
         </CartContext>
       </LoginTokenProvider>
@@ -31,4 +34,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-export { ContextToken, ContextCart, ContextWishlist };
+export { ContextToken, ContextCart, ContextWishlist, ContextSearch };

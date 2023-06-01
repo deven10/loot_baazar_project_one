@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 // components, utility functions
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
+import { ContextSearch } from "../../context/SearchContext";
 
 // styling
 import "./Shop.css";
@@ -16,6 +17,7 @@ export const Shop = () => {
   const { handleCart, cartProducts } = useContext(ContextCart);
   const { handleWishlist, removeFromWishlist, wishlistProducts } =
     useContext(ContextWishlist);
+  const { search } = useContext(ContextSearch);
 
   // states
   const [products, setProducts] = useState([]);
@@ -118,10 +120,21 @@ export const Shop = () => {
     }
   };
 
+  const sortBySearch = (dataset) => {
+    if (search) {
+      return dataset.filter((product) =>
+        product.name.toLowerCase().includes(search.toLowerCase())
+      );
+    } else {
+      return dataset;
+    }
+  };
+
   const filterByPrice = priceFilter(products);
   const filterByCategory = categoryFilter(filterByPrice);
   const filterByRating = ratingFilter(filterByCategory);
-  const productsArray = sortByFilter(filterByRating);
+  const filterBySearch = sortByFilter(filterByRating);
+  const productsArray = sortBySearch(filterBySearch);
 
   return (
     <div className="main-shop default-bg-color">

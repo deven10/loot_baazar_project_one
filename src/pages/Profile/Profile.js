@@ -121,17 +121,17 @@ export const Profile = () => {
             <div className="myprofile">
               <div className="tab-div">
                 <p>
-                  <span className="underline">Firstname:</span> {user.firstName}
+                  <span>Firstname:</span> {user.firstName}
                 </p>
               </div>
               <div className="tab-div">
                 <p>
-                  <span className="underline">Lastname:</span> {user.lastName}
+                  <span>Lastname:</span> {user.lastName}
                 </p>
               </div>
               <div className="tab-div">
                 <p>
-                  <span className="underline">Email:</span> {user.email}
+                  <span>Email:</span> {user.email}
                 </p>
               </div>
             </div>

@@ -1,5 +1,5 @@
 // libraries
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -11,6 +11,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
 import { ContextToken } from "../../context/LoginTokenProvider";
+import { ContextSearch } from "../../context/SearchContext";
 
 // styling
 import "./Navbar.css";
@@ -25,8 +26,19 @@ const Logo = () => {
 };
 
 const Searchbar = () => {
+  const { search, setSearch } = useContext(ContextSearch);
+  const navigate = useNavigate();
   return (
-    <input type="text" placeholder="Search Product..." className="searchbar" />
+    <input
+      type="text"
+      value={search}
+      onChange={(e) => {
+        navigate("/shop");
+        setSearch(e.target.value);
+      }}
+      placeholder="Search Product..."
+      className="searchbar"
+    />
   );
 };
 
@@ -35,7 +47,6 @@ const Nav = () => {
   const { wishlist, setWishlist } = useContext(ContextWishlist);
 
   const { token } = useContext(ContextToken);
-  const navigate = useNavigate();
 
   const ThreeDots = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);

@@ -23,7 +23,6 @@
 }
 
 .navLink{
-    /* background-color: #cccff6; */
     border: 0;
     border-radius: 5px;
     transition: .2s ease;
@@ -31,8 +30,8 @@
     list-style: none;
     font-size: 18px;
     font-family: sans-serif;
-    color: #000;
-    text-decoration: none;
+    color: #000 !important;
+    text-decoration: none !important;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -41,16 +40,8 @@
     position: relative;
 }
 
-/* .navLink:hover{
-    background-color: #a7acf2;
-} */
-
 .nav-icon{
     font-size: 22px;
-}
-
-.more-options{
-    background-color: red;
 }
 
 .profile-link, .logout-button{
@@ -58,12 +49,13 @@
     border: 0;
     outline: none;
     background-color: transparent;
-    list-style: none;
+    list-style: none !important;
     font-size: 16px;
     text-align: center;
-    color: #000;
+    color: #000 !important;
     padding: 0;
     margin: 0;
+    text-decoration: none !important;
     cursor: pointer;
 }
 
@@ -77,11 +69,11 @@
     font-size: 30px;
     font-weight: 500;
     font-family: 'Satisfy', cursive;
-    color: #000;
+    color: #000 !important;
     letter-spacing: .5px;
     margin: 0;
     cursor: pointer;
-    text-decoration: none;
+    text-decoration: none !important;
     list-style: none;
 }
 /* End logo */
