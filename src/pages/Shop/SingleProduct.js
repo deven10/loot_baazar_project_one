@@ -33,7 +33,9 @@ export const SingleProduct = () => {
     }
   };
 
-  useEffect(() => getProduct, []);
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   return (
     <div className="product default-bg-color container">
