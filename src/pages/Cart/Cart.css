@@ -1,6 +1,7 @@
 .cart-container{
     width: 100%;
     padding: 0px 0px 25px 0px;
+    min-height: calc(100vh - 67px);
 }
 
 .cart-main{

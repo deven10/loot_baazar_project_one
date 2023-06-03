@@ -1,7 +1,7 @@
 
 .main-form-page{
     width: 100%;
-    height: calc(100vh - 67px);
+    min-height: calc(100vh - 67px);
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -125,4 +125,17 @@
 
 .form-check{
     padding: 0;
+}
+
+.password-field{
+    width: 100%;
+    position: relative;
+}
+
+.password-icon{
+    cursor: pointer;
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    font-size: 18px;
 }

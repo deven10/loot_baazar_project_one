@@ -9,6 +9,7 @@ import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
 import { CartContext, ContextCart } from "./context/CartContext";
 import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
 import { ContextSearch, SearchContext } from "./context/SearchContext";
+import { AddressContext } from "./context/AddressContext";
 
 makeServer();
 
@@ -20,7 +21,9 @@ root.render(
         <CartContext>
           <WishlistContext>
             <SearchContext>
-              <App />
+              <AddressContext>
+                <App />
+              </AddressContext>
             </SearchContext>
           </WishlistContext>
         </CartContext>

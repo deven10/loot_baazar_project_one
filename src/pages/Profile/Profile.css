@@ -1,5 +1,7 @@
 .profile.container{
-    padding: 25px 0px
+    padding: 0px 0px 25px 0px;
+    min-height: calc(100vh - 67px);
+    width: 100%;
 }
 
 .container h2{
@@ -122,4 +124,8 @@
 
 .profile-form-group input:hover{
     border-color: #04b5fa;
+}
+
+.address-buttons{
+    display: flex;
 }

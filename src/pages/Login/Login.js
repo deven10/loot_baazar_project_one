@@ -12,6 +12,7 @@ import "../../stylesheet/FormStyling.css";
 
 export const Login = () => {
   const { user, setUser, checkUser, loginAsGuest } = useContext(ContextToken);
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
 
@@ -54,6 +55,7 @@ export const Login = () => {
             id="email"
             className="form-input"
             type="email"
+            required
             value={user.email}
             onChange={handleChange}
             placeholder="Enter your Email address..."
@@ -63,14 +65,28 @@ export const Login = () => {
           <label htmlFor="password" className="form-label">
             Password
           </label>
-          <input
-            id="password"
-            value={user.password}
-            onChange={handleChange}
-            className="form-input"
-            type="password"
-            placeholder="Enter your Password..."
-          />
+          <div className="password-field">
+            <input
+              id="password"
+              value={user.password}
+              onChange={handleChange}
+              className="form-input"
+              required
+              type={`${showPassword ? "text" : "password"}`}
+              placeholder="Enter your Password..."
+            />
+            {showPassword ? (
+              <i
+                onClick={() => setShowPassword(!showPassword)}
+                class="fa-regular fa-eye-slash password-icon"
+              ></i>
+            ) : (
+              <i
+                onClick={() => setShowPassword(!showPassword)}
+                class="fa-regular fa-eye password-icon"
+              ></i>
+            )}
+          </div>
         </div>
         <div className="form-check">
           <div className="checkbox-div">

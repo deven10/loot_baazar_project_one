@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useParams, Link } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
 
 import "./SingleProduct.css";
 
+import { ContextCart } from "../../context/CartContext";
+import { ContextWishlist } from "../../context/WishlistContext";
+
 export const SingleProduct = () => {
   const { productId } = useParams();
+  const { handleCart, cartProducts } = useContext(ContextCart);
+  const { handleWishlist, removeFromWishlist, wishlistProducts } =
+    useContext(ContextWishlist);
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
@@ -30,7 +36,7 @@ export const SingleProduct = () => {
   useEffect(() => getProduct, []);
 
   return (
-    <div className="product default-bg-color">
+    <div className="product default-bg-color container">
       {loading ? (
         <TailSpin
           height="50"
@@ -48,30 +54,70 @@ export const SingleProduct = () => {
           visible={true}
         />
       ) : (
-        <div className="product-item" key={product._id}>
-          <div className="relative-position product-img">
-            <img
-              className="product-item-image"
-              src={product.image}
-              alt={product.name}
-            />
-          </div>
-          <div className="product-details">
-            <p className="product-item-name mb-3">{product.name}</p>
-            <p className="product-item-price">
-              <span className="selling-price">
-                <sup>₹</sup>
-                {product.price}/-
-              </span>
-              <span className="mrp-price">
-                <span>M.R.P</span>
-                <span className="line-through">₹{product.mrp}/- </span>
-              </span>
-            </p>
-            <p className="product-rating mt-3 mb-4">
-              Product Rating: {product.productRating}{" "}
-              <i className="fa-solid fa-star star-icon"></i>
-            </p>
+        <div className="row" key={productId}>
+          <div className="single-product-item">
+            <div className="relative-position">
+              <img
+                className="product-image"
+                src={product.image}
+                alt={product.name}
+              />
+            </div>
+            <div className="product-details">
+              <p className="product-item-name mb-3">{product.name}</p>
+              <p className="product-item-price">
+                <span className="selling-price">
+                  <sup>₹</sup>
+                  {product.price}/-
+                </span>
+                <span className="mrp-price">
+                  <span>M.R.P</span>
+                  <span className="line-through">₹{product.mrp}/- </span>
+                </span>
+              </p>
+              <p className="product-rating mt-3 mb-4">
+                Product Rating: {product.productRating}{" "}
+                <i className="fa-solid fa-star star-icon"></i>
+              </p>
+              <div className="single-product-buttons">
+                {cartProducts.find((product) => product._id === productId) ? (
+                  <Link className="add-to-cart-link" to="/cart">
+                    Go to Cart
+                  </Link>
+                ) : (
+                  <button
+                    className="add-to-cart-btn"
+                    onClick={() => {
+                      handleCart(product);
+                    }}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+
+                {wishlistProducts.find(
+                  (product) => product._id === productId
+                ) ? (
+                  <button
+                    className="add-to-cart-btn"
+                    onClick={() => {
+                      removeFromWishlist(productId);
+                    }}
+                  >
+                    Remove from Wishlist
+                  </button>
+                ) : (
+                  <button
+                    className="add-to-cart-btn"
+                    onClick={() => {
+                      handleWishlist(product);
+                    }}
+                  >
+                    Add to Wishlist
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
         </div>
       )}

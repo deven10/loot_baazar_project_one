@@ -1,10 +1,9 @@
+
 .filters{
-    /* background-color: pink; */
     padding: 10px 30px;
 }
 
 .filter-group{
-    /* background-color: greenyellow; */
     padding: 10px 0px;
 }
 
@@ -82,12 +81,6 @@ input#sortby-low, input#sortby-high{
 .product-details p{
     margin: 0;
 }
-
-/* .product-img{
-    background-color: red;
-    height: 100%;
-    width: 300px;
-} */
 
 .product-item-image{
     width: 300px;

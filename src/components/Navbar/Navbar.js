@@ -46,7 +46,8 @@ const Nav = () => {
   const { cart, setCart } = useContext(ContextCart);
   const { wishlist, setWishlist } = useContext(ContextWishlist);
 
-  const { token } = useContext(ContextToken);
+  // const { token } = useContext(ContextToken);
+  const token = localStorage.getItem("token");
 
   const ThreeDots = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);

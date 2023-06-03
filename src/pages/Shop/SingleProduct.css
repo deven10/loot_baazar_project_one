@@ -1,6 +1,21 @@
 .product{
-    /* background-color: red; */
     padding: 25px;
-    height: calc(100vh - 67px);
+    min-height: calc(100vh - 67px);
     width: 100%;
+}
+
+.product-image{
+    width: 100%;
+}
+
+.single-product-item{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.single-product-buttons{
+    display: flex;
+    gap: 25px;
 }

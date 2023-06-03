@@ -1,6 +1,6 @@
 .main-wishlist-page{
     width: 100%;
-    /* height: calc(100vh - 67px); */
+    min-height: calc(100vh - 67px);
     padding: 0px 0px 25px 0px;
 }
 

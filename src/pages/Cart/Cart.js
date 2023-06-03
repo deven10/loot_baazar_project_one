@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
@@ -27,6 +27,7 @@ const EmptyCart = () => {
 };
 
 export const Cart = () => {
+  const navigate = useNavigate();
   const { token } = useContext(ContextToken);
 
   const { wishlistProducts, removeFromWishlist, handleWishlist, wishlist } =
@@ -180,7 +181,12 @@ export const Cart = () => {
                   You will save <strong>₹{checkoutPrice.discount}</strong> on
                   this order
                 </p>
-                <button className="place-order-button">Place Order</button>
+                <button
+                  className="place-order-button"
+                  onClick={() => navigate("/checkout")}
+                >
+                  Proceed to Checkout
+                </button>
               </div>
             ) : (
               ""

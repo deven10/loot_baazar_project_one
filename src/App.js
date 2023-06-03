@@ -17,6 +17,8 @@ import { Login } from "./pages/Login/Login";
 import { Register } from "./pages/Register/Register";
 import { ForgotPassword } from "./pages/ForgotPassword/ForgotPassword";
 import { TestApi } from "./pages/Mockman/TestApi";
+import { Checkout } from "./pages/Checkout/Checkout";
+import { OrderSummary } from "./pages/OrderSummary/OrderSummary";
 
 // lottie files
 import HomeLoading from "./lottie-files/home-loading.json";
@@ -43,7 +45,7 @@ function App() {
           </div>
         </div>
       ) : (
-        <div>
+        <div className="default-bg-color">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -58,6 +60,8 @@ function App() {
             <Route element={<IfLoggedIn />}>
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/order-summary" element={<OrderSummary />} />
             </Route>
           </Routes>
           <Footer />
