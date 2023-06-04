@@ -6,6 +6,7 @@ export const ContextToken = createContext();
 
 export const LoginTokenProvider = ({ children }) => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -22,6 +23,10 @@ export const LoginTokenProvider = ({ children }) => {
   }, []);
 
   const checkUser = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const data = {
         email: user.email,
@@ -54,10 +59,16 @@ export const LoginTokenProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   const loginAsGuest = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const data = {
         email: "adarshbalika@gmail.com",
@@ -90,6 +101,8 @@ export const LoginTokenProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

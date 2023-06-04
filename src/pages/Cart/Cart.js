@@ -182,8 +182,9 @@ export const Cart = () => {
                   this order
                 </p>
                 <button
-                  className="place-order-button"
+                  className="button-85 mt-3 place-order-btn"
                   onClick={() => navigate("/checkout")}
+                  role="button"
                 >
                   Proceed to Checkout
                 </button>

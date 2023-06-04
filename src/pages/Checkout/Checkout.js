@@ -14,10 +14,6 @@ export const Checkout = () => {
 
   const [selectedAddress, setSelectedAddress] = useState({});
 
-  useEffect(() => {
-    console.log("add = ", selectedAddress);
-  }, [selectedAddress]);
-
   const checkoutPrice = cart.reduce(
     (acc, { mrp, price, qty }) => ({
       ...acc,
@@ -51,9 +47,6 @@ export const Checkout = () => {
                       value={JSON.stringify(address)}
                     />
                     <div className="address-details">
-                      {/* <p>
-                        {user.firstName} {user.lastName}
-                      </p> */}
                       <p>{addressOne}</p>
                       <p>{addressTwo}</p>
                       <p>{street}</p>
@@ -70,7 +63,7 @@ export const Checkout = () => {
         <div className="col-md-8 col-sm-12">
           <div className="order-details">
             <hr />
-            <p>Order Details</p>
+            <p className="order-details-heading">Order Details</p>
             <hr />
             <div className="order-items">
               {cart.length > 0 ? (

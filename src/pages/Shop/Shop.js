@@ -3,12 +3,13 @@ import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // components, utility functions
 import { ContextCart } from "../../context/CartContext";
 import { ContextWishlist } from "../../context/WishlistContext";
 import { ContextSearch } from "../../context/SearchContext";
+import { ContextCategories } from "../../context/CategoriesContext";
 
 // styling
 import "./Shop.css";
@@ -18,9 +19,14 @@ export const Shop = () => {
   const { handleWishlist, removeFromWishlist, wishlistProducts } =
     useContext(ContextWishlist);
   const { search } = useContext(ContextSearch);
+  const { selectedCategory, setSelectedCategory } =
+    useContext(ContextCategories);
+
+  const location = useLocation();
 
   // states
   const [products, setProducts] = useState([]);
+
   const [loading, setLoading] = useState(true);
 
   const [priceRange, setPriceRange] = useState(500000);
@@ -68,6 +74,7 @@ export const Shop = () => {
     if (e.target.checked) {
       setCategory((prev) => [...prev, e.target.value]);
     } else {
+      setSelectedCategory("");
       setCategory((prev) => prev.filter((item) => item !== e.target.value));
     }
   };
@@ -129,6 +136,19 @@ export const Shop = () => {
       return dataset;
     }
   };
+
+  // for checking user has selected any category from homepage
+  useEffect(() => {
+    if (selectedCategory !== "") {
+      setCategory((prev) => [...prev, selectedCategory]);
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (location.state === null) {
+      setCategory([]);
+    }
+  }, [location]);
 
   const filterByPrice = priceFilter(products);
   const filterByCategory = categoryFilter(filterByPrice);

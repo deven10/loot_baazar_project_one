@@ -10,6 +10,7 @@ import "../../stylesheet/FormStyling.css";
 
 export const Register = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [user, setUser] = useState({
     firstname: "",
@@ -39,6 +40,11 @@ export const Register = () => {
   };
 
   const registerUser = async () => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
+
     try {
       const data = {
         firstName: user?.firstname,
@@ -64,6 +70,8 @@ export const Register = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -148,12 +156,12 @@ export const Register = () => {
             {showPassword ? (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye-slash password-icon"
+                className="fa-regular fa-eye-slash password-icon"
               ></i>
             ) : (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye password-icon"
+                className="fa-regular fa-eye password-icon"
               ></i>
             )}
           </div>
@@ -175,12 +183,12 @@ export const Register = () => {
             {showPassword ? (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye-slash password-icon"
+                className="fa-regular fa-eye-slash password-icon"
               ></i>
             ) : (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye password-icon"
+                className="fa-regular fa-eye password-icon"
               ></i>
             )}
           </div>

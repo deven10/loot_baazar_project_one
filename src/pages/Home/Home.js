@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { ReactToastify } from "../../utility/ReactToastify";
+// import { CategoriesComponent } from "../Shop/Shop";
+import { ContextCategories } from "../../context/CategoriesContext";
 
 // importing images
 import img1 from "../../images/home-img-1.png";
@@ -12,30 +14,8 @@ import img5 from "../../images/home-img-5.png";
 import "./Home.css";
 
 export const Home = () => {
-  const [categories, setCategories] = useState([]);
-
-  const getCategories = async () => {
-    try {
-      const response = await fetch("/api/categories", {
-        method: "GET",
-      });
-
-      if (response.status === 200) {
-        const result = await response.json();
-        setCategories(result.categories);
-      } else {
-        if (response.status === 500) {
-          ReactToastify("Something went wrong", "error");
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const navigate = useNavigate();
+  const { categories, setSelectedCategory } = useContext(ContextCategories);
 
   return (
     <div className="main default-bg-color">
@@ -116,7 +96,14 @@ export const Home = () => {
           {categories?.map((category) => {
             const { image, description, categoryName, _id } = category;
             return (
-              <div className="category" key={_id}>
+              <div
+                onClick={() => {
+                  navigate("/shop", { state: { location: "Home" } });
+                  setSelectedCategory(() => category.categoryName);
+                }}
+                className="category"
+                key={_id}
+              >
                 <img src={image} alt={description} />
                 <p>{categoryName}</p>
               </div>

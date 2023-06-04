@@ -10,6 +10,7 @@ import { CartContext, ContextCart } from "./context/CartContext";
 import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
 import { ContextSearch, SearchContext } from "./context/SearchContext";
 import { AddressContext } from "./context/AddressContext";
+import { CategoriesContext } from "./context/CategoriesContext";
 
 makeServer();
 
@@ -22,7 +23,9 @@ root.render(
           <WishlistContext>
             <SearchContext>
               <AddressContext>
-                <App />
+                <CategoriesContext>
+                  <App />
+                </CategoriesContext>
               </AddressContext>
             </SearchContext>
           </WishlistContext>

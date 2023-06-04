@@ -9,11 +9,16 @@ export const CartContext = ({ children }) => {
   const [cart, setCart] = useState([]);
   const [cartProducts, setCartProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { token } = useContext(ContextToken);
 
   // API call function for adding product in cart
   const addToCart = async (item) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const data = {
         product: item,
@@ -44,6 +49,8 @@ export const CartContext = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -58,6 +65,10 @@ export const CartContext = ({ children }) => {
 
   // API call function for removing a product from cart
   const removeProductFromCart = async (productId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(false);
     try {
       const response = await fetch(`/api/user/cart/${productId}`, {
         method: "DELETE",
@@ -77,6 +88,8 @@ export const CartContext = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -91,6 +104,10 @@ export const CartContext = ({ children }) => {
 
   // API call function for updating existing cart product via productId & a type - increment | decrement
   const updateExistingProduct = async (productId, type) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     const data = {
       action: {
         type,
@@ -116,6 +133,8 @@ export const CartContext = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

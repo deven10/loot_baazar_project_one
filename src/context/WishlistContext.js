@@ -7,11 +7,16 @@ export const ContextWishlist = createContext();
 export const WishlistContext = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [wishlistProducts, setWishlistProducts] = useState([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { token } = useContext(ContextToken);
 
   // API call function for adding product in wishlist
   const addToWishlist = async (item) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const data = {
         product: item,
@@ -41,6 +46,8 @@ export const WishlistContext = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -55,6 +62,10 @@ export const WishlistContext = ({ children }) => {
 
   // API call function for removing a product from wishlist
   const removeProductFromWishlist = async (productId) => {
+    if (isSubmitting) {
+      return;
+    }
+    setIsSubmitting(true);
     try {
       const response = await fetch(`/api/user/wishlist/${productId}`, {
         method: "DELETE",
@@ -75,6 +86,8 @@ export const WishlistContext = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsSubmitting(false);
     }
   };
 

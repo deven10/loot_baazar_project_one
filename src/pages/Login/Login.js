@@ -78,12 +78,12 @@ export const Login = () => {
             {showPassword ? (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye-slash password-icon"
+                className="fa-regular fa-eye-slash password-icon"
               ></i>
             ) : (
               <i
                 onClick={() => setShowPassword(!showPassword)}
-                class="fa-regular fa-eye password-icon"
+                className="fa-regular fa-eye password-icon"
               ></i>
             )}
           </div>
