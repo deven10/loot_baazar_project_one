@@ -107,17 +107,42 @@ export const Checkout = () => {
                 </p>
               </div>
             </div>
-            <p>Deliver to</p>
+            <p className="delivery-title">Shipping Address</p>
             <hr />
             <div className="selected-address">
-              <p>
-                {user.firstName} {user.lastName}
+              <p className="address-group username">
+                <span className="address-labels">Username:</span>{" "}
+                <span className="address-values">
+                  {user.firstName} {user.lastName}
+                </span>
               </p>
-              <p>{selectedAddress?.addressOne}</p>
-              <p>{selectedAddress?.addressTwo}</p>
-              <p>{selectedAddress?.street}</p>
-              <p>
-                {selectedAddress?.state} {selectedAddress?.pincode}
+              <p className="address-group">
+                <span className="address-labels">Address line 1: </span>
+                <span className="address-values">
+                  {selectedAddress?.addressOne}
+                </span>
+              </p>
+              <p className="address-group">
+                <span className="address-labels">Address line 2: </span>{" "}
+                <span className="address-values">
+                  {selectedAddress?.addressTwo}
+                </span>
+              </p>
+              <p className="address-group">
+                <span className="address-labels">Street: </span>{" "}
+                <span className="address-values">
+                  {selectedAddress?.street}
+                </span>
+              </p>
+              <p className="address-group">
+                <span className="address-labels">State: </span>
+                <span className="address-values">{selectedAddress?.state}</span>
+              </p>
+              <p className="address-group">
+                <span className="address-labels">Pincode: </span>{" "}
+                <span className="address-values">
+                  {selectedAddress?.pincode}
+                </span>
               </p>
             </div>
             <button

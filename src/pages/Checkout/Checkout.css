@@ -76,10 +76,6 @@
     font-family: 'Roboto', sans-serif;
 }
 
-/* .items-in-cart{
-  background-color: red;
-} */
-
 .cart-item{
     width: 100%;
     display: flex;
@@ -104,3 +100,60 @@
 }
 
 
+.price-details .checkout-cart{
+  padding: 0;
+}
+
+.price-details .checkout-cart .checkout-cart-title{
+  margin: 0;
+  padding: 0px 0px 5px 0px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.delivery-title{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin: 0;
+  padding: 5px 0px 0px 0px;
+}
+
+.price-details .checkout-group{
+  padding: 5px 15px;
+}
+
+.selected-address{
+  padding: 5px 0px 30px 0px;
+  width: 70%;
+  margin: auto;
+}
+
+.selected-address .username{
+  font-weight: 600;
+}
+
+.selected-address p{
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  letter-spacing: .5px;
+}
+
+.address-group{
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+}
+
+.address-labels{
+  flex: 1;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.address-values{
+  flex: 2;
+  text-align: left;
+}
