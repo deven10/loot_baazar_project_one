@@ -76,7 +76,7 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.cart-item{
+.checkout.cart-item{
     width: 100%;
     display: flex;
     justify-content: space-between;

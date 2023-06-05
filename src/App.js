@@ -54,10 +54,10 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/shop/:productId" element={<SingleProduct />} />
-            <Route path="/profile" element={<Profile />} />
             <Route path="/mockman" element={<TestApi />} />
 
             <Route element={<IfLoggedIn />}>
+              <Route path="/profile" element={<Profile />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/wishlist" element={<Wishlist />} />
               <Route path="/checkout" element={<Checkout />} />

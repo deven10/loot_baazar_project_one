@@ -78,6 +78,14 @@ export const Checkout = () => {
                 </div>
               );
             })}
+            <button
+              onClick={() => {
+                navigate("/profile", { state: { address: true } });
+              }}
+              className="add-new-address mt-3 w-100"
+            >
+              Manage Address
+            </button>
           </div>
         </div>
         <div className="col-md-8 col-sm-12">
@@ -95,7 +103,7 @@ export const Checkout = () => {
                   <div className="items-in-cart">
                     {cart.map((item) => {
                       return (
-                        <div className="cart-item" key={item.id}>
+                        <div className="checkout cart-item" key={item.id}>
                           <p className="cart-item-name">{item.name}</p>
                           <p className="cart-item-qty">{item.qty}</p>
                         </div>

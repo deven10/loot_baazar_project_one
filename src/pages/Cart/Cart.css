@@ -59,6 +59,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1;
 }
 
 .cart-item-details p{
@@ -162,7 +163,7 @@
 }
 
 .remove-from-cart{
-    background-color: #adadad;
+    background-color: #292929;
     color: #fff;
     border: 0;
 }
@@ -170,7 +171,7 @@
 .move-to-wishlist{
     background-color: transparent;
     border: 1px solid #333;
-    color: #adadad;
+    color: #333;
 }
 
 

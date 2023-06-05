@@ -1,16 +1,27 @@
 import React, { useState, useContext } from "react";
 import { v4 as uuid } from "uuid";
+import { useLocation } from "react-router-dom";
 
 import { ReactToastify } from "../../utility/ReactToastify";
 import { ContextAddress } from "../../context/AddressContext";
 import { EditAddressModal } from "./EditAddressModal";
 
 import "./Profile.css";
+import { useEffect } from "react";
 
 export const Profile = () => {
+  const location = useLocation();
   const [showProfile, setShowProfile] = useState(true);
   const user = JSON.parse(localStorage.getItem("user"));
   const { addresses, setAddressess } = useContext(ContextAddress);
+
+  useEffect(() => {
+    if (location?.state?.address) {
+      setShowProfile(false);
+    } else {
+      setShowProfile(true);
+    }
+  }, [location]);
 
   // new address state
   const [newAddress, setNewAddress] = useState({
