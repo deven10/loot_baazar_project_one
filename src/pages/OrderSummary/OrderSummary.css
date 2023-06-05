@@ -1,0 +1,21 @@
+.order-summary-page{
+    padding: 0px 0px 25px 0px;
+    min-height: calc(100vh - 67px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.order-animation{
+    position: absolute;
+}
+
+.order-summary{
+    background-color: #ededed;
+    /* background-color: red; */
+    width: 70%;
+    border-radius: 10px;
+    padding: 25px 50px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}

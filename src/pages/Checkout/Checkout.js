@@ -5,6 +5,7 @@ import { ContextCart } from "../../context/CartContext";
 import { ContextAddress } from "../../context/AddressContext";
 
 import "./Checkout.css";
+import { ReactToastify } from "../../utility/ReactToastify";
 
 export const Checkout = () => {
   const navigate = useNavigate();
@@ -23,6 +24,25 @@ export const Checkout = () => {
     }),
     { mrpPrice: 0, actualPrice: 0, discount: 0 }
   );
+
+  const handlePlaceOrder = () => {
+    if (addresses.length <= 0) {
+      ReactToastify("Please add delivery address", "error");
+      // navigate("/profile");
+    } else if (
+      !selectedAddress.addressOne ||
+      !selectedAddress.addressTwo ||
+      !selectedAddress.street ||
+      !selectedAddress.state ||
+      !selectedAddress.pincode
+    ) {
+      ReactToastify("Kindly please select an address", "error");
+    } else {
+      navigate("/order-summary", {
+        state: { selectedAddress: selectedAddress },
+      });
+    }
+  };
 
   return (
     <div className="container checkout-page">
@@ -110,44 +130,72 @@ export const Checkout = () => {
             <p className="delivery-title">Shipping Address</p>
             <hr />
             <div className="selected-address">
-              <p className="address-group username">
-                <span className="address-labels">Username:</span>{" "}
-                <span className="address-values">
-                  {user.firstName} {user.lastName}
-                </span>
-              </p>
-              <p className="address-group">
-                <span className="address-labels">Address line 1: </span>
-                <span className="address-values">
-                  {selectedAddress?.addressOne}
-                </span>
-              </p>
-              <p className="address-group">
-                <span className="address-labels">Address line 2: </span>{" "}
-                <span className="address-values">
-                  {selectedAddress?.addressTwo}
-                </span>
-              </p>
-              <p className="address-group">
-                <span className="address-labels">Street: </span>{" "}
-                <span className="address-values">
-                  {selectedAddress?.street}
-                </span>
-              </p>
-              <p className="address-group">
-                <span className="address-labels">State: </span>
-                <span className="address-values">{selectedAddress?.state}</span>
-              </p>
-              <p className="address-group">
-                <span className="address-labels">Pincode: </span>{" "}
-                <span className="address-values">
-                  {selectedAddress?.pincode}
-                </span>
-              </p>
+              {selectedAddress.addressOne ? (
+                <p className="address-group username">
+                  <span className="address-labels">Username:</span>{" "}
+                  <span className="address-values">
+                    {user.firstName} {user.lastName}
+                  </span>
+                </p>
+              ) : addresses.length > 0 ? (
+                <p>No address selected</p>
+              ) : (
+                <p>Please add delivery address</p>
+              )}
+              {selectedAddress.addressOne ? (
+                <p className="address-group">
+                  <span className="address-labels">Address line 1: </span>
+                  <span className="address-values">
+                    {selectedAddress?.addressOne}
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
+              {selectedAddress.addressTwo ? (
+                <p className="address-group">
+                  <span className="address-labels">Address line 2: </span>{" "}
+                  <span className="address-values">
+                    {selectedAddress?.addressTwo}
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
+              {selectedAddress.street ? (
+                <p className="address-group">
+                  <span className="address-labels">Street: </span>{" "}
+                  <span className="address-values">
+                    {selectedAddress?.street}
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
+              {selectedAddress.state ? (
+                <p className="address-group">
+                  <span className="address-labels">State: </span>
+                  <span className="address-values">
+                    {selectedAddress?.state}
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
+              {selectedAddress.pincode ? (
+                <p className="address-group">
+                  <span className="address-labels">Pincode: </span>{" "}
+                  <span className="address-values">
+                    {selectedAddress?.pincode}
+                  </span>
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <button
               className="button-85 mt-3 place-order-btn"
-              onClick={() => navigate("/order-summary")}
+              onClick={handlePlaceOrder}
               role="button"
             >
               Place Order
