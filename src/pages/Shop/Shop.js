@@ -3,7 +3,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 // components, utility functions
 import { ContextCart } from "../../context/CartContext";
@@ -33,6 +33,9 @@ export const Shop = () => {
   const [sortBy, setSortBy] = useState("");
   const [rating, setRating] = useState("");
   const [category, setCategory] = useState([]);
+
+  const token = localStorage.getItem("token");
+  const navigate = useNavigate();
 
   function valuetext(value) {
     return `${value}`;
@@ -377,7 +380,9 @@ export const Shop = () => {
                             <i
                               className="fa-regular fa-heart heart"
                               onClick={() => {
-                                handleWishlist(product);
+                                token === null
+                                  ? navigate("/login")
+                                  : handleWishlist(product);
                               }}
                             ></i>
                           )}
