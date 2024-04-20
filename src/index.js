@@ -1,9 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { makeServer } from "./server";
-import "./index.css";
 import App from "./App";
-// import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
 import { CartContext, ContextCart } from "./context/CartContext";
@@ -11,6 +9,9 @@ import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
 import { ContextSearch, SearchContext } from "./context/SearchContext";
 import { AddressContext } from "./context/AddressContext";
 import { CategoriesContext } from "./context/CategoriesContext";
+import { Provider } from "react-redux";
+import store from "./Store/store";
+import "./index.css";
 
 makeServer();
 
@@ -18,19 +19,21 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <LoginTokenProvider>
-        <CartContext>
-          <WishlistContext>
-            <SearchContext>
-              <AddressContext>
-                <CategoriesContext>
-                  <App />
-                </CategoriesContext>
-              </AddressContext>
-            </SearchContext>
-          </WishlistContext>
-        </CartContext>
-      </LoginTokenProvider>
+      <Provider store={store}>
+        <LoginTokenProvider>
+          <CartContext>
+            <WishlistContext>
+              <SearchContext>
+                <AddressContext>
+                  <CategoriesContext>
+                    <App />
+                  </CategoriesContext>
+                </AddressContext>
+              </SearchContext>
+            </WishlistContext>
+          </CartContext>
+        </LoginTokenProvider>
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>
 );

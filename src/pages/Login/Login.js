@@ -115,7 +115,7 @@ export const Login = () => {
           Login
         </button>
         <button
-          className="form-button"
+          className="form-button guest"
           onClick={(e) => {
             e.preventDefault();
             handleSubmit("guest");

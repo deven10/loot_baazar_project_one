@@ -1,12 +1,28 @@
 // libraries
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // components
 import { ReactToastify } from "../../utility/ReactToastify";
 
 // styling
 import "../../stylesheet/FormStyling.css";
+
+const HidePasswordIcon = ({ togglePassword }) => {
+  return (
+    <i
+      onClick={togglePassword}
+      className="fa-regular fa-eye-slash password-icon"
+    ></i>
+  );
+};
+
+const ShowPasswordIcon = ({ togglePassword }) => {
+  return (
+    <i onClick={togglePassword} className="fa-regular fa-eye password-icon"></i>
+  );
+};
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -21,6 +37,8 @@ export const Register = () => {
     acceptedTerms: false,
   });
   const [showPassword, setShowPassword] = useState(false);
+
+  const togglePassword = () => setShowPassword(!showPassword);
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -53,14 +71,11 @@ export const Register = () => {
         password: user?.password,
       };
 
-      const response = await fetch("/api/auth/signup", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
+      const response = await axios.post("/api/auth/signup", data);
+      const result = response.data;
 
-      const result = await response.json();
-      if (result.errors) {
-        result.errors.map((e) => ReactToastify(e, "error"));
+      if (response.errors) {
+        response.errors.map((e) => ReactToastify(e, "error"));
       } else {
         ReactToastify("User Created 🚀", "success");
         clearState();
@@ -154,15 +169,9 @@ export const Register = () => {
               placeholder="Enter your Password..."
             />
             {showPassword ? (
-              <i
-                onClick={() => setShowPassword(!showPassword)}
-                className="fa-regular fa-eye-slash password-icon"
-              ></i>
+              <HidePasswordIcon togglePassword={togglePassword} />
             ) : (
-              <i
-                onClick={() => setShowPassword(!showPassword)}
-                className="fa-regular fa-eye password-icon"
-              ></i>
+              <ShowPasswordIcon togglePassword={togglePassword} />
             )}
           </div>
         </div>
@@ -181,15 +190,9 @@ export const Register = () => {
               placeholder="Re-Enter your Password..."
             />
             {showPassword ? (
-              <i
-                onClick={() => setShowPassword(!showPassword)}
-                className="fa-regular fa-eye-slash password-icon"
-              ></i>
+              <HidePasswordIcon togglePassword={togglePassword} />
             ) : (
-              <i
-                onClick={() => setShowPassword(!showPassword)}
-                className="fa-regular fa-eye password-icon"
-              ></i>
+              <ShowPasswordIcon togglePassword={togglePassword} />
             )}
           </div>
         </div>

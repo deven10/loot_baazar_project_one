@@ -1,6 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import { ReactToastify } from "../utility/ReactToastify";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export const ContextToken = createContext();
 
@@ -33,12 +34,8 @@ export const LoginTokenProvider = ({ children }) => {
         password: user.password,
       };
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
+      const response = await axios.post("/api/auth/login", data);
+      const result = response.data;
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
@@ -75,12 +72,8 @@ export const LoginTokenProvider = ({ children }) => {
         password: "adarshbalika",
       };
 
-      const response = await fetch("/api/auth/login", {
-        method: "POST",
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
+      const response = await axios.post("/api/auth/login", data);
+      const result = response.data;
 
       if (response.status === 200) {
         localStorage.setItem("token", result.encodedToken);
@@ -106,9 +99,7 @@ export const LoginTokenProvider = ({ children }) => {
     }
   };
 
-  const clearState = () => {
-    setUser({ email: "", password: "" });
-  };
+  const clearState = () => setUser({ email: "", password: "" });
 
   return (
     <ContextToken.Provider
