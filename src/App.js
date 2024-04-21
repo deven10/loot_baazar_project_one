@@ -1,6 +1,6 @@
 // libraries
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Lottie from "lottie-react";
 import { ToastContainer } from "react-toastify";
 
@@ -28,13 +28,19 @@ import { IfLoggedIn } from "./components/PrivateRoutes/IfLoggedIn";
 
 // styling
 import "./App.css";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   const [abc, setAbc] = useState(true);
+  const location = useLocation();
 
   setTimeout(() => {
     setAbc(false);
   }, 2500);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   return (
     <div className="App">

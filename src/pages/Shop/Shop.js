@@ -345,17 +345,8 @@ export const Shop = () => {
                 />
               ) : (
                 productsArray.map((product) => {
-                  const {
-                    _id,
-                    id,
-                    name,
-                    image,
-                    price,
-                    liked,
-                    mrp,
-                    categoryName,
-                    productRating,
-                  } = product;
+                  const { _id, name, image, price, mrp, productRating } =
+                    product;
                   return (
                     <div className="product-item" key={_id}>
                       <div className="relative-position product-img">

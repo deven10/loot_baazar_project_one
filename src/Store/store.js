@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { eventSlice } from "../Features/eventSlice";
-// import { volunteerSlice } from "../Features/volunteerSlice";
+import { categoriesSlice } from "./Features/CategoriesSlice";
 
 export default configureStore({
   reducer: {
-    // events: eventSlice.reducer,
+    categories: categoriesSlice.reducer,
     // volunteers: volunteerSlice.reducer,
   },
 });

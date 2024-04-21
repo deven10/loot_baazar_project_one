@@ -1,9 +1,10 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
 
-import { ReactToastify } from "../../utility/ReactToastify";
-// import { CategoriesComponent } from "../Shop/Shop";
 import { ContextCategories } from "../../context/CategoriesContext";
+import { fetchCategories } from "../../Store/Features/CategoriesSlice";
 
 // importing images
 import img1 from "../../images/home-img-1.png";
@@ -15,7 +16,13 @@ import "./Home.css";
 
 export const Home = () => {
   const navigate = useNavigate();
-  const { categories, setSelectedCategory } = useContext(ContextCategories);
+  const dispatch = useDispatch();
+  const categoriesState = useSelector((state) => state.categories);
+  const { setSelectedCategory } = useContext(ContextCategories);
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, []);
 
   return (
     <div className="main default-bg-color">
@@ -27,7 +34,7 @@ export const Home = () => {
           data-bs-ride="carousel"
         >
           <div className="carousel-inner">
-            <div className="carousel-item active" /*data-bs-interval="2000"*/>
+            <div className="carousel-item active" data-bs-interval="2000">
               <Link to="/shop">
                 <img
                   src={img1}
@@ -36,7 +43,7 @@ export const Home = () => {
                 />
               </Link>
             </div>
-            <div className="carousel-item" /*data-bs-interval="2000"*/>
+            <div className="carousel-item" data-bs-interval="2000">
               <Link to="/shop">
                 <img
                   src={img2}
@@ -45,7 +52,7 @@ export const Home = () => {
                 />
               </Link>
             </div>
-            <div className="carousel-item" /*data-bs-interval="2000"*/>
+            <div className="carousel-item" data-bs-interval="2000">
               <Link to="/shop">
                 <img
                   src={img4}
@@ -54,7 +61,7 @@ export const Home = () => {
                 />
               </Link>
             </div>
-            <div className="carousel-item" /*data-bs-interval="2000"*/>
+            <div className="carousel-item" data-bs-interval="2000">
               <Link to="/shop">
                 <img
                   src={img5}
@@ -93,22 +100,30 @@ export const Home = () => {
       <section className="categories">
         <h2>Shop by Category</h2>
         <div className="categories-parent">
-          {categories?.map((category) => {
-            const { image, description, categoryName, _id } = category;
-            return (
-              <div
-                onClick={() => {
-                  navigate("/shop", { state: { location: "Home" } });
-                  setSelectedCategory(() => category.categoryName);
-                }}
-                className="category"
-                key={_id}
-              >
-                <img src={image} alt={description} />
-                <p>{categoryName}</p>
-              </div>
-            );
-          })}
+          {categoriesState.loading ? (
+            <>
+              <Skeleton height={250} width={350} />
+              <Skeleton height={250} width={350} />
+              <Skeleton height={250} width={350} />
+            </>
+          ) : (
+            categoriesState.categories?.map((category) => {
+              const { image, description, categoryName, _id } = category;
+              return (
+                <div
+                  onClick={() => {
+                    navigate("/shop", { state: { location: "Home" } });
+                    setSelectedCategory(() => category.categoryName);
+                  }}
+                  className="category"
+                  key={_id}
+                >
+                  <img src={image} alt={description} />
+                  <p>{categoryName}</p>
+                </div>
+              );
+            })
+          )}
         </div>
       </section>
     </div>
