@@ -1,16 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Lottie from "lottie-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import "./Wishlist.css";
-
-import { ContextWishlist } from "../../context/WishlistContext";
-import { ContextCart } from "../../context/CartContext";
 import { ContextToken } from "../../context/LoginTokenProvider";
+import {
+  fetchWishlist,
+  removeFromWishlist,
+  addToWishlist,
+} from "../../Store/Features/WishlistSlice";
+import { fetchCart, addToCart } from "../../Store/Features/CartSlice";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
+
+import "./Wishlist.css";
 
 const EmptyWishlist = () => {
   return (
@@ -27,46 +32,25 @@ const EmptyWishlist = () => {
 };
 
 export const Wishlist = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useContext(ContextToken);
 
-  const { wishlistProducts, removeFromWishlist, handleWishlist } =
-    useContext(ContextWishlist);
-  const { cartProducts, handleCart } = useContext(ContextCart);
-
-  const [wishlist, setWishlist] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const getWishlist = async () => {
-    try {
-      const response = await fetch("/api/user/wishlist", {
-        method: "GET",
-        headers: {
-          authorization: `${token}`,
-        },
-      });
-
-      if (response.status === 200) {
-        const result = await response.json();
-        // console.log(result.wishlist);
-        // console.log("wishlistProducts = ", wishlistProducts);
-        setWishlist(result.wishlist);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const cartState = useSelector((state) => state.cart);
+  const wishlistState = useSelector((state) => state.wishlist);
 
   useEffect(() => {
-    getWishlist();
+    dispatch(fetchCart(token));
+    dispatch(fetchWishlist(token));
   }, []);
 
   return (
     <div className="main-wishlist-page default-bg-color">
-      <h2 className="page-heading">My Wishlist ({wishlist.length})</h2>
+      <h2 className="page-heading">
+        My Wishlist ({wishlistState.wishlist?.length})
+      </h2>
       <div className="wishlist-items">
-        {loading ? (
+        {wishlistState.loading ? (
           <TailSpin
             height="50"
             width="50"
@@ -82,27 +66,32 @@ export const Wishlist = () => {
             wrapperClass="loader"
             visible={true}
           />
-        ) : wishlist.length > 0 ? (
-          wishlist.map((product) => {
-            const { id, name, image, price, liked, _id } = product;
+        ) : wishlistState.wishlist?.length > 0 ? (
+          wishlistState.wishlist?.map((product) => {
+            const { name, image, price, _id } = product;
             return (
               <div className="wishlist-item" key={_id}>
                 <div className="wrapper">
                   <div className="relative-position">
                     <span className="like-icon">
-                      {wishlistProducts.find((item) => item._id === _id) ? (
+                      {wishlistState.wishlist?.find(
+                        (item) => item._id === _id
+                      ) ? (
                         <i
                           className="fa-solid fa-heart color-red heart"
                           onClick={() => {
-                            removeFromWishlist(_id);
-                            getWishlist();
+                            dispatch(
+                              removeFromWishlist({ productId: _id, token })
+                            );
                           }}
                         ></i>
                       ) : (
                         <i
                           className="fa-regular fa-heart heart"
                           onClick={() => {
-                            handleWishlist(product);
+                            !token
+                              ? navigate("/login")
+                              : dispatch(addToWishlist({ token, product }));
                           }}
                         ></i>
                       )}
@@ -115,7 +104,7 @@ export const Wishlist = () => {
                     <p className="wishlist-item-price">₹ {price}/-</p>
                   </div>
                 </div>
-                {cartProducts.find((product) => product._id === _id) ? (
+                {cartState.cart?.find((product) => product._id === _id) ? (
                   <Link className="add-to-cart-link" to="/cart">
                     Go to Cart
                   </Link>
@@ -123,7 +112,12 @@ export const Wishlist = () => {
                   <button
                     className="add-to-cart-button"
                     onClick={() => {
-                      handleCart(product);
+                      dispatch(
+                        addToCart({
+                          product,
+                          token,
+                        })
+                      );
                     }}
                   >
                     Add to Cart

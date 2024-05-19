@@ -1,8 +1,10 @@
-import React, { useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link } from "react-router-dom";
-
-import { ContextCart } from "../../context/CartContext";
+import { useDispatch, useSelector } from "react-redux";
 import Lottie from "lottie-react";
+import axios from "axios";
+
+import { clearCart } from "../../Store/Features/CartSlice";
 
 import "./OrderSummary.css";
 
@@ -10,14 +12,41 @@ import "./OrderSummary.css";
 import orderSummary from "../../lottie-files/orderSummary.json";
 
 export const OrderSummary = () => {
-  const { cart } = useContext(ContextCart);
   const location = useLocation();
-  const finalPrice = cart.reduce((acc, { price, qty }) => acc + price * qty, 0);
+  const dispatch = useDispatch();
+  const token = localStorage.getItem("token");
+
+  const cartState = useSelector((state) => state.cart);
+  const [cartData, setCartData] = useState([]);
+
+  const finalPrice = cartData.reduce(
+    (acc, { price, qty }) => acc + price * qty,
+    0
+  );
   const address = location?.state?.selectedAddress;
+
+  // helper fn to delete cart items from backend server DB...
+  const removeFromCart = async (productId) => {
+    await axios.delete(`/api/user/cart/${productId}`, {
+      headers: {
+        authorization: `${token}`,
+      },
+    });
+  };
+
+  useEffect(() => {
+    setCartData(cartState.cart);
+    setTimeout(() => {
+      if (cartState.cart.length > 0) {
+        cartState.cart.forEach((item) => removeFromCart(item._id)); // clearing backend Server DB
+        dispatch(clearCart()); // resetting redux cart state
+      }
+    }, 0);
+  }, []);
 
   return (
     <div className="container order-summary-page">
-      {cart.length <= 0 ? (
+      {cartData.length <= 0 ? (
         <p className="empty-order-summary">
           Sorry You have not yet purchased anything yet, please{" "}
           <Link to="/shop">shop now!</Link>
@@ -33,7 +62,7 @@ export const OrderSummary = () => {
               <div className="order-summary">
                 <p className="thankyou-note">Thank You for placing order</p>
                 <section>
-                  {cart.map((product) => {
+                  {cartData.map((product) => {
                     const {
                       categoryName,
                       createdAt,
@@ -52,7 +81,7 @@ export const OrderSummary = () => {
                     } = product;
                     return (
                       <div className="order-item" key={_id}>
-                        <img src={image} />
+                        <img src={image} alt="" />
                         <div className="order-item-details">
                           <p className="order-item-name">{name}</p>
                           <div className="order-item-price">
@@ -76,9 +105,7 @@ export const OrderSummary = () => {
                     Delivery Address:{" "}
                     {`${address?.addressOne} ${address?.addressTwo} ${address?.street} ${address?.state} ${address?.pincode}`}
                   </p>
-                  <p className="final-amount">
-                    Total Amount Paid: ₹{finalPrice}/-
-                  </p>
+                  <p className="final-amount">Total Amount: ₹{finalPrice}/-</p>
                 </div>
               </div>
             </div>

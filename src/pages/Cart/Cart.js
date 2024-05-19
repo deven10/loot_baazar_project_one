@@ -1,11 +1,19 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { TailSpin } from "react-loader-spinner";
 import Lottie from "lottie-react";
 import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { ContextCart } from "../../context/CartContext";
-import { ContextWishlist } from "../../context/WishlistContext";
 import { ContextToken } from "../../context/LoginTokenProvider";
+import {
+  fetchCart,
+  removeFromCart,
+  updateCart,
+} from "../../Store/Features/CartSlice";
+import {
+  fetchWishlist,
+  addToWishlist,
+} from "../../Store/Features/WishlistSlice";
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
@@ -28,34 +36,34 @@ const EmptyCart = () => {
 
 export const Cart = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const { token } = useContext(ContextToken);
 
-  const { wishlistProducts, removeFromWishlist, handleWishlist, wishlist } =
-    useContext(ContextWishlist);
-  const {
-    cartProducts,
-    removeFromCart,
-    handleCart,
-    updateCart,
-    cart,
-    loading,
-  } = useContext(ContextCart);
+  const cartState = useSelector((state) => state.cart);
+  const wishlistState = useSelector((state) => state.wishlist);
 
-  const checkoutPrice = cart.reduce(
-    (acc, { mrp, price, qty }) => ({
-      ...acc,
-      mrpPrice: acc.mrpPrice + mrp * qty,
-      actualPrice: acc.actualPrice + price * qty,
-      discount: acc.discount + (mrp - price) * qty,
-    }),
-    { mrpPrice: 0, actualPrice: 0, discount: 0 }
-  );
+  useEffect(() => {
+    dispatch(fetchCart(token));
+    dispatch(fetchWishlist(token));
+  }, []);
+
+  const checkoutPrice = useMemo(() => {
+    return cartState.cart.reduce(
+      (acc, { mrp, price, qty }) => ({
+        ...acc,
+        mrpPrice: acc.mrpPrice + mrp * qty,
+        actualPrice: acc.actualPrice + price * qty,
+        discount: acc.discount + (mrp - price) * qty,
+      }),
+      { mrpPrice: 0, actualPrice: 0, discount: 0 }
+    );
+  }, [cartState.cart]);
 
   return (
     <div className="cart-container default-bg-color">
-      <h2 className="page-heading">My Cart ({cart.length})</h2>
+      <h2 className="page-heading">My Cart ({cartState.cart.length})</h2>
       <section className="cart-main">
-        {loading ? (
+        {cartState.loading ? (
           <TailSpin
             height="50"
             width="50"
@@ -74,24 +82,9 @@ export const Cart = () => {
         ) : (
           <>
             <div className="cart-items">
-              {cart.length > 0 ? (
-                cart.map((product) => {
-                  const {
-                    categoryName,
-                    createdAt,
-                    id,
-                    image,
-                    inCart,
-                    inWishlist,
-                    liked,
-                    mrp,
-                    name,
-                    price,
-                    productRating,
-                    qty,
-                    updatedAt,
-                    _id,
-                  } = product;
+              {cartState.cart.length > 0 ? (
+                cartState.cart.map((product) => {
+                  const { image, mrp, name, price, qty, _id } = product;
 
                   const discountOnProduct = Math.round(
                     100 - (price / mrp) * 100
@@ -115,14 +108,46 @@ export const Cart = () => {
                           <label className="cart-item-label">Quantity</label>
                           <div className="update-quantity">
                             <button
-                              onClick={() => updateCart(_id, "decrement")}
+                              onClick={() => {
+                                const productData = cartState.cart.filter(
+                                  (prod) => _id === prod._id
+                                );
+                                if (productData[0].qty === 1) {
+                                  dispatch(
+                                    removeFromCart({
+                                      token,
+                                      productId: _id,
+                                    })
+                                  );
+                                } else {
+                                  dispatch(
+                                    updateCart({
+                                      token,
+                                      productId: _id,
+                                      action: {
+                                        type: "decrement",
+                                      },
+                                    })
+                                  );
+                                }
+                              }}
                               className="decrease-cart-quantity cart-button"
                             >
                               -
                             </button>
                             <label className="quantity-label">{qty}</label>
                             <button
-                              onClick={() => updateCart(_id, "increment")}
+                              onClick={() => {
+                                dispatch(
+                                  updateCart({
+                                    token,
+                                    productId: _id,
+                                    action: {
+                                      type: "increment",
+                                    },
+                                  })
+                                );
+                              }}
                               className="increase-cart-quantity cart-button"
                             >
                               +
@@ -131,21 +156,31 @@ export const Cart = () => {
                         </div>
                         <button
                           onClick={() => {
-                            removeFromCart(_id);
+                            dispatch(
+                              removeFromCart({
+                                token,
+                                productId: _id,
+                              })
+                            );
                           }}
                           className="remove-from-cart cart-item-button"
                         >
                           Remove from Cart
                         </button>
-                        {wishlistProducts.find((item) => {
+                        {wishlistState.wishlist?.find((item) => {
                           return item._id === _id;
                         }) ? (
                           ""
                         ) : (
                           <button
                             onClick={() => {
-                              handleWishlist(product);
-                              removeFromCart(_id);
+                              dispatch(addToWishlist({ token, product }));
+                              dispatch(
+                                removeFromCart({
+                                  token,
+                                  productId: _id,
+                                })
+                              );
                             }}
                             className="move-to-wishlist cart-item-button"
                           >
@@ -160,11 +195,11 @@ export const Cart = () => {
                 <EmptyCart />
               )}
             </div>
-            {cart.length > 0 ? (
+            {cartState.cart.length > 0 ? (
               <div className="checkout-cart">
                 <p className="checkout-cart-title">PRICE DETAILS</p>
                 <p className="checkout-cart-price checkout-group">
-                  <span> Price ({cart.length} item)</span>{" "}
+                  <span> Price ({cartState.cart.length} item)</span>{" "}
                   <span>₹{checkoutPrice.mrpPrice}</span>
                 </p>
                 <p className="checkout-cart-discount checkout-group">
@@ -184,7 +219,6 @@ export const Cart = () => {
                 <button
                   className="button-85 mt-3 place-order-btn"
                   onClick={() => navigate("/checkout")}
-                  role="button"
                 >
                   Proceed to Checkout
                 </button>

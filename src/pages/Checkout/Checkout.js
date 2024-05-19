@@ -1,21 +1,29 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import { ContextCart } from "../../context/CartContext";
 import { ContextAddress } from "../../context/AddressContext";
 
 import "./Checkout.css";
 import { ReactToastify } from "../../utility/ReactToastify";
+import { fetchCart } from "../../Store/Features/CartSlice";
 
 export const Checkout = () => {
   const navigate = useNavigate();
-  const { cart } = useContext(ContextCart);
+  const dispatch = useDispatch();
   const { addresses } = useContext(ContextAddress);
-  const user = JSON.parse(localStorage.getItem("user"));
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  const cartState = useSelector((state) => state.cart);
   const [selectedAddress, setSelectedAddress] = useState({});
 
-  const checkoutPrice = cart.reduce(
+  useEffect(() => {
+    dispatch(fetchCart(token));
+  }, []);
+
+  const checkoutPrice = cartState.cart?.reduce(
     (acc, { mrp, price, qty }) => ({
       ...acc,
       mrpPrice: acc.mrpPrice + mrp * qty,
@@ -28,7 +36,6 @@ export const Checkout = () => {
   const handlePlaceOrder = () => {
     if (addresses.length <= 0) {
       ReactToastify("Please add delivery address", "error");
-      // navigate("/profile");
     } else if (
       !selectedAddress.addressOne ||
       !selectedAddress.addressTwo ||
@@ -94,14 +101,14 @@ export const Checkout = () => {
             <p className="order-details-heading">Order Details</p>
             <hr />
             <div className="order-items">
-              {cart.length > 0 ? (
+              {cartState.cart?.length > 0 ? (
                 <div>
                   <div className="flex-div">
                     <p>Item</p>
                     <p>QTY</p>
                   </div>
                   <div className="items-in-cart">
-                    {cart.map((item) => {
+                    {cartState.cart?.map((item) => {
                       return (
                         <div className="checkout cart-item" key={item.id}>
                           <p className="cart-item-name">{item.name}</p>
@@ -120,7 +127,7 @@ export const Checkout = () => {
               <div className="checkout-cart">
                 <p className="checkout-cart-title">PRICE DETAILS</p>
                 <p className="checkout-cart-price checkout-group">
-                  <span> Price ({cart.length} item)</span>{" "}
+                  <span> Price ({cartState.cart?.length} item)</span>{" "}
                   <span>₹{checkoutPrice.mrpPrice}</span>
                 </p>
                 <p className="checkout-cart-discount checkout-group">
@@ -204,7 +211,6 @@ export const Checkout = () => {
             <button
               className="button-85 mt-3 place-order-btn"
               onClick={handlePlaceOrder}
-              role="button"
             >
               Place Order
             </button>

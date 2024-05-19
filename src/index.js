@@ -4,8 +4,6 @@ import { makeServer } from "./server";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
-import { CartContext, ContextCart } from "./context/CartContext";
-import { WishlistContext, ContextWishlist } from "./context/WishlistContext";
 import { ContextSearch, SearchContext } from "./context/SearchContext";
 import { AddressContext } from "./context/AddressContext";
 import { CategoriesContext } from "./context/CategoriesContext";
@@ -21,17 +19,13 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <LoginTokenProvider>
-          <CartContext>
-            <WishlistContext>
-              <SearchContext>
-                <AddressContext>
-                  <CategoriesContext>
-                    <App />
-                  </CategoriesContext>
-                </AddressContext>
-              </SearchContext>
-            </WishlistContext>
-          </CartContext>
+          <SearchContext>
+            <AddressContext>
+              <CategoriesContext>
+                <App />
+              </CategoriesContext>
+            </AddressContext>
+          </SearchContext>
         </LoginTokenProvider>
       </Provider>
     </BrowserRouter>
@@ -43,4 +37,4 @@ root.render(
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 // reportWebVitals();
 
-export { ContextToken, ContextCart, ContextWishlist, ContextSearch };
+export { ContextToken, ContextSearch };

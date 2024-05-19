@@ -1,17 +1,17 @@
 // libraries
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { useDispatch, useSelector } from "react-redux";
 
 // components
-import { ContextCart } from "../../context/CartContext";
-import { ContextWishlist } from "../../context/WishlistContext";
-import { ContextToken } from "../../context/LoginTokenProvider";
 import { ContextSearch } from "../../context/SearchContext";
+import { clearWishlist } from "../../Store/Features/WishlistSlice";
+import { clearCart } from "../../Store/Features/CartSlice";
 
 // styling
 import "./Navbar.css";
@@ -43,10 +43,11 @@ const Searchbar = () => {
 };
 
 const Nav = () => {
-  const { cart, setCart } = useContext(ContextCart);
-  const { wishlist, setWishlist } = useContext(ContextWishlist);
+  const dispatch = useDispatch();
 
-  // const { token } = useContext(ContextToken);
+  const cartState = useSelector((state) => state.cart);
+  const wishlistState = useSelector((state) => state.wishlist);
+
   const token = localStorage.getItem("token");
 
   const ThreeDots = () => {
@@ -61,9 +62,8 @@ const Nav = () => {
 
     const handleSignOut = () => {
       localStorage.clear();
-      setCart([]);
-      setWishlist([]);
-      // navigate("/");
+      dispatch(clearCart());
+      dispatch(clearWishlist());
       window.location.reload();
     };
 
@@ -89,11 +89,6 @@ const Nav = () => {
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
-            // PaperProps={{
-            //   style: {
-            //     width: "",
-            //   },
-            // }}
           >
             <MenuItem onClick={handleClose}>
               <Link className="profile-link" to="/profile">
@@ -134,8 +129,10 @@ const Nav = () => {
           to="/wishlist"
         >
           <i className="fa-regular fa-heart nav-icon"></i>
-          {wishlist.length > 0 ? (
-            <span className="wishlist-items-count">{wishlist.length}</span>
+          {wishlistState.wishlist?.length > 0 ? (
+            <span className="wishlist-items-count">
+              {wishlistState.wishlist?.length}
+            </span>
           ) : (
             ""
           )}
@@ -150,8 +147,8 @@ const Nav = () => {
           to="/cart"
         >
           <i className="fa-solid fa-cart-shopping nav-icon"></i>
-          {cart?.length > 0 ? (
-            <span className="cart-items-count">{cart.length}</span>
+          {cartState.cart?.length > 0 ? (
+            <span className="cart-items-count">{cartState.cart?.length}</span>
           ) : (
             ""
           )}

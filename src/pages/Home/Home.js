@@ -24,6 +24,13 @@ export const Home = () => {
     dispatch(fetchCategories());
   }, []);
 
+  const bannerImagesData = [
+    { src: img1, alt: "first" },
+    { src: img2, alt: "second" },
+    { src: img4, alt: "third" },
+    { src: img5, alt: "fourth" },
+  ];
+
   return (
     <div className="main default-bg-color">
       <section className="slider">
@@ -34,42 +41,24 @@ export const Home = () => {
           data-bs-ride="carousel"
         >
           <div className="carousel-inner">
-            <div className="carousel-item active" data-bs-interval="2000">
-              <Link to="/shop">
-                <img
-                  src={img1}
-                  className="d-block w-100 slider-img"
-                  alt="Slider first"
-                />
-              </Link>
-            </div>
-            <div className="carousel-item" data-bs-interval="2000">
-              <Link to="/shop">
-                <img
-                  src={img2}
-                  className="d-block w-100 slider-img"
-                  alt="Slider second"
-                />
-              </Link>
-            </div>
-            <div className="carousel-item" data-bs-interval="2000">
-              <Link to="/shop">
-                <img
-                  src={img4}
-                  className="d-block w-100 slider-img"
-                  alt="Slider third"
-                />
-              </Link>
-            </div>
-            <div className="carousel-item" data-bs-interval="2000">
-              <Link to="/shop">
-                <img
-                  src={img5}
-                  className="d-block w-100 slider-img"
-                  alt="Slider fourth"
-                />
-              </Link>
-            </div>
+            {bannerImagesData.map((data) => {
+              return (
+                <div
+                  key={data.alt}
+                  className="carousel-item active"
+                  data-bs-interval="2000"
+                >
+                  <Link to="/shop">
+                    <img
+                      src={data.src}
+                      className="d-block w-100 slider-img"
+                      alt={`Slider ${data.alt}`}
+                      loading="lazy"
+                    />
+                  </Link>
+                </div>
+              );
+            })}
           </div>
           <button
             className="carousel-control-prev"
@@ -118,7 +107,7 @@ export const Home = () => {
                   className="category"
                   key={_id}
                 >
-                  <img src={image} alt={description} />
+                  <img src={image} alt={description} loading="lazy" />
                   <p>{categoryName}</p>
                 </div>
               );

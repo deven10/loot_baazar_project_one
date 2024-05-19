@@ -1,17 +1,26 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
+import { useSelector, useDispatch } from "react-redux";
 
 import "./SingleProduct.css";
 
-import { ContextCart } from "../../context/CartContext";
-import { ContextWishlist } from "../../context/WishlistContext";
+import { addToCart, fetchCart } from "../../Store/Features/CartSlice";
+import {
+  addToWishlist,
+  fetchWishlist,
+  removeFromWishlist,
+} from "../../Store/Features/WishlistSlice";
+import { ContextToken } from "../../context/LoginTokenProvider";
 
 export const SingleProduct = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { productId } = useParams();
-  const { handleCart, cartProducts } = useContext(ContextCart);
-  const { handleWishlist, removeFromWishlist, wishlistProducts } =
-    useContext(ContextWishlist);
+  const { token } = useContext(ContextToken);
+
+  const cartState = useSelector((state) => state.cart);
+  const wishlistState = useSelector((state) => state.wishlist);
 
   const [product, setProduct] = useState({});
   const [loading, setLoading] = useState(true);
@@ -34,6 +43,8 @@ export const SingleProduct = () => {
   };
 
   useEffect(() => {
+    dispatch(fetchCart(token));
+    dispatch(fetchWishlist(token));
     getProduct();
   }, []);
 
@@ -61,28 +72,28 @@ export const SingleProduct = () => {
             <div className="relative-position">
               <img
                 className="product-image"
-                src={product.image}
-                alt={product.name}
+                src={product?.image}
+                alt={product?.name}
               />
             </div>
             <div className="product-details">
-              <p className="product-item-name mb-3">{product.name}</p>
+              <p className="product-item-name mb-3">{product?.name}</p>
               <p className="product-item-price">
                 <span className="selling-price">
                   <sup>₹</sup>
-                  {product.price}/-
+                  {product?.price}/-
                 </span>
                 <span className="mrp-price">
                   <span>M.R.P</span>
-                  <span className="line-through">₹{product.mrp}/- </span>
+                  <span className="line-through">₹{product?.mrp}/- </span>
                 </span>
               </p>
               <p className="product-rating mt-3 mb-4">
-                Product Rating: {product.productRating}{" "}
+                Product Rating: {product?.productRating}{" "}
                 <i className="fa-solid fa-star star-icon"></i>
               </p>
               <div className="single-product-buttons">
-                {cartProducts.find((product) => product._id === productId) ? (
+                {cartState.cart.find((product) => product._id === productId) ? (
                   <Link className="add-to-cart-link" to="/cart">
                     Go to Cart
                   </Link>
@@ -90,20 +101,25 @@ export const SingleProduct = () => {
                   <button
                     className="add-to-cart-btn"
                     onClick={() => {
-                      handleCart(product);
+                      dispatch(
+                        addToCart({
+                          product,
+                          token,
+                        })
+                      );
                     }}
                   >
                     Add to Cart
                   </button>
                 )}
 
-                {wishlistProducts.find(
+                {wishlistState.wishlist?.find(
                   (product) => product._id === productId
                 ) ? (
                   <button
                     className="add-to-cart-btn"
                     onClick={() => {
-                      removeFromWishlist(productId);
+                      dispatch(removeFromWishlist({ productId, token }));
                     }}
                   >
                     Remove from Wishlist
@@ -112,7 +128,9 @@ export const SingleProduct = () => {
                   <button
                     className="add-to-cart-btn"
                     onClick={() => {
-                      handleWishlist(product);
+                      !token
+                        ? navigate("/login")
+                        : dispatch(addToWishlist({ token, product }));
                     }}
                   >
                     Add to Wishlist

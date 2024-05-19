@@ -4,37 +4,40 @@ import { TailSpin } from "react-loader-spinner";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // components, utility functions
-import { ContextCart } from "../../context/CartContext";
-import { ContextWishlist } from "../../context/WishlistContext";
 import { ContextSearch } from "../../context/SearchContext";
 import { ContextCategories } from "../../context/CategoriesContext";
+import { addToCart, fetchCart } from "../../Store/Features/CartSlice";
+import {
+  addToWishlist,
+  fetchWishlist,
+  removeFromWishlist,
+} from "../../Store/Features/WishlistSlice";
 
 // styling
 import "./Shop.css";
 
 export const Shop = () => {
-  const { handleCart, cartProducts } = useContext(ContextCart);
-  const { handleWishlist, removeFromWishlist, wishlistProducts } =
-    useContext(ContextWishlist);
   const { search } = useContext(ContextSearch);
   const { selectedCategory, setSelectedCategory } =
     useContext(ContextCategories);
 
-  const location = useLocation();
+  const cartState = useSelector((state) => state.cart);
+  const wishlistState = useSelector((state) => state.wishlist);
 
   // states
   const [products, setProducts] = useState([]);
-
   const [loading, setLoading] = useState(true);
-
   const [priceRange, setPriceRange] = useState(500000);
   const [sortBy, setSortBy] = useState("");
   const [rating, setRating] = useState("");
   const [category, setCategory] = useState([]);
 
   const token = localStorage.getItem("token");
+  const dispatch = useDispatch();
+  const location = useLocation();
   const navigate = useNavigate();
 
   function valuetext(value) {
@@ -60,6 +63,8 @@ export const Shop = () => {
 
   useEffect(() => {
     getProducts();
+    dispatch(fetchCart(token));
+    dispatch(fetchWishlist(token));
   }, []);
 
   const handleClear = () => {
@@ -358,22 +363,24 @@ export const Shop = () => {
                           />
                         </Link>
                         <span className="like-icon">
-                          {wishlistProducts.find(
+                          {wishlistState.wishlist?.find(
                             (product) => product._id === _id
                           ) ? (
                             <i
                               className="fa-solid fa-heart color-red heart"
                               onClick={() => {
-                                removeFromWishlist(_id);
+                                dispatch(
+                                  removeFromWishlist({ productId: _id, token })
+                                );
                               }}
                             ></i>
                           ) : (
                             <i
                               className="fa-regular fa-heart heart"
                               onClick={() => {
-                                token === null
+                                !token
                                   ? navigate("/login")
-                                  : handleWishlist(product);
+                                  : dispatch(addToWishlist({ token, product }));
                               }}
                             ></i>
                           )}
@@ -399,7 +406,9 @@ export const Shop = () => {
                           Product Rating: {productRating}{" "}
                           <i className="fa-solid fa-star star-icon"></i>
                         </p>
-                        {cartProducts.find((product) => product._id === _id) ? (
+                        {cartState.cart?.find(
+                          (product) => product._id === _id
+                        ) ? (
                           <Link className="add-to-cart-link" to="/cart">
                             Go to Cart
                           </Link>
@@ -407,7 +416,12 @@ export const Shop = () => {
                           <button
                             className="add-to-cart-btn"
                             onClick={() => {
-                              handleCart(product);
+                              dispatch(
+                                addToCart({
+                                  product,
+                                  token,
+                                })
+                              );
                             }}
                           >
                             Add to Cart
