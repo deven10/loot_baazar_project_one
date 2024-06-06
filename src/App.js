@@ -29,6 +29,8 @@ import { IfLoggedIn } from "./components/PrivateRoutes/IfLoggedIn";
 // styling
 import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
   const [abc, setAbc] = useState(true);

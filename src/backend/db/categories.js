@@ -1,8 +1,8 @@
 import { v4 as uuid } from "uuid";
 
-import AIO from "../../images/AIO.jpg";
-import Laptops from "../../images/LAPTOP.jpg";
-import Printers from "../../images/PRINTER.jpg";
+import AIO from "../../images/AIO.png";
+import Laptops from "../../images/LAPTOP.png";
+import Printers from "../../images/PRINTER.png";
 
 /**
  * Category Database can be added here.

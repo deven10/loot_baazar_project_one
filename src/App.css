@@ -1,14 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap");
 
 /* font-family: 'Poppins', sans-serif; */
 /* font-family: 'Roboto'; */
-/*  */
-.default-bg-color{
-  background-color: #F7F7F7;
+.default-bg-color {
+  background-color: #f7f7f7;
 }
 
-.loading-animation{
+.loading-animation {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,16 +16,16 @@
   overflow: hidden;
 }
 
-.animation{
+.animation {
   width: 500px;
   height: 500px;
 }
 
 /* testing */
-.red{
+.red {
   background-color: red !important;
 }
 
-p{
+p {
   margin: 0;
 }

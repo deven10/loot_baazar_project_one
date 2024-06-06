@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Skeleton from "react-loading-skeleton";
+import Slider from "react-slick";
 
 import { ContextCategories } from "../../context/CategoriesContext";
 import { fetchCategories } from "../../Store/Features/CategoriesSlice";
@@ -9,7 +10,7 @@ import { fetchCategories } from "../../Store/Features/CategoriesSlice";
 // importing images
 import img1 from "../../images/home-img-1.png";
 import img2 from "../../images/home-img-2.png";
-import img4 from "../../images/home-img-4.jpg";
+import img4 from "../../images/home-img-4.png";
 import img5 from "../../images/home-img-5.png";
 
 import "./Home.css";
@@ -19,6 +20,17 @@ export const Home = () => {
   const dispatch = useDispatch();
   const categoriesState = useSelector((state) => state.categories);
   const { setSelectedCategory } = useContext(ContextCategories);
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 1000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+    arrows: false,
+  };
 
   useEffect(() => {
     dispatch(fetchCategories());
@@ -34,7 +46,7 @@ export const Home = () => {
   return (
     <div className="main default-bg-color">
       <section className="slider">
-        <div
+        {/* <div
           id="carouselExampleControlsNoTouching"
           className="carousel slide"
           data-bs-touch="true"
@@ -84,7 +96,22 @@ export const Home = () => {
             ></span>
             <span className="visually-hidden">Next</span>
           </button>
-        </div>
+        </div> */}
+
+        <Slider {...settings}>
+          {bannerImagesData.map((data) => (
+            <div key={data.alt}>
+              <Link to="/shop">
+                <img
+                  src={data.src}
+                  className="d-block w-100 slider-img"
+                  alt={`Slider ${data.alt}`}
+                  loading="lazy"
+                />
+              </Link>
+            </div>
+          ))}
+        </Slider>
       </section>
       <section className="categories">
         <h2>Shop by Category</h2>
