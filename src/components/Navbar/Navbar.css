@@ -1,110 +1,112 @@
 /* importing fonts */
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Satisfy&display=swap");
 
 /* start main Navbar */
-.nav{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #ebebf1;
-    padding: 10px 50px;
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ebebf1;
+  padding: 10px 50px;
 }
 /* End Main Navbar */
 
 /* start Nav */
-.nav-container{
-    display: flex;
-    column-gap: 25px;
+.nav-container {
+  display: flex;
+  column-gap: 25px;
 }
 
-.nav-links{
-    display: flex;
-    column-gap: 10px;
+.nav-links {
+  display: flex;
+  column-gap: 10px;
 }
 
-.navLink{
-    border: 0;
-    border-radius: 5px;
-    transition: .2s ease;
-    padding: 10px 25px;
-    list-style: none;
-    font-size: 18px;
-    font-family: sans-serif;
-    color: #000 !important;
-    text-decoration: none !important;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-weight: 600;
-    position: relative;
+.navLink {
+  border: 0;
+  border-radius: var(--block-border);
+  transition: 0.2s ease;
+  padding: 10px 25px;
+  list-style: none;
+  font-size: 18px;
+  font-family: sans-serif;
+  color: #000 !important;
+  text-decoration: none !important;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  position: relative;
 }
 
-.nav-icon{
-    font-size: 22px;
+.nav-icon {
+  font-size: 22px;
 }
 
-.profile-link, .logout-button{
-    text-decoration: none;
-    border: 0;
-    outline: none;
-    background-color: transparent;
-    list-style: none !important;
-    font-size: 16px;
-    text-align: center;
-    color: #000 !important;
-    padding: 0;
-    margin: 0;
-    text-decoration: none !important;
-    cursor: pointer;
+.profile-link,
+.logout-button {
+  text-decoration: none;
+  border: 0;
+  outline: none;
+  background-color: transparent;
+  list-style: none !important;
+  font-size: 16px;
+  text-align: center;
+  color: #000 !important;
+  padding: 0;
+  margin: 0;
+  text-decoration: none !important;
+  cursor: pointer;
 }
 
-.three-dots{
-    margin-left: 30px;
+.three-dots {
+  /* margin-left: 30px; */
 }
 /* end Nav */
 
 /* start Logo */
-.logo{
-    font-size: 30px;
-    font-weight: 500;
-    font-family: 'Satisfy', cursive;
-    color: #000 !important;
-    letter-spacing: .5px;
-    margin: 0;
-    cursor: pointer;
-    text-decoration: none !important;
-    list-style: none;
+.logo {
+  font-size: 30px;
+  font-weight: 500;
+  font-family: "Satisfy", cursive;
+  color: #000 !important;
+  letter-spacing: 0.5px;
+  margin: 0;
+  cursor: pointer;
+  text-decoration: none !important;
+  list-style: none;
 }
 /* End logo */
 
-.react-tooltip{
-    z-index: 2;
+.react-tooltip {
+  z-index: 2;
 }
 
-.searchbar{
-    text-overflow: ellipsis;
-    padding: 5px 10px;
-    width: 30%;
-    border-radius: 5px;
-    border: 0;
-    color: #000;
-    font-size: 18px;
-    font-family: 'Roboto';
+.searchbar {
+  text-overflow: ellipsis;
+  padding: 8px 12px;
+  width: 30%;
+  border-radius: var(--block-border);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: #111;
+  font-size: 16px;
+  font-family: "Poppins";
 }
 
-.cart-items-count, .wishlist-items-count{
-    position: absolute;
-    background-color: #fff;
-    border-radius: 50%;
-    color: red;
-    font-size: 16px;
-    font-weight: 800;
-    height: 22px;
-    width: 22px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    top: -5px;
-    right: 8px;
+.cart-items-count,
+.wishlist-items-count {
+  position: absolute;
+  background-color: #fff;
+  border-radius: 50%;
+  color: red;
+  font-size: 16px;
+  font-weight: 800;
+  height: 22px;
+  width: 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: -5px;
+  right: 8px;
 }

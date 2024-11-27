@@ -1,7 +1,74 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import { Logo } from "../Logo";
+import { Socials } from "./Socials";
+import { QuickLinks } from "./QuickLinks";
+import { FaLocationDot } from "react-icons/fa6";
+import { FaPhoneAlt } from "react-icons/fa";
+import { IoMail } from "react-icons/io5";
+
 import "./Footer.css";
+
+export const NewFooter = () => {
+  const categories = [
+    "Laptops",
+    "AIO",
+    "Printers",
+    "Keyboard",
+    "Laptop Bag",
+    "Mobile",
+    "Mouse",
+  ];
+  return (
+    <div className="custom-block block-border-radius new-footer flex flex-col">
+      <div className="flex justify-between items-center mb-3">
+        {/* logo */}
+        <Logo />
+        {/* social links */}
+        <Socials />
+      </div>
+      <div className="flex justify-between items-center mb-5">
+        {/* quick links */}
+        <QuickLinks />
+
+        {/* address, phone, email */}
+        <div className="flex flex-1 flex-col gap-3">
+          <p className="flex items-center gap-2 text-[15px]">
+            <FaLocationDot /> Borivali E, Mumbai - 66
+          </p>
+          <p className="flex items-center gap-2 text-[15px]">
+            <FaPhoneAlt /> +91 8355916480
+          </p>
+          <p className="flex items-center gap-2 text-[15px]">
+            <IoMail /> umraniadeven10@gmail.com
+          </p>
+        </div>
+
+        {/* categories tags */}
+        <div className="flex flex-1 flex-col gap-2">
+          <p className="font-medium">Categories</p>
+          <div className="flex flex-wrap gap-x-4 gap-y-3 items-center">
+            {categories.map((category) => (
+              <Link className="px-3 py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius">
+                {category}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-between items-center">
+        <p>&copy; 2024. All rights reserved.</p>
+        <p>
+          Designed by{" "}
+          <Link className="underline" to="#" target="_blank">
+            Deven Umrania
+          </Link>
+        </p>
+      </div>
+    </div>
+  );
+};
 
 export const Footer = () => {
   return (

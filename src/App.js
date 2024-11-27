@@ -6,7 +6,7 @@ import { ToastContainer } from "react-toastify";
 
 // component / pages
 import { Navbar } from "./components/Navbar/Navbar";
-import { Footer } from "./components/Footer/Footer";
+import { Footer, NewFooter } from "./components/Footer/Footer";
 import { Home } from "./pages/Home/Home";
 import { Shop } from "./pages/Shop/Shop";
 import { Cart } from "./pages/Cart/Cart";
@@ -31,6 +31,7 @@ import "./App.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import "swiper/css";
 
 function App() {
   const [abc, setAbc] = useState(true);
@@ -45,7 +46,7 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className="App">
+    <div className="App py-4">
       {abc ? (
         <div className="loading-animation default-bg-color">
           <div className="animation">
@@ -53,7 +54,7 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="default-bg-color">
+        <div className="container">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
@@ -72,7 +73,8 @@ function App() {
               <Route path="/order-summary" element={<OrderSummary />} />
             </Route>
           </Routes>
-          <Footer />
+          {/* <Footer /> */}
+          <NewFooter />
           <ToastContainer />
         </div>
       )}

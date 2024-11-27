@@ -1,131 +1,133 @@
-.profile.container{
-    padding: 0px 0px 25px 0px;
-    min-height: calc(100vh - 67px);
-    width: 100%;
+.profile.container {
+  padding: 0px 0px 25px 0px;
+  min-height: calc(100vh - 67px);
+  width: 100%;
 }
 
-.container h2{
-    margin: 0;
-    text-align: center;
+.container h2 {
+  margin: 0;
+  text-align: center;
 }
 
-.tabs{
-    width: 50%;
-    margin: 10px auto;
+.tabs {
+  width: 50%;
+  margin: 10px auto;
 }
 
 .tabs-heading {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.tabs-heading p{
-    margin: 0;
-    flex: 1;
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Roboto', sans-serif;
-    color: #000;
-    font-weight: 500;
-    border: 1px solid #ccc;
-    cursor: pointer;
+.tabs-heading p {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  color: #000;
+  font-weight: 500;
+  border: 1px solid #ccc;
+  cursor: pointer;
 }
 
-.tabs-content{
-    padding: 15px 25px;
-    border: 1px solid #ccc;
-    border-top: 0;
+.tabs-content {
+  padding: 15px 25px;
+  border: 1px solid #ccc;
+  border-top: 0;
 }
 
-.myprofile{
-    width: 70%;
-    margin: auto;
+.myprofile {
+  width: 70%;
+  margin: auto;
 }
 
-.tab-div p{
-    margin: 5px 0px;
-    font-family: 'Roboto', sans-serif;
-    font-weight: 500;
-    letter-spacing: .6px;
+.tab-div p {
+  margin: 5px 0px;
+  font-family: "Roboto", sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.6px;
 }
 
 .tab-div p span {
-    font-weight: 600;
-    text-decoration: underline;
+  font-weight: 600;
+  text-decoration: underline;
 }
 
-.edit-address, .remove-address, .add-new-address{
-    border: 1px solid #333;
-    border-radius: 5px;
-    background-color: transparent;
-    padding: 5px 10px;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    margin-right: 10px;
+.edit-address,
+.remove-address,
+.add-new-address {
+  border: 1px solid #333;
+  border-radius: var(--block-border);
+  background-color: transparent;
+  padding: 5px 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  margin-right: 10px;
 }
 
-.remove-address{
-    color: #dc3030;
+.remove-address {
+  color: #dc3030;
 }
-.remove-address:hover{
-    border-color: #dc3030;
-}
-
-.edit-address{
-    color: #333;
-}
-.edit-address:hover{
-    border-color: #2cc0fa;
+.remove-address:hover {
+  border-color: #dc3030;
 }
 
-.add-new-address{
-    background-color: #333;
-    color: #fff;
+.edit-address {
+  color: #333;
+}
+.edit-address:hover {
+  border-color: #2cc0fa;
 }
 
-.addresses > p{
-    margin-bottom: 10px;
-    border-bottom: 1px solid #000;
+.add-new-address {
+  background-color: #333;
+  color: #fff;
 }
 
-.added-addresses p{
-    border: 0;
-    margin: 0;
+.addresses > p {
+  margin-bottom: 10px;
+  border-bottom: 1px solid #000;
 }
 
-.address-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    gap: 8px;
+.added-addresses p {
+  border: 0;
+  margin: 0;
 }
 
-.profile-form-group{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
+.address-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  gap: 8px;
 }
 
-.profile-form-group .form-label{
-    margin: 0;
-    flex: 1;
+.profile-form-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
-.profile-form-group input{
-    flex: 2;
-    padding: 3px 8px;
-    border: 1px solid #808080;
-    border-radius: 5px;
-    font-family: 'Poppins', sans-serif;
+.profile-form-group .form-label {
+  margin: 0;
+  flex: 1;
 }
 
-.profile-form-group input:hover{
-    border-color: #04b5fa;
+.profile-form-group input {
+  flex: 2;
+  padding: 3px 8px;
+  border: 1px solid #808080;
+  border-radius: var(--block-border);
+  font-family: "Poppins", sans-serif;
 }
 
-.address-buttons{
-    display: flex;
+.profile-form-group input:hover {
+  border-color: #04b5fa;
+}
+
+.address-buttons {
+  display: flex;
 }

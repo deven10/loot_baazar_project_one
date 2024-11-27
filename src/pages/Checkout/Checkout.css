@@ -1,159 +1,161 @@
-.checkout-page{
-    padding: 0px 0px 25px 0px;
-    min-height: calc(100vh - 67px);
-    width: 100%;
-}
-
-.checkout-addresses{
-    display: flex;
-    background-color: #fff;
-    width: 100%;
-    margin: 0px 0px 15px 0px;
-    border-radius: 5px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-}
-
-.checkout-addresses label{
-    display: flex;
-    gap: 15px;
-    padding: 10px 30px;
-    width: 100%;
-    justify-content: start;
-}
-
-.address-details{
+.checkout-page {
+  padding: 0px 0px 25px 0px;
+  min-height: calc(100vh - 67px);
   width: 100%;
 }
-.address-details p{
-  font-family: 'Roboto', sans-serif;
+
+.checkout-addresses {
+  display: flex;
+  background-color: #fff;
+  width: 100%;
+  margin: 0px 0px 15px 0px;
+  border-radius: var(--block-border);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+}
+
+.checkout-addresses label {
+  display: flex;
+  gap: 15px;
+  padding: 10px 30px;
+  width: 100%;
+  justify-content: start;
+}
+
+.address-details {
+  width: 100%;
+}
+.address-details p {
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 16px;
   width: 100%;
   align-items: start;
 }
 
-.address-radio{
-    height: 18px;
-    width: 18px;
-    margin: auto 0;
+.address-radio {
+  height: 18px;
+  width: 18px;
+  margin: auto 0;
 }
 
-.order-details{
-    text-align: center;
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 2rem 2.5rem;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px, rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+.order-details {
+  text-align: center;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 2rem 2.5rem;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+    rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
 }
 
-.order-details hr{
+.order-details hr {
   margin: 5px 0;
 }
 
-.order-details-heading{
-  font-family: 'Roboto', sans-serif;
+.order-details-heading {
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
 }
 
-.place-order-btn{
-    width: 100%; 
+.place-order-btn {
+  width: 100%;
 }
 
-.order-items{
+.order-items {
   margin: 0;
   padding: 0;
 }
 
-.flex-div{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0px 15px;
-    margin-bottom: 10px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    font-family: 'Roboto', sans-serif;
+.flex-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 15px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: "Roboto", sans-serif;
 }
 
-.checkout.cart-item{
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-    padding: 10px 15px;
-    border-radius: 5px;
+.checkout.cart-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+  padding: 10px 15px;
+  border-radius: var(--block-border);
 }
 
-.cart-item-name{
-    width: 70%;
-    text-align: left;
-    margin: 0;
+.cart-item-name {
+  width: 70%;
+  text-align: left;
+  margin: 0;
 }
 
-.cart-item-name, .cart-item-qty{
+.cart-item-name,
+.cart-item-qty {
   font-size: 15px;
   font-weight: 400;
-  font-family: 'Roboto', sans-serif;
-  letter-spacing: .5px;
+  font-family: "Roboto", sans-serif;
+  letter-spacing: 0.5px;
 }
 
-
-.price-details .checkout-cart{
+.price-details .checkout-cart {
   padding: 0;
 }
 
-.price-details .checkout-cart .checkout-cart-title{
+.price-details .checkout-cart .checkout-cart-title {
   margin: 0;
   padding: 0px 0px 5px 0px;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
 }
 
-.delivery-title{
-  font-family: 'Roboto', sans-serif;
+.delivery-title {
+  font-family: "Roboto", sans-serif;
   font-weight: 600;
   font-size: 1.2rem;
   margin: 0;
   padding: 5px 0px 0px 0px;
 }
 
-.price-details .checkout-group{
+.price-details .checkout-group {
   padding: 5px 15px;
 }
 
-.selected-address{
+.selected-address {
   padding: 5px 0px 30px 0px;
   width: 70%;
   margin: auto;
 }
 
-.selected-address .username{
+.selected-address .username {
   font-weight: 600;
 }
 
-.selected-address p{
-  font-family: 'Roboto', sans-serif;
+.selected-address p {
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 16px;
-  letter-spacing: .5px;
+  letter-spacing: 0.5px;
 }
 
-.address-group{
+.address-group {
   display: flex;
   justify-content: space-between;
   align-items: start;
 }
 
-.address-labels{
+.address-labels {
   flex: 1;
   text-align: left;
   text-decoration: underline;
 }
 
-.address-values{
+.address-values {
   flex: 2;
   text-align: left;
 }

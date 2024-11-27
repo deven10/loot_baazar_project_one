@@ -16,14 +16,7 @@ import { clearCart } from "../../Store/Features/CartSlice";
 // styling
 import "./Navbar.css";
 import "react-tooltip/dist/react-tooltip.css";
-
-const Logo = () => {
-  return (
-    <Link to="/" className="logo">
-      Loot Baazar 🚀
-    </Link>
-  );
-};
+import { Logo } from "../Logo";
 
 const Searchbar = () => {
   const { search, setSearch } = useContext(ContextSearch);
@@ -178,7 +171,7 @@ const Nav = () => {
 
 export const Navbar = () => {
   return (
-    <nav className="nav">
+    <nav className="nav custom-block mb-4 block-border-radius">
       <Logo />
       <Searchbar />
       <Nav />

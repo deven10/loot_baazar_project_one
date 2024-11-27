@@ -6,14 +6,10 @@ import Slider from "react-slick";
 
 import { ContextCategories } from "../../context/CategoriesContext";
 import { fetchCategories } from "../../Store/Features/CategoriesSlice";
-
-// importing images
-import img1 from "../../images/home-img-1.png";
-import img2 from "../../images/home-img-2.png";
-import img4 from "../../images/home-img-4.png";
-import img5 from "../../images/home-img-5.png";
+import CategorySlider from "./CategorySlider";
 
 import "./Home.css";
+import { BannerSlider } from "./BannerSlider";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -21,100 +17,20 @@ export const Home = () => {
   const categoriesState = useSelector((state) => state.categories);
   const { setSelectedCategory } = useContext(ContextCategories);
 
-  const settings = {
-    dots: false,
-    infinite: true,
-    speed: 1000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    arrows: false,
-  };
-
   useEffect(() => {
     dispatch(fetchCategories());
   }, []);
 
-  const bannerImagesData = [
-    { src: img1, alt: "first" },
-    { src: img2, alt: "second" },
-    { src: img4, alt: "third" },
-    { src: img5, alt: "fourth" },
-  ];
-
   return (
     <div className="main default-bg-color">
-      <section className="slider">
-        {/* <div
-          id="carouselExampleControlsNoTouching"
-          className="carousel slide"
-          data-bs-touch="true"
-          data-bs-ride="carousel"
-        >
-          <div className="carousel-inner">
-            {bannerImagesData.map((data) => {
-              return (
-                <div
-                  key={data.alt}
-                  className="carousel-item active"
-                  data-bs-interval="2000"
-                >
-                  <Link to="/shop">
-                    <img
-                      src={data.src}
-                      className="d-block w-100 slider-img"
-                      alt={`Slider ${data.alt}`}
-                      loading="lazy"
-                    />
-                  </Link>
-                </div>
-              );
-            })}
-          </div>
-          <button
-            className="carousel-control-prev"
-            type="button"
-            data-bs-target="#carouselExampleControlsNoTouching"
-            data-bs-slide="prev"
-          >
-            <span
-              className="carousel-control-prev-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Previous</span>
-          </button>
-          <button
-            className="carousel-control-next"
-            type="button"
-            data-bs-target="#carouselExampleControlsNoTouching"
-            data-bs-slide="next"
-          >
-            <span
-              className="carousel-control-next-icon"
-              aria-hidden="true"
-            ></span>
-            <span className="visually-hidden">Next</span>
-          </button>
-        </div> */}
+      <BannerSlider />
 
-        <Slider {...settings}>
-          {bannerImagesData.map((data) => (
-            <div key={data.alt}>
-              <Link to="/shop">
-                <img
-                  src={data.src}
-                  className="d-block w-100 slider-img"
-                  alt={`Slider ${data.alt}`}
-                  loading="lazy"
-                />
-              </Link>
-            </div>
-          ))}
-        </Slider>
-      </section>
       <section className="categories">
-        <h2>Shop by Category</h2>
+        <CategorySlider
+          categoriesState={categoriesState}
+          setSelectedCategory={setSelectedCategory}
+        />
+        {/* <h2>Shop by Category</h2>
         <div className="categories-parent">
           {categoriesState.loading ? (
             <>
@@ -136,11 +52,12 @@ export const Home = () => {
                 >
                   <img src={image} alt={description} loading="lazy" />
                   <p>{categoryName}</p>
+                  
                 </div>
               );
             })
           )}
-        </div>
+        </div> */}
       </section>
     </div>
   );
