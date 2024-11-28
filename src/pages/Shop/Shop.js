@@ -168,7 +168,7 @@ export const Shop = () => {
     <div className="main-shop default-bg-color">
       <div className="container">
         <div className="row">
-          <div className="col-md-3 filters">
+          <div className="col-md-3 filters custom-block">
             <div className="filter-group filters-heading p-styling">
               <p>Filters</p>
               <p>
@@ -324,13 +324,17 @@ export const Shop = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-9 all-products">
-            <h3 className="page-heading">
-              All Products{" "}
-              <span className="products-count">
-                ({productsArray.length} products)
-              </span>
-            </h3>
+          <div className="col-md-9 all-products pr-0">
+            {loading ? null : (
+              <div className="custom-block mb-3 block-border-radius">
+                <h2 className="page-heading">
+                  All Products{" "}
+                  <span className="products-count">
+                    ({productsArray.length})
+                  </span>
+                </h2>
+              </div>
+            )}
             <div className="products">
               {loading ? (
                 <TailSpin
@@ -353,9 +357,15 @@ export const Shop = () => {
                   const { _id, name, image, price, mrp, productRating } =
                     product;
                   return (
-                    <div className="product-item" key={_id}>
+                    <div
+                      className="product-item custom-block block-border-radius flex gap-4"
+                      key={_id}
+                    >
                       <div className="relative-position product-img">
-                        <Link to={`/shop/${_id}`}>
+                        <Link
+                          to={`/shop/${_id}`}
+                          className="w-[250px] h-[250px] block"
+                        >
                           <img
                             className="product-item-image"
                             src={image}
@@ -387,12 +397,12 @@ export const Shop = () => {
                         </span>
                       </div>
                       <div className="product-details">
-                        <p className="product-item-name mb-3">
+                        <p className="product-item-name mb-2">
                           <Link className="product-link" to={`/shop/${_id}`}>
                             {name}
                           </Link>
                         </p>
-                        <p className="product-item-price">
+                        <p className="product-item-price mb-1">
                           <span className="selling-price">
                             <sup>₹</sup>
                             {price}/-
@@ -402,7 +412,7 @@ export const Shop = () => {
                             <span className="line-through">₹{mrp}/- </span>
                           </span>
                         </p>
-                        <p className="product-rating mt-3 mb-4">
+                        <p className="product-rating mb-3">
                           Product Rating: {productRating}{" "}
                           <i className="fa-solid fa-star star-icon"></i>
                         </p>

@@ -50,9 +50,11 @@
 .category {
   border: 1px solid #ccc;
   padding: 0px 0px 6px 0px;
+  /* width: 250px; */
 }
 
 .category img {
+  width: 100%;
   border-top-left-radius: var(--block-border);
   border-top-right-radius: var(--block-border);
 }

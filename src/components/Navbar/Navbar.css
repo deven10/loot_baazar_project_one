@@ -97,11 +97,11 @@
 .cart-items-count,
 .wishlist-items-count {
   position: absolute;
-  background-color: #fff;
+  /* background-color: #ededed; */
   border-radius: 50%;
   color: red;
-  font-size: 16px;
-  font-weight: 800;
+  font-size: 15px;
+  font-weight: 500;
   height: 22px;
   width: 22px;
   display: flex;
@@ -109,4 +109,5 @@
   align-items: center;
   top: -5px;
   right: 8px;
+  font-family: "Roboto", sans-serif;
 }
