@@ -50,7 +50,10 @@ export const NewFooter = () => {
           <p className="font-medium">Categories</p>
           <div className="flex flex-wrap gap-x-4 gap-y-3 items-center">
             {categories.map((category) => (
-              <Link className="px-3 py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius">
+              <Link
+                key={category}
+                className="px-3 py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius"
+              >
                 {category}
               </Link>
             ))}

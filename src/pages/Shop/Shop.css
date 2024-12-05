@@ -39,11 +39,11 @@
   width: 100%;
 }
 
-input#AIO,
+/* input#AIO,
 input#Laptops,
 input#Printers {
   margin-right: 8px;
-}
+} */
 
 input#rating-4,
 input#rating-3,
@@ -80,6 +80,13 @@ input#sortby-high {
 
 .product-item-name {
   font-size: 18px;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-self: stretch;
 }
 
 .product-details p {
@@ -134,6 +141,7 @@ input#sortby-high {
   letter-spacing: 0.6px;
   font-size: 15px;
   text-decoration: none;
+  width: max-content;
 }
 
 .add-to-cart-link {

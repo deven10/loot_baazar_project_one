@@ -164,6 +164,16 @@ export const Shop = () => {
   const filterBySearch = sortByFilter(filterByRating);
   const productsArray = sortBySearch(filterBySearch);
 
+  const categories = [
+    "AIO",
+    "Laptops",
+    "Printers",
+    "Keyboard",
+    "Laptop Bag",
+    "Mobile",
+    "Mouse",
+  ];
+
   return (
     <div className="main-shop default-bg-color">
       <div className="container">
@@ -195,45 +205,25 @@ export const Shop = () => {
             </div>
             <div className="filter-group filters-category p-styling">
               <p>Category</p>
-              <div className="checkbox-group">
-                <label htmlFor="AIO">
-                  <input
-                    type="checkbox"
-                    value="AIO"
-                    onChange={(e) => handleCategory(e)}
-                    checked={category.includes("AIO")}
-                    name="AIO"
-                    id="AIO"
-                  />
-                  ALL IN ONE
-                </label>
-              </div>
-              <div className="checkbox-group">
-                <label htmlFor="Laptops">
-                  <input
-                    type="checkbox"
-                    value="Laptops"
-                    onChange={(e) => handleCategory(e)}
-                    checked={category.includes("Laptops")}
-                    name="Laptops"
-                    id="Laptops"
-                  />
-                  LAPTOPS
-                </label>
-              </div>
-              <div className="checkbox-group">
-                <label htmlFor="Printers">
-                  <input
-                    type="checkbox"
-                    value="Printers"
-                    onChange={(e) => handleCategory(e)}
-                    checked={category.includes("Printers")}
-                    name="Printers"
-                    id="Printers"
-                  />
-                  PRINTERS
-                </label>
-              </div>
+              {categories.map((singleCategory) => (
+                <div className="checkbox-group" key={singleCategory}>
+                  <label
+                    htmlFor={singleCategory}
+                    className="uppercase tracking-wide"
+                  >
+                    <input
+                      type="checkbox"
+                      value={singleCategory}
+                      onChange={(e) => handleCategory(e)}
+                      checked={category.includes(singleCategory)}
+                      name={singleCategory}
+                      id={singleCategory}
+                      className="mr-2"
+                    />
+                    {singleCategory}
+                  </label>
+                </div>
+              ))}
             </div>
             <div className="filter-group p-styling">
               <p>Rating</p>
