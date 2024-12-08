@@ -17,7 +17,6 @@ import {
 
 // lottie files
 import EmptyLoader from "../../lottie-files/empty-loader.json";
-
 import "./Cart.css";
 
 const EmptyCart = () => {
@@ -85,13 +84,11 @@ export const Cart = () => {
               {cartState.cart.length > 0 ? (
                 cartState.cart.map((product) => {
                   const { image, mrp, name, price, qty, _id } = product;
-
                   const discountOnProduct = Math.round(
                     100 - (price / mrp) * 100
                   );
-
                   return (
-                    <div key={_id} className="cart-item">
+                    <div key={_id} className="cart-item custom-block">
                       <div className="cart-item-image">
                         <img src={image} alt={name} />
                       </div>
@@ -163,7 +160,7 @@ export const Cart = () => {
                               })
                             );
                           }}
-                          className="remove-from-cart cart-item-button"
+                          className="remove-from-cart cart-item-button block-border-radius"
                         >
                           Remove from Cart
                         </button>
@@ -182,7 +179,7 @@ export const Cart = () => {
                                 })
                               );
                             }}
-                            className="move-to-wishlist cart-item-button"
+                            className="move-to-wishlist cart-item-button block-border-radius"
                           >
                             Move to Wishlist
                           </button>
@@ -196,7 +193,7 @@ export const Cart = () => {
               )}
             </div>
             {cartState.cart.length > 0 ? (
-              <div className="checkout-cart">
+              <div className="checkout-cart custom-block">
                 <p className="checkout-cart-title">PRICE DETAILS</p>
                 <p className="checkout-cart-price checkout-group">
                   <span> Price ({cartState.cart.length} item)</span>{" "}

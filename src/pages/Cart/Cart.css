@@ -1,14 +1,14 @@
 .cart-container {
   width: 100%;
   padding: 0px 0px 25px 0px;
-  min-height: calc(100vh - 67px);
+  /* min-height: calc(100vh - 67px); */
 }
 
 .cart-main {
   display: flex;
   justify-content: center;
   align-items: start;
-  padding: 0px 50px;
+  /* padding: 0px 50px; */
   column-gap: 15px;
 }
 
@@ -31,8 +31,8 @@
 .cart-items {
   display: flex;
   flex-direction: column;
-  column-gap: 10px;
-  row-gap: 10px;
+  column-gap: 15px;
+  row-gap: 15px;
   flex-wrap: wrap;
   flex: 2;
 }
@@ -69,7 +69,7 @@
 
 .cart-item-name {
   font-size: 16px;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   font-weight: 500;
   margin: 0px 0px 8px 0px;
   padding: 0;
@@ -87,7 +87,7 @@
 .sale-price {
   font-size: 22px;
   font-weight: 600;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   color: #333;
 }
 
@@ -95,7 +95,7 @@
   text-decoration: line-through;
   font-size: 16px;
   font-weight: 400;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   color: #bababa;
 }
 
@@ -103,7 +103,7 @@
   padding: 0;
   margin: 0px 0px 8px 0px;
   font-size: 18px;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   font-weight: bolder;
   color: #9c9c9c;
 }
@@ -120,7 +120,7 @@
 
 .cart-item-label {
   font-size: 14px;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
 }
 
 .update-quantity {
@@ -176,6 +176,8 @@
 
 /* Checkout cart styling */
 .checkout-cart {
+  position: sticky;
+  top: 24px;
   padding: 25px 30px;
   background-color: #fff;
   display: flex;
@@ -187,7 +189,7 @@
 .checkout-cart-title {
   font-size: 18px;
   font-weight: 600;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   border-bottom: 1px solid #bababa;
   padding-bottom: 10px;
   margin: 0px 0px 5px 0px;
@@ -196,7 +198,7 @@
 
 .checkout-group {
   letter-spacing: 0.6px;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   font-size: 16px;
   font-weight: 300;
   display: flex;
@@ -223,7 +225,7 @@
 .checkout-cart-offer {
   letter-spacing: 0.6px;
   margin: 0;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   font-size: 16px;
   padding: 8px 0px;
   font-weight: 500;
@@ -234,7 +236,7 @@
   margin-top: 10px;
   background-color: #3981f6;
   color: #fff;
-  font-family: "Roboto";
+  /* font-family: "Roboto"; */
   font-weight: 500;
   letter-spacing: 0.6px;
   font-size: 14px;

@@ -18,12 +18,19 @@ export const OrderSummary = () => {
 
   const cartState = useSelector((state) => state.cart);
   const [cartData, setCartData] = useState([]);
+  const [animationRunning, setAnimationRunning] = useState(true);
 
   const finalPrice = cartData.reduce(
     (acc, { price, qty }) => acc + price * qty,
     0
   );
   const address = location?.state?.selectedAddress;
+
+  useEffect(() => {
+    setTimeout(() => {
+      setAnimationRunning(false);
+    }, 12000);
+  }, []);
 
   // helper fn to delete cart items from backend server DB...
   const removeFromCart = async (productId) => {
@@ -45,17 +52,22 @@ export const OrderSummary = () => {
   }, []);
 
   return (
-    <div className="container order-summary-page">
+    <div className="container order-summary-page custom-block block-border-radius">
       {cartData.length <= 0 ? (
         <p className="empty-order-summary">
-          Sorry You have not yet purchased anything yet, please{" "}
-          <Link to="/shop">shop now!</Link>
+          Sorry you haven't purchased anything yet, please{" "}
+          <Link to="/shop" className="underline">
+            shop now!
+          </Link>
         </p>
       ) : (
         <>
-          <div className="order-animation">
-            <Lottie loop={false} animationData={orderSummary} />
-          </div>
+          {animationRunning ? (
+            <div className="order-animation">
+              <Lottie loop={false} animationData={orderSummary} />
+            </div>
+          ) : null}
+
           <div className="row">
             <h2 className="page-heading">Order Summary</h2>
             <div className="col-md-12">

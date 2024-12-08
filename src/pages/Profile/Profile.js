@@ -90,17 +90,18 @@ export const Profile = () => {
   return (
     <div className="profile container">
       <h2 className="page-heading">Account</h2>
-      <div className="tabs">
+      <div className="tabs custom-block block-border-radius">
         <div className="tabs-heading">
           <p
             onClick={() => setShowProfile(true)}
-            style={{ fontWeight: showProfile ? "600" : "" }}
+            style={{ fontWeight: showProfile ? "600" : "400" }}
+            className="border-right"
           >
             Profile Details
           </p>
           <p
             onClick={() => setShowProfile(false)}
-            style={{ fontWeight: showProfile ? "" : "600" }}
+            style={{ fontWeight: showProfile ? "400" : "600" }}
           >
             Manage Address
           </p>
@@ -110,12 +111,12 @@ export const Profile = () => {
             <div className="myprofile">
               <div className="tab-div">
                 <p>
-                  <span>Firstname:</span> {user?.firstName}
+                  <span>First Name:</span> {user?.firstName}
                 </p>
               </div>
               <div className="tab-div">
                 <p>
-                  <span>Lastname:</span> {user?.lastName}
+                  <span>Last Name:</span> {user?.lastName}
                 </p>
               </div>
               <div className="tab-div">
@@ -129,8 +130,8 @@ export const Profile = () => {
               <p>Addresses added</p>
               {addresses.map((address) => {
                 return (
-                  <div key={address.id}>
-                    <div className="added-addresses mb-3">
+                  <div key={address.id} className="mb-3">
+                    <div className="added-addresses mb-2">
                       <p>{`${user?.firstName} ${user?.lastName}`}</p>
                       <p>{address?.addressOne}</p>
                       <p>{address?.addressTwo}</p>
@@ -139,7 +140,7 @@ export const Profile = () => {
                         {address?.state} - {address?.pincode}
                       </p>
                     </div>
-                    <div className="address-buttons">
+                    <div className="address-buttons mb-2">
                       <EditAddressModal addressData={address} />
                       <button
                         className="remove-address"

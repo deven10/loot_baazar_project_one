@@ -68,7 +68,6 @@ export const Wishlist = () => {
       ) : wishlistState.wishlist?.length > 0 ? (
         <div className="wishlist-items">
           {wishlistState.wishlist?.map((product) => {
-            console.log("prod: ", product);
             const { name, image, price, _id, mrp } = product;
             return (
               <div

@@ -1,41 +1,45 @@
 .order-summary-page {
-  padding: 0px 0px 25px 0px;
-  min-height: calc(100vh - 67px);
+  /* padding: 0px 0px 25px 0px; */
+  min-height: calc(55vh - 67px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: start;
+  margin-bottom: 25px;
 }
 
 .order-animation {
+  height: 100vh;
   position: absolute;
+  top: 0;
+  overflow: hidden;
 }
 
 .order-summary {
-  background-color: #ededed;
+  /* background-color: #ededed; */
   width: 100%;
   margin: auto;
-  border-radius: 10px;
+  /* border-radius: 10px; */
   padding: 25px 50px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  /* box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px; */
 }
 
 .thankyou-note {
   text-align: center;
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
   font-size: 20px;
   letter-spacing: 0.5px;
 }
 
 .order-item {
-  background-color: #f7f7f7;
-  margin: 15px 0px;
+  /* background-color: #f7f7f7; */
+  /* margin: 15px 0px; */
   display: flex;
-  border-radius: var(--block-border);
+  /* border-radius: var(--block-border); */
   gap: 25px;
-  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-  padding: 15px 30px;
-  font-family: "Roboto", sans-serif;
+  /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
+  padding: 10px 30px;
+  /* font-family: "Roboto", sans-serif; */
 }
 
 .order-item img {
@@ -45,7 +49,9 @@
 .order-item-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  gap: 6px;
+  justify-content: center;
+  /* justify-content: space-around; */
 }
 
 .order-item-name {
@@ -108,6 +114,6 @@
 .empty-order-summary {
   font-size: 24px;
   font-weight: 500;
-  font-family: "Roboto", sans-serif;
-  margin-top: 30px;
+  margin: 25px 0px;
+  align-self: center;
 }

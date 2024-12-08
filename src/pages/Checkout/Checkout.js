@@ -64,7 +64,7 @@ export const Checkout = () => {
               const { addressOne, addressTwo, id, pincode, state, street } =
                 address;
               return (
-                <div key={id} className="checkout-addresses">
+                <div key={id} className="checkout-addresses custom-block">
                   <label htmlFor={`radio-${id}`}>
                     <input
                       type="radio"
@@ -89,14 +89,14 @@ export const Checkout = () => {
               onClick={() => {
                 navigate("/profile", { state: { address: true } });
               }}
-              className="add-new-address mt-3 w-100"
+              className="add-new-address w-100"
             >
               Manage Address
             </button>
           </div>
         </div>
         <div className="col-md-8 col-sm-12">
-          <div className="order-details">
+          <div className="order-details custom-block">
             <hr />
             <p className="order-details-heading">Order Details</p>
             <hr />
@@ -105,7 +105,7 @@ export const Checkout = () => {
                 <div>
                   <div className="flex-div">
                     <p>Item</p>
-                    <p>QTY</p>
+                    <p>Qty</p>
                   </div>
                   <div className="items-in-cart">
                     {cartState.cart?.map((item) => {
@@ -125,7 +125,7 @@ export const Checkout = () => {
             <hr />
             <div className="price-details">
               <div className="checkout-cart">
-                <p className="checkout-cart-title">PRICE DETAILS</p>
+                <p className="checkout-cart-title">Price Details</p>
                 <p className="checkout-cart-price checkout-group">
                   <span> Price ({cartState.cart?.length} item)</span>{" "}
                   <span>₹{checkoutPrice.mrpPrice}</span>
@@ -146,6 +146,22 @@ export const Checkout = () => {
             <hr />
             <div className="selected-address">
               {selectedAddress.addressOne ? (
+                <>
+                  <p className="username text-left mb-1">
+                    Ship to: {user.firstName} {user.lastName}
+                  </p>
+                  <p className="text-left">
+                    Address: {selectedAddress?.addressOne},{" "}
+                    {selectedAddress?.addressTwo}, {selectedAddress?.street},
+                    {selectedAddress?.state}, {selectedAddress?.pincode}
+                  </p>
+                </>
+              ) : addresses.length > 0 ? (
+                <p>No address selected</p>
+              ) : (
+                <p>Please add delivery address</p>
+              )}
+              {/* {selectedAddress.addressOne ? (
                 <p className="address-group username">
                   <span className="address-labels">Username:</span>{" "}
                   <span className="address-values">
@@ -206,7 +222,7 @@ export const Checkout = () => {
                 </p>
               ) : (
                 ""
-              )}
+              )} */}
             </div>
             <button
               className="button-85 mt-3 place-order-btn"
