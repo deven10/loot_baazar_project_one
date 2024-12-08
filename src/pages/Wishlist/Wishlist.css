@@ -1,97 +1,117 @@
-.main-wishlist-page{
-    width: 100%;
-    min-height: calc(100vh - 67px);
-    padding: 0px 0px 25px 0px;
+.main-wishlist-page {
+  width: 100%;
+  min-height: calc(100vh - 67px);
+  padding: 0px 0px 25px 0px;
 }
 
-.page-heading{
-    margin: 0;
-    padding: 15px 0px;
-    text-align: center;
+.page-heading {
+  margin: 0;
+  padding: 15px 0px;
+  text-align: center;
 }
 
-.empty-wishlist{
-    width: 50%;
-    margin: auto;
-    text-align: center;
+.empty-wishlist {
+  width: 50%;
+  margin: auto;
+  text-align: center;
 }
 
-.wishlist-items{
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    row-gap: 25px;
-    padding: 0px 50px;
-    justify-items: center;
+.wishlist-items {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 25px;
+  column-gap: 25px;
+  padding: 0px 50px;
+  justify-content: center;
 }
 
-.wishlist-item{
-    width: 350px;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.wishlist-item {
+  width: 350px;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.wishlist-item-img{
-    width: 100%;
-    height: 250px;
+.wishlist-item-img {
+  width: 250px;
+  height: 250px;
+  justify-self: center;
 }
 
-.wishlist-item-name{
-    font-family: 'Roboto';
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-    margin: 0;
-    padding: 15px 10px;
-    letter-spacing: .5px;
+.wishlist-item-name {
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  margin: 0;
+  padding: 15px 10px;
+  letter-spacing: 0.5px;
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  height: 5em; /* Fallback for non-webkit, line-height * 2 */
+  line-height: 1.3em;
+  -webkit-line-clamp: 3; /* if you change this, make sure to change the fallback line-height and height */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.wishlist-item-price{
-    padding: 5px 0px;
-    margin: 0;
-    font-family: 'Poppins', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    text-align: center;
+.wishlist-item-price {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+.wishlist-item-mrp {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  color: #686868;
+  text-decoration: line-through;
 }
 
-.add-to-cart-button{
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px 0px;
-    border: 0;
-    background-color: #888888;
-    cursor: pointer;
-    font-family: 'Poppins', sans-serif;
-    font-size: 14px;
-    color: #fff;
-    font-weight: 600;
+.wishlist-cart-button,
+.wishlist-cart-link {
+  width: 100%;
+  padding: 10px 0px;
+  background-color: #7db133;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  font-weight: 600;
+  border-bottom-left-radius: var(--block-border);
+  border-bottom-right-radius: var(--block-border);
+}
+.wishlist-cart-link {
+  background-color: #252525;
 }
 
-.relative-position{
-    position: relative;
+.relative-position {
+  position: relative;
 }
 
-.like-icon{
-    position: absolute;
-    z-index: 2;
-    top: 10px;
-    right: 10px;
-    background-color: #fff;
-    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
-    border-radius: 50%;
-    cursor: pointer;
+.like-icon {
+  position: absolute;
+  z-index: 2;
+  top: 10px;
+  right: 10px;
+  background-color: #fff;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px,
+    rgba(17, 17, 26, 0.05) 0px 8px 32px;
+  border-radius: 50%;
+  cursor: pointer;
 }
 
-.heart{
-    font-size: 18px;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.heart {
+  font-size: 18px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.color-red{
-    color:red;
+.color-red {
+  color: red;
 }

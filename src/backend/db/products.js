@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-
 import laptop1 from "../../images/Products/laptops/laptop-1/1.jpg";
 import laptop1_2 from "../../images/Products/laptops/laptop-1/2.jpg";
 import laptop1_3 from "../../images/Products/laptops/laptop-1/3.jpg";
@@ -11,15 +9,23 @@ import laptop2_3 from "../../images/Products/laptops/laptop-2/laptop-2-3.jpg";
 import laptop2_4 from "../../images/Products/laptops/laptop-2/laptop-2-4.jpg";
 
 import laptop3 from "../../images/Products/laptops/laptop-3/laptop-3.jpg";
+import laptop3_2 from "../../images/Products/laptops/laptop-3/2.jpg";
+import laptop3_3 from "../../images/Products/laptops/laptop-3/3.jpg";
+import laptop3_4 from "../../images/Products/laptops/laptop-3/4.jpg";
+
 import laptop4 from "../../images/Products/laptops/laptop-4/laptop-4.jpg";
+import laptop4_2 from "../../images/Products/laptops/laptop-4/2.jpg";
+import laptop4_3 from "../../images/Products/laptops/laptop-4/3.jpg";
+import laptop4_4 from "../../images/Products/laptops/laptop-4/4.jpg";
 
 import printer1 from "../../images/Products/printers/1/1.jpg";
 import printer1_2 from "../../images/Products/printers/1/2.jpg";
 import printer1_3 from "../../images/Products/printers/1/3.jpg";
 import printer1_4 from "../../images/Products/printers/1/4.jpg";
 
-import printer3 from "../../images/Products/printers/printer-3.jpg";
-import printer4 from "../../images/Products/printers/printer-4.jpg";
+import printer3 from "../../images/Products/printers/3/printer-3.jpg";
+import printer3_2 from "../../images/Products/printers/3/2.jpg";
+import printer3_3 from "../../images/Products/printers/3/3.jpg";
 
 import aio1 from "../../images/Products/aio/1/1.jpg";
 import aio1_2 from "../../images/Products/aio/1/2.jpg";
@@ -35,25 +41,69 @@ import aio3_2 from "../../images/Products/aio/3/2.jpg";
 import aio3_3 from "../../images/Products/aio/3/3.jpg";
 import aio3_4 from "../../images/Products/aio/3/4.jpg";
 
-import aio4 from "../../images/Products/aio/aio-4.jpg";
-
 import keyboard1 from "../../images/Products/keyboard/keyboard-1/1.jpg";
-import keyboard2 from "../../images/Products/keyboard/keyboard-1/2.jpg";
-import keyboard3 from "../../images/Products/keyboard/keyboard-1/3.jpg";
+import keyboard1_2 from "../../images/Products/keyboard/keyboard-1/2.jpg";
+import keyboard1_3 from "../../images/Products/keyboard/keyboard-1/3.jpg";
 
-import laptopBag1 from "../../images/Products/laptop-bag/1.jpg";
-import laptopBag2 from "../../images/Products/laptop-bag/2.jpg";
-import laptopBag3 from "../../images/Products/laptop-bag/3.jpg";
+import keyboard2 from "../../images/Products/keyboard/2/1.jpg";
+import keyboard2_2 from "../../images/Products/keyboard/2/2.jpg";
+import keyboard2_3 from "../../images/Products/keyboard/2/3.jpg";
+import keyboard2_4 from "../../images/Products/keyboard/2/4.jpg";
+import keyboard2_5 from "../../images/Products/keyboard/2/5.jpg";
 
-import mobile1 from "../../images/Products/mobile/1.jpg";
-import mobile2 from "../../images/Products/mobile/2.jpg";
-import mobile3 from "../../images/Products/mobile/3.jpg";
-import mobile4 from "../../images/Products/mobile/4.jpg";
+import keyboard3 from "../../images/Products/keyboard/3/1.jpg";
+import keyboard3_2 from "../../images/Products/keyboard/3/2.jpg";
+import keyboard3_3 from "../../images/Products/keyboard/3/3.jpg";
+import keyboard3_4 from "../../images/Products/keyboard/3/4.jpg";
 
-import mouse1 from "../../images/Products/mouse/1.jpg";
-import mouse2 from "../../images/Products/mouse/2.jpg";
-import mouse3 from "../../images/Products/mouse/3.jpg";
-import mouse4 from "../../images/Products/mouse/4.jpg";
+import laptopBag1 from "../../images/Products/laptop-bag/1/1.jpg";
+import laptopBag1_2 from "../../images/Products/laptop-bag/1/2.jpg";
+import laptopBag1_3 from "../../images/Products/laptop-bag/1/3.jpg";
+import laptopBag1_4 from "../../images/Products/laptop-bag/1/4.jpg";
+
+import laptopBag2 from "../../images/Products/laptop-bag/2/1.jpg";
+import laptopBag2_2 from "../../images/Products/laptop-bag/2/2.jpg";
+import laptopBag2_3 from "../../images/Products/laptop-bag/2/3.jpg";
+
+import laptopBag3 from "../../images/Products/laptop-bag/3/1.jpg";
+import laptopBag3_2 from "../../images/Products/laptop-bag/3/2.jpg";
+
+import mobile1 from "../../images/Products/mobile/1/1.jpg";
+import mobile1_2 from "../../images/Products/mobile/1/2.jpg";
+import mobile1_3 from "../../images/Products/mobile/1/3.jpg";
+
+import mobile2 from "../../images/Products/mobile/2/1.jpg";
+import mobile2_2 from "../../images/Products/mobile/2/2.jpg";
+import mobile2_3 from "../../images/Products/mobile/2/3.jpg";
+
+import mobile3 from "../../images/Products/mobile/3/1.jpg";
+import mobile3_2 from "../../images/Products/mobile/3/2.jpg";
+import mobile3_3 from "../../images/Products/mobile/3/3.jpg";
+import mobile3_4 from "../../images/Products/mobile/3/4.jpg";
+
+import mobile4 from "../../images/Products/mobile/4/1.jpg";
+import mobile4_2 from "../../images/Products/mobile/4/2.jpg";
+import mobile4_3 from "../../images/Products/mobile/4/3.jpg";
+
+import mouse1 from "../../images/Products/mouse/1/1.jpg";
+import mouse1_2 from "../../images/Products/mouse/1/2.jpg";
+import mouse1_3 from "../../images/Products/mouse/1/3.jpg";
+import mouse1_4 from "../../images/Products/mouse/1/4.jpg";
+
+import mouse2 from "../../images/Products/mouse/2/1.jpg";
+import mouse2_2 from "../../images/Products/mouse/2/2.jpg";
+import mouse2_3 from "../../images/Products/mouse/2/3.jpg";
+import mouse2_4 from "../../images/Products/mouse/2/4.jpg";
+
+import mouse3 from "../../images/Products/mouse/3/1.jpg";
+import mouse3_2 from "../../images/Products/mouse/3/2.jpg";
+import mouse3_3 from "../../images/Products/mouse/3/3.jpg";
+import mouse3_4 from "../../images/Products/mouse/3/4.jpg";
+
+import mouse4 from "../../images/Products/mouse/4/1.jpg";
+import mouse4_2 from "../../images/Products/mouse/4/2.jpg";
+import mouse4_3 from "../../images/Products/mouse/4/3.jpg";
+import mouse4_4 from "../../images/Products/mouse/4/4.jpg";
 
 export const products = [
   {
@@ -68,7 +118,7 @@ export const products = [
     inCart: false,
     inWishlist: false,
     images: [laptop1, laptop1_2, laptop1_3, laptop1_4],
-    description: `The Lenovo Yoga 6 is a powerful 2-in-1 laptop featuring an AMD Ryzen 7 5700U processor, 16GB RAM, and a 512GB SSD. With a stunning 13.3" FHD+ IPS touchscreen, backlit keyboard, and advanced security features like fingerprint recognition, this device is designed for the modern professional. Weighing just 1.37 kg and offering up to 17 hours of battery life, it's perfect for those who need performance and portability. Weighing just 1.37 kg and offering up to 17 hours of battery life, it's perfect for those who need performance and portability. Weighing just 1.37 kg and offering up to 17 hours of battery life, it's perfect for those who need performance and portability.`,
+    description: `The Lenovo Yoga 6 is a powerful 2-in-1 laptop featuring an AMD Ryzen 7 5700U processor, 16GB RAM, and a 512GB SSD. With a stunning 13.3" FHD+ IPS touchscreen, backlit keyboard, and advanced security features like fingerprint recognition, this device is designed for the modern professional. Weighing just 1.37 kg and offering up to 17 hours of battery life, it's perfect for those who need performance and portability.`,
   },
   {
     _id: 438840970,
@@ -151,6 +201,7 @@ export const products = [
     productRating: 2,
     inCart: false,
     inWishlist: false,
+    images: [printer3, printer3_2, printer3_3],
     description: `If you want an A3+ photo printer that emphasises photo quality, powerful performance and affordability, then the L8180 is an outstanding choice. There is no limit to creativity for photography enthusiasts and professional photo studios with the enhanced quality of prints produced by its 6-colour inks. The sleek and stylish design of the printer packs a high-capacity, integrated ink tank system that delivers a high page yield, along with ultra-low running costs.`,
   },
   {
@@ -164,6 +215,7 @@ export const products = [
     productRating: 5,
     inCart: false,
     inWishlist: false,
+    images: [laptop3, laptop3_2, laptop3_3, laptop3_4],
     description: `The ASUS ROG Flow Z13 (2022) is a sleek 2-in-1 gaming laptop featuring a 13.4" FHD+ 120Hz touchscreen, powered by a 12th Gen Intel Core i5 processor. With 16GB RAM, a 512GB SSD, and integrated graphics, it offers versatility for gaming and productivity, all in a lightweight 1.12 kg design.`,
   },
   {
@@ -177,6 +229,7 @@ export const products = [
     productRating: 4,
     inCart: false,
     inWishlist: false,
+    images: [laptop4, laptop4_2, laptop4_3, laptop4_4],
     description: `The MSI Raider GE78HX is a powerhouse gaming laptop with a 13th Gen Intel i9-13980HX processor and Nvidia GeForce RTX 4090 GPU. Featuring a stunning 43CM QHD+ 240Hz display, 64GB RAM, and 2TB NVMe SSD, it delivers exceptional performance for gamers and creators, housed in a bold 3.1 kg design.`,
   },
   {
@@ -189,6 +242,7 @@ export const products = [
     categoryName: "Keyboard",
     productRating: 3,
     inCart: false,
+    images: [keyboard1, keyboard1_2, keyboard1_3],
     inWishlist: false,
     description: `The HP GK400F Mechanical USB Gaming Keyboard is built for durability with a dust and spill-resistant design and a robust metal panel. Featuring RGB backlit keys and a full-sized layout, it combines style and functionality for an enhanced gaming experience.`,
   },
@@ -197,6 +251,7 @@ export const products = [
     name: `ASUS Marshmallow Kw100 Keyboard, Supports Up to 3 Devices, 1.6Mm Key Travel, Scissor Keys, Compact & Lightweight Keyboard, Bluetooth (Color - Oat Milk)`,
     liked: false,
     image: keyboard2,
+    images: [keyboard2, keyboard2_2, keyboard2_3, keyboard2_4, keyboard2_5],
     price: 2499,
     mrp: 3999,
     categoryName: "Keyboard",
@@ -211,6 +266,7 @@ export const products = [
     liked: false,
     image: keyboard3,
     price: 899,
+    images: [keyboard3, keyboard3_2, keyboard3_3, keyboard3_4],
     mrp: 1999,
     categoryName: "Keyboard",
     productRating: 5,
@@ -224,6 +280,7 @@ export const products = [
     liked: false,
     image: laptopBag1,
     price: 1299,
+    images: [laptopBag1, laptopBag1_2, laptopBag1_3, laptopBag1_4],
     mrp: 2499,
     categoryName: "Laptop Bag",
     productRating: 5,
@@ -236,6 +293,7 @@ export const products = [
     name: `American Tourister Valex 28 Ltrs Large Laptop Backpack`,
     liked: false,
     image: laptopBag2,
+    images: [laptopBag2, laptopBag2_2, laptopBag2_3],
     price: 1299,
     mrp: 1999,
     categoryName: "Laptop Bag",
@@ -250,6 +308,7 @@ export const products = [
     liked: false,
     image: laptopBag3,
     price: 999,
+    images: [laptopBag3, laptopBag3_2],
     mrp: 1499,
     categoryName: "Laptop Bag",
     productRating: 2,
@@ -262,6 +321,7 @@ export const products = [
     name: `iPhone 16 Pro Max 1 TB: 5G Mobile Phone with Camera Control, 4K 120 fps Dolby Vision and a Huge Leap in Battery Life. Works with AirPods; Black Titanium`,
     liked: false,
     image: mobile1,
+    images: [mobile1, mobile1_2, mobile1_3],
     price: 184999,
     mrp: 245999,
     categoryName: "Mobile",
@@ -275,6 +335,7 @@ export const products = [
     name: `Samsung Galaxy S24 Ultra 5G AI Smartphone (Titanium Gray, 12GB, 512GB Storage)`,
     liked: false,
     image: mobile2,
+    images: [mobile2, mobile2_2, mobile2_3],
     price: 131999,
     mrp: 175999,
     categoryName: "Mobile",
@@ -288,6 +349,7 @@ export const products = [
     name: `Samsung Galaxy Z Flip6 5G AI Smartphone (Mint, 12GB RAM, 512GB Storage)`,
     liked: false,
     image: mobile3,
+    images: [mobile3, mobile3_2, mobile3_3, mobile3_4],
     price: 121999,
     mrp: 149999,
     categoryName: "Mobile",
@@ -301,6 +363,7 @@ export const products = [
     name: `iPhone 16 256 GB: 5G Mobile Phone with Camera Control, A18 Chip and a Big Boost in Battery Life. Works with AirPods; White`,
     liked: false,
     image: mobile4,
+    images: [mobile4, mobile4_2, mobile4_3],
     price: 86999,
     mrp: 129999,
     categoryName: "Mobile",
@@ -314,6 +377,7 @@ export const products = [
     name: `Arctic Fox Pureview Transparent Wireless and Bluetooth Rechargeable Mouse, USB Receiver,LED Battery Magic Silm for Office/PC/Mac/Laptop/Apple/ipad(Space Gray)`,
     liked: false,
     image: mouse1,
+    images: [mouse1, mouse1_2, mouse1_3, mouse1_4],
     price: 699,
     mrp: 1499,
     categoryName: "Mouse",
@@ -327,6 +391,7 @@ export const products = [
     name: `Lenovo 300 Wired Plug & Play USB Mouse, High Resolution 1600 DPI Optical Sensor, 3-Button Design with clickable Scroll Wheel, Ambidextrous, Ergonomic Mouse for Comfortable All-Day Grip (GX30M39704)`,
     liked: false,
     image: mouse2,
+    images: [mouse2, mouse2_2, mouse2_3, mouse2_4],
     price: 299,
     mrp: 899,
     categoryName: "Mouse",
@@ -340,6 +405,7 @@ export const products = [
     name: `Portronics Toad One Bluetooth Mouse with 2.4 GHz & BT 5.3 Dual Wireless, 6 Buttons, Rechargeable, RGB Lights, Connect 3 Devices, Ergonomic Design for Laptop, Smartphone, Tablet (Black)`,
     liked: false,
     image: mouse3,
+    images: [mouse3, mouse3_2, mouse3_3, mouse3_4],
     price: 599,
     mrp: 1499,
     categoryName: "Mouse",
@@ -359,6 +425,7 @@ export const products = [
     productRating: 4,
     inCart: false,
     inWishlist: false,
+    images: [mouse4, mouse4_2, mouse4_3, mouse4_4],
     description: `The EvoFox Spectre USB Wired Gaming Mouse delivers precision and durability with its 3600 DPI gaming sensor and 6-button design. Featuring a striking 7-color rainbow lighting with a breathing effect, up to 7 million clicks lifespan, and a 1.5m braided cable, it’s a perfect blend of style and performance for gamers.`,
   },
 ];

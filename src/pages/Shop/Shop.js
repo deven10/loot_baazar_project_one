@@ -18,6 +18,7 @@ import {
 
 // styling
 import "./Shop.css";
+import { categories } from "../../utility/utils";
 
 export const Shop = () => {
   const { search } = useContext(ContextSearch);
@@ -163,16 +164,6 @@ export const Shop = () => {
   const filterByRating = ratingFilter(filterByCategory);
   const filterBySearch = sortByFilter(filterByRating);
   const productsArray = sortBySearch(filterBySearch);
-
-  const categories = [
-    "AIO",
-    "Laptops",
-    "Printers",
-    "Keyboard",
-    "Laptop Bag",
-    "Mobile",
-    "Mouse",
-  ];
 
   return (
     <div className="main-shop default-bg-color">

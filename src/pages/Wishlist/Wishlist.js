@@ -49,28 +49,32 @@ export const Wishlist = () => {
       <h2 className="page-heading">
         My Wishlist ({wishlistState.wishlist?.length})
       </h2>
-      <div className="wishlist-items">
-        {wishlistState.loading ? (
-          <TailSpin
-            height="50"
-            width="50"
-            color="#333"
-            ariaLabel="tail-spin-loading"
-            radius="1"
-            wrapperStyle={{
-              height: "15vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            wrapperClass="loader"
-            visible={true}
-          />
-        ) : wishlistState.wishlist?.length > 0 ? (
-          wishlistState.wishlist?.map((product) => {
-            const { name, image, price, _id } = product;
+      {wishlistState.loading ? (
+        <TailSpin
+          height="50"
+          width="50"
+          color="#333"
+          ariaLabel="tail-spin-loading"
+          radius="1"
+          wrapperStyle={{
+            height: "15vh",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+          wrapperClass="loader"
+          visible={true}
+        />
+      ) : wishlistState.wishlist?.length > 0 ? (
+        <div className="wishlist-items">
+          {wishlistState.wishlist?.map((product) => {
+            console.log("prod: ", product);
+            const { name, image, price, _id, mrp } = product;
             return (
-              <div className="wishlist-item" key={_id}>
+              <div
+                className="wishlist-item flex flex-wrap gap-2 custom-block block-border-radius"
+                key={_id}
+              >
                 <div className="wrapper">
                   <div className="relative-position">
                     <span className="like-icon">
@@ -101,16 +105,33 @@ export const Wishlist = () => {
 
                   <div className="paragraphs">
                     <p className="wishlist-item-name">{name}</p>
-                    <p className="wishlist-item-price">₹ {price}/-</p>
+                    {/* <div className="flex gap-3 mt-2 mb-2 justify-center items-center">
+                      <p className="wishlist-item-price">
+                        <sup>₹</sup> {price}/-
+                      </p>
+                      <p className="wishlist-item-mrp">
+                        <span>M.R.P</span> ₹ {mrp}/-
+                      </p>
+                    </div> */}
+                    <p className="flex gap-2 justify-center items-center py-2">
+                      <span className="selling-price">
+                        <sup>₹</sup>
+                        {price}/-
+                      </span>
+                      <span className="mrp-price">
+                        <span>M.R.P</span>
+                        <span className="line-through">₹{mrp}/- </span>
+                      </span>
+                    </p>
                   </div>
                 </div>
                 {cartState.cart?.find((product) => product._id === _id) ? (
-                  <Link className="add-to-cart-link" to="/cart">
+                  <Link className="wishlist-cart-link" to="/cart">
                     Go to Cart
                   </Link>
                 ) : (
                   <button
-                    className="add-to-cart-button"
+                    className="wishlist-cart-button"
                     onClick={() => {
                       dispatch(
                         addToCart({
@@ -125,11 +146,11 @@ export const Wishlist = () => {
                 )}
               </div>
             );
-          })
-        ) : (
-          <EmptyWishlist />
-        )}
-      </div>
+          })}
+        </div>
+      ) : (
+        <EmptyWishlist />
+      )}
     </div>
   );
 };

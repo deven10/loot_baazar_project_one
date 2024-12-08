@@ -97,10 +97,10 @@
 .cart-items-count,
 .wishlist-items-count {
   position: absolute;
-  /* background-color: #ededed; */
+  background-color: #ededed;
   border-radius: 50%;
   color: red;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: 500;
   height: 22px;
   width: 22px;

@@ -48,7 +48,6 @@ export const addToWishlist = createAsyncThunk(
           authorization: `${data.token}`,
         },
       });
-
       if (result.status === 201) {
         ReactToastify("Product Added to Wishlist", "success");
         return result.data.wishlist;

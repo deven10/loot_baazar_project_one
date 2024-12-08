@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 import { Logo } from "../Logo";
 import { Socials } from "./Socials";
@@ -9,17 +9,14 @@ import { FaPhoneAlt } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 
 import "./Footer.css";
+import { ContextCategories } from "../../context/CategoriesContext";
+import { categories } from "../../utility/utils";
 
 export const NewFooter = () => {
-  const categories = [
-    "Laptops",
-    "AIO",
-    "Printers",
-    "Keyboard",
-    "Laptop Bag",
-    "Mobile",
-    "Mouse",
-  ];
+  const { setSelectedCategory } = useContext(ContextCategories);
+  const navigate = useNavigate();
+  const currentYear = new Date().getFullYear();
+
   return (
     <div className="custom-block block-border-radius new-footer flex flex-col">
       <div className="flex justify-between items-center mb-3">
@@ -50,21 +47,29 @@ export const NewFooter = () => {
           <p className="font-medium">Categories</p>
           <div className="flex flex-wrap gap-x-4 gap-y-3 items-center">
             {categories.map((category) => (
-              <Link
+              <span
                 key={category}
-                className="px-3 py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius"
+                onClick={() => {
+                  navigate("/shop", { state: { location: "Home" } });
+                  setSelectedCategory(() => category);
+                }}
+                className="px-3 cursor-pointer py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius"
               >
                 {category}
-              </Link>
+              </span>
             ))}
           </div>
         </div>
       </div>
       <div className="flex justify-between items-center">
-        <p>&copy; 2024. All rights reserved.</p>
+        <p>&copy; {currentYear}. All rights reserved.</p>
         <p>
           Designed by{" "}
-          <Link className="underline" to="#" target="_blank">
+          <Link
+            className="underline"
+            to="https://deven-portfolio.netlify.app/"
+            target="_blank"
+          >
             Deven Umrania
           </Link>
         </p>
