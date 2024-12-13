@@ -41,3 +41,8 @@
 p {
   margin: 0;
 }
+
+.main-content {
+  margin: auto;
+  width: 75%;
+}

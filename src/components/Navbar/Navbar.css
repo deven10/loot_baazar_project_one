@@ -8,6 +8,7 @@
   align-items: center;
   background-color: #ebebf1;
   padding: 10px 50px;
+  margin-bottom: 16px;
 }
 /* End Main Navbar */
 
@@ -86,12 +87,14 @@
 .searchbar {
   text-overflow: ellipsis;
   padding: 8px 12px;
-  width: 30%;
+  /* width: 30%; */
   border-radius: var(--block-border);
   border: 1px solid rgba(0, 0, 0, 0.2);
   color: #111;
   font-size: 16px;
-  font-family: "Poppins";
+}
+.mobile .searchbar {
+  display: none;
 }
 
 .cart-items-count,

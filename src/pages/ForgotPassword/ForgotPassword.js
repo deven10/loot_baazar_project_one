@@ -11,7 +11,7 @@ export const ForgotPassword = () => {
           <p>User: Bhai mera password yaad hai 😢?</p>
         </div>
         <div className="reply">
-          <p>Reply: </p>
+          <p>Admin: </p>
           <img src={memeImage} alt="Mereko kya malum bhai" />
         </div>
       </div>

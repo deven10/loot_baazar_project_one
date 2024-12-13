@@ -19,18 +19,18 @@ export const NewFooter = () => {
 
   return (
     <div className="custom-block block-border-radius new-footer flex flex-col">
-      <div className="flex justify-between items-center mb-3">
+      <div className="flex justify-between items-center mb-3 footer-logo-and-socials">
         {/* logo */}
         <Logo />
         {/* social links */}
         <Socials />
       </div>
-      <div className="flex justify-between items-center mb-5">
+      <div className="flex justify-between items-start mb-4 quick-links-and-categories-links">
         {/* quick links */}
         <QuickLinks />
 
         {/* address, phone, email */}
-        <div className="flex flex-1 flex-col gap-3">
+        <div className="flex flex-1 flex-col gap-3 contact-details">
           <p className="flex items-center gap-2 text-[15px]">
             <FaLocationDot /> Borivali E, Mumbai - 66
           </p>
@@ -43,7 +43,7 @@ export const NewFooter = () => {
         </div>
 
         {/* categories tags */}
-        <div className="flex flex-1 flex-col gap-2">
+        <div className="flex flex-1 flex-col gap-2 categories-tags">
           <p className="font-medium">Categories</p>
           <div className="flex flex-wrap gap-x-4 gap-y-3 items-center">
             {categories.map((category) => (
@@ -61,7 +61,7 @@ export const NewFooter = () => {
           </div>
         </div>
       </div>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center flex-wrap gap-x-3 gap-y-2 copyrights">
         <p>&copy; {currentYear}. All rights reserved.</p>
         <p>
           Designed by{" "}

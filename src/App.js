@@ -28,6 +28,7 @@ import { IfLoggedIn } from "./components/PrivateRoutes/IfLoggedIn";
 
 // styling
 import "./App.css";
+import "./stylesheet/responsive.css";
 import "react-loading-skeleton/dist/skeleton.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -46,7 +47,7 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <div className="App py-4">
+    <div className="App p-4">
       {abc ? (
         <div className="loading-animation default-bg-color">
           <div className="animation">
@@ -54,7 +55,7 @@ function App() {
           </div>
         </div>
       ) : (
-        <div className="container">
+        <div className="main-content">
           <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />

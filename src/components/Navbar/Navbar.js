@@ -171,10 +171,18 @@ const Nav = () => {
 
 export const Navbar = () => {
   return (
-    <nav className="nav custom-block mb-4 block-border-radius">
-      <Logo />
-      <Searchbar />
-      <Nav />
-    </nav>
+    <div className="nav-parent">
+      <nav className="nav custom-block block-border-radius">
+        <Logo />
+
+        <span className="desktop">
+          <Searchbar />
+        </span>
+        <Nav />
+      </nav>
+      <div className="mobile custom-block block-border-radius">
+        <Searchbar />
+      </div>
+    </div>
   );
 };

@@ -9,17 +9,17 @@ import "swiper/css/navigation";
 
 function CategorySlider({ categoriesState, setSelectedCategory }) {
   const breakpoints = {
-    575: {
-      slidesPerView: 1,
-      spaceBetween: 0,
+    375: {
+      slidesPerView: 2,
+      spaceBetween: 10,
     },
-    767: {
+    574: {
       slidesPerView: 2,
       spaceBetween: 20,
     },
-    900: {
+    768: {
       slidesPerView: 3,
-      spaceBetween: 30,
+      spaceBetween: 25,
     },
     1024: {
       slidesPerView: 4,

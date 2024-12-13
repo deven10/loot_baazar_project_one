@@ -27,7 +27,7 @@ export const Socials = () => {
     },
   ];
   return (
-    <div className="flex gap-4 cursor-pointer">
+    <div className="flex gap-4 cursor-pointe social-links">
       {socials.map((link) => (
         <Fragment key={link.name}>
           <Link

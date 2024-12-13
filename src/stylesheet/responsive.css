@@ -1,0 +1,141 @@
+@media (max-width: 1200px) {
+  .main-content {
+    width: 90%;
+  }
+}
+
+@media (max-width: 1023px) {
+  .nav-links {
+    column-gap: 0px;
+  }
+  .navLink {
+    padding: 10px 18px;
+  }
+  .new-footer .contact-details {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .nav {
+    padding: 10px 20px;
+  }
+  .navLink {
+    padding: 10px 14px;
+  }
+  .main-content {
+    width: 100%;
+  }
+  .nav {
+    margin-bottom: 16px;
+  }
+  .new-footer {
+    padding: 16px 20px;
+  }
+}
+
+@media (max-width: 767px) {
+  .nav-parent .mobile {
+    margin-bottom: 16px;
+  }
+  .mobile .searchbar {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+  .desktop .searchbar {
+    display: none;
+  }
+  .nav {
+    margin-bottom: 12px;
+  }
+  .quick-links-and-categories-links {
+    flex-direction: column;
+    row-gap: 16px;
+    align-items: start !important;
+  }
+  .quick-links {
+    flex-direction: row;
+    gap: 16px !important;
+    margin: 0px 0px 12px 0px;
+  }
+  .quick-links .link-parent {
+    flex-direction: row;
+    gap: 16px !important;
+  }
+  .quick-links .link-parent a {
+    text-decoration: underline;
+  }
+}
+
+@media (max-width: 575px) {
+  .copyrights {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 524px) {
+  .logo {
+    font-size: 24px;
+  }
+  .navLink {
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+  .nav-icon {
+    font-size: 16px;
+  }
+
+  .cart-items-count,
+  .wishlist-items-count {
+    font-size: 12px;
+    height: 18px;
+    width: 18px;
+    right: -2px;
+  }
+
+  .categories {
+    padding: 12px 0px;
+  }
+}
+
+@media (max-width: 450px) {
+  .nav {
+    flex-direction: column;
+    row-gap: 2px;
+  }
+  .nav-container {
+    width: 100%;
+  }
+  .nav-links {
+    width: 100%;
+    justify-content: space-evenly;
+  }
+  .footer-logo-and-socials {
+    flex-direction: column;
+    row-gap: 12px;
+  }
+  .categories-tags {
+    display: none;
+  }
+  .social-links {
+    width: 100% !important;
+    justify-content: space-evenly !important;
+    margin-bottom: 12px !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .quick-links-and-categories-links {
+    margin-bottom: 16px !important;
+  }
+  .categories-tags {
+    display: none !important;
+  }
+}
+
+@media (max-width: 374px) {
+  .category img {
+    height: 175px;
+  }
+}
