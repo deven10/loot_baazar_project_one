@@ -109,7 +109,10 @@ export const Register = () => {
 
   return (
     <div className="main-form-page">
-      <form className="form" onSubmit={handleSubmit}>
+      <form
+        className="form custom-block block-border-radius"
+        onSubmit={handleSubmit}
+      >
         <h2>Register</h2>
 
         <div className="form-group firstname">

@@ -44,6 +44,9 @@ export const Wishlist = () => {
     dispatch(fetchWishlist(token));
   }, []);
 
+  const stripProductName = (name) =>
+    name.length > 100 ? name.slice(0, 100) + "..." : name;
+
   return (
     <div className="main-wishlist-page default-bg-color">
       <h2 className="page-heading">
@@ -71,48 +74,42 @@ export const Wishlist = () => {
             const { name, image, price, _id, mrp } = product;
             return (
               <div
-                className="wishlist-item flex flex-wrap gap-2 custom-block block-border-radius"
+                className="wishlist-item flex flex-wrap custom-block block-border-radius"
                 key={_id}
               >
-                <div className="wrapper">
-                  <div className="relative-position">
-                    <span className="like-icon">
-                      {wishlistState.wishlist?.find(
-                        (item) => item._id === _id
-                      ) ? (
-                        <i
-                          className="fa-solid fa-heart color-red heart"
-                          onClick={() => {
-                            dispatch(
-                              removeFromWishlist({ productId: _id, token })
-                            );
-                          }}
-                        ></i>
-                      ) : (
-                        <i
-                          className="fa-regular fa-heart heart"
-                          onClick={() => {
-                            !token
-                              ? navigate("/login")
-                              : dispatch(addToWishlist({ token, product }));
-                          }}
-                        ></i>
-                      )}
-                    </span>
-                    <img className="wishlist-item-img" src={image} alt={name} />
-                  </div>
+                <div className="relative-position image-wrapper">
+                  <span className="like-icon">
+                    {wishlistState.wishlist?.find(
+                      (item) => item._id === _id
+                    ) ? (
+                      <i
+                        className="fa-solid fa-heart color-red heart"
+                        onClick={() => {
+                          dispatch(
+                            removeFromWishlist({ productId: _id, token })
+                          );
+                        }}
+                      ></i>
+                    ) : (
+                      <i
+                        className="fa-regular fa-heart heart"
+                        onClick={() => {
+                          !token
+                            ? navigate("/login")
+                            : dispatch(addToWishlist({ token, product }));
+                        }}
+                      ></i>
+                    )}
+                  </span>
+                  <img className="wishlist-item-img" src={image} alt={name} />
+                </div>
 
+                <div className="paragraph-wrapper">
                   <div className="paragraphs">
-                    <p className="wishlist-item-name">{name}</p>
-                    {/* <div className="flex gap-3 mt-2 mb-2 justify-center items-center">
-                      <p className="wishlist-item-price">
-                        <sup>₹</sup> {price}/-
-                      </p>
-                      <p className="wishlist-item-mrp">
-                        <span>M.R.P</span> ₹ {mrp}/-
-                      </p>
-                    </div> */}
-                    <p className="flex gap-2 justify-center items-center py-2">
+                    <p className="wishlist-item-name">
+                      {stripProductName(name)}
+                    </p>
+                    <p className="flex price-wrapper gap-2 justify-center items-center py-2 price-wrapper">
                       <span className="selling-price">
                         <sup>₹</sup>
                         {price}/-
@@ -123,26 +120,26 @@ export const Wishlist = () => {
                       </span>
                     </p>
                   </div>
+                  {cartState.cart?.find((product) => product._id === _id) ? (
+                    <Link className="wishlist-cart-link" to="/cart">
+                      Go to Cart
+                    </Link>
+                  ) : (
+                    <button
+                      className="wishlist-cart-button"
+                      onClick={() => {
+                        dispatch(
+                          addToCart({
+                            product,
+                            token,
+                          })
+                        );
+                      }}
+                    >
+                      Add to Cart
+                    </button>
+                  )}
                 </div>
-                {cartState.cart?.find((product) => product._id === _id) ? (
-                  <Link className="wishlist-cart-link" to="/cart">
-                    Go to Cart
-                  </Link>
-                ) : (
-                  <button
-                    className="wishlist-cart-button"
-                    onClick={() => {
-                      dispatch(
-                        addToCart({
-                          product,
-                          token,
-                        })
-                      );
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                )}
               </div>
             );
           })}

@@ -93,8 +93,12 @@
   color: #111;
   font-size: 16px;
 }
-.mobile .searchbar {
+.mobile {
   display: none;
+}
+.mobile .searchbar {
+  width: 100%;
+  border: 0;
 }
 
 .cart-items-count,

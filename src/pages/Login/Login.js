@@ -45,7 +45,7 @@ export const Login = () => {
 
   return (
     <div className="main-form-page">
-      <form className="form">
+      <form className="form custom-block block-border-radius">
         <h2>Login</h2>
         <div className="form-group">
           <label htmlFor="email" className="form-label">
