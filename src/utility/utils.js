@@ -7,3 +7,6 @@ export const categories = [
   "Mobile",
   "Mouse",
 ];
+
+export const stripProductName = (name) =>
+  name.length > 100 ? name.slice(0, 100) + "..." : name;

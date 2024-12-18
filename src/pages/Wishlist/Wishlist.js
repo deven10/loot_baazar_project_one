@@ -16,6 +16,7 @@ import { fetchCart, addToCart } from "../../Store/Features/CartSlice";
 import EmptyLoader from "../../lottie-files/empty-loader.json";
 
 import "./Wishlist.css";
+import { stripProductName } from "../../utility/utils";
 
 const EmptyWishlist = () => {
   return (
@@ -43,9 +44,6 @@ export const Wishlist = () => {
     dispatch(fetchCart(token));
     dispatch(fetchWishlist(token));
   }, []);
-
-  const stripProductName = (name) =>
-    name.length > 100 ? name.slice(0, 100) + "..." : name;
 
   return (
     <div className="main-wishlist-page default-bg-color">

@@ -74,6 +74,7 @@
 
 .wishlist-cart-button,
 .wishlist-cart-link {
+  display: block;
   width: 100%;
   padding: 10px 0px;
   background-color: #7db133;

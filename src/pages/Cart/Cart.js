@@ -95,12 +95,13 @@ export const Cart = () => {
                       <div className="cart-item-details">
                         <p className="cart-item-name">{name}</p>
                         <p className="cart-item-price">
-                          <span className="sale-price">₹{price}</span>{" "}
-                          <span className="regular-price">₹{mrp}</span>
+                          <span className="sale-price">₹{price} </span>{" "}
+                          <span className="regular-price">₹{mrp} </span>
+                          <span className="cart-item-offer">
+                            {discountOnProduct}% off
+                          </span>
                         </p>
-                        <p className="cart-item-offer">
-                          {discountOnProduct}% off
-                        </p>
+
                         <div className="cart-item-quantity">
                           <label className="cart-item-label">Quantity</label>
                           <div className="update-quantity">
@@ -151,27 +152,9 @@ export const Cart = () => {
                             </button>
                           </div>
                         </div>
-                        <button
-                          onClick={() => {
-                            dispatch(
-                              removeFromCart({
-                                token,
-                                productId: _id,
-                              })
-                            );
-                          }}
-                          className="remove-from-cart cart-item-button block-border-radius"
-                        >
-                          Remove from Cart
-                        </button>
-                        {wishlistState.wishlist?.find((item) => {
-                          return item._id === _id;
-                        }) ? (
-                          ""
-                        ) : (
+                        <div className="flex flex-wrap gap-2 w-100">
                           <button
                             onClick={() => {
-                              dispatch(addToWishlist({ token, product }));
                               dispatch(
                                 removeFromCart({
                                   token,
@@ -179,11 +162,31 @@ export const Cart = () => {
                                 })
                               );
                             }}
-                            className="move-to-wishlist cart-item-button block-border-radius"
+                            className="remove-from-cart cart-item-button block-border-radius"
                           >
-                            Move to Wishlist
+                            Remove from Cart
                           </button>
-                        )}
+                          {wishlistState.wishlist?.find((item) => {
+                            return item._id === _id;
+                          }) ? (
+                            ""
+                          ) : (
+                            <button
+                              onClick={() => {
+                                dispatch(addToWishlist({ token, product }));
+                                dispatch(
+                                  removeFromCart({
+                                    token,
+                                    productId: _id,
+                                  })
+                                );
+                              }}
+                              className="move-to-wishlist cart-item-button block-border-radius"
+                            >
+                              Move to Wishlist
+                            </button>
+                          )}
+                        </div>
                       </div>
                     </div>
                   );

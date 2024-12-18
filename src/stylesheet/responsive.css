@@ -17,6 +17,13 @@
   .wishlist-items {
     padding: 0px;
   }
+  .checkout-cart-offer {
+    font-size: 14px;
+  }
+  .cart-item-image img {
+    height: 175px;
+    width: 175px;
+  }
 }
 
 @media (max-width: 900px) {
@@ -44,6 +51,27 @@
   }
   .selling-price {
     font-size: 18px;
+  }
+  .cart-item-image img {
+    height: 150px;
+    width: 150px;
+  }
+  .cart-item-details p {
+    font-size: 14px;
+  }
+  .sale-price {
+    font-size: 18px;
+  }
+  .cart-item-button,
+  .checkout-cart-offer {
+    font-size: 13px;
+  }
+  .checkout-cart-title {
+    font-size: 16px;
+  }
+  .checkout-group,
+  .button-85 {
+    font-size: 14px;
   }
 }
 
@@ -91,6 +119,16 @@
   .wishlist-item-img {
     width: 175px;
     height: 175px;
+  }
+  .cart-main {
+    flex-direction: column;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+  .checkout-cart {
+    position: relative;
+    width: 100%;
+    top: 0px;
   }
 }
 
