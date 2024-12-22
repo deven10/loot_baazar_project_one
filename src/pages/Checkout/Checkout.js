@@ -54,124 +54,116 @@ export const Checkout = () => {
 
   return cartState.cart?.length > 0 ? (
     <>
-      <div className="container checkout-page">
-        <div className="row">
-          <h2 className="page-heading">Checkout</h2>
-          <div className="col-md-4 col-sm-12">
-            <div
-              className="select-address"
-              onChange={(e) => setSelectedAddress(JSON.parse(e.target.value))}
-            >
-              {addresses.map((address) => {
-                const { addressOne, addressTwo, id, pincode, state, street } =
-                  address;
-                return (
-                  <div key={id} className="checkout-addresses custom-block">
-                    <label htmlFor={`radio-${id}`}>
-                      <input
-                        type="radio"
-                        id={`radio-${id}`}
-                        name="select-address"
-                        className="address-radio"
-                        value={JSON.stringify(address)}
-                      />
-                      <div className="address-details">
-                        <p>{addressOne}</p>
-                        <p>{addressTwo}</p>
-                        <p>{street}</p>
-                        <p>
-                          {state} - {pincode}
-                        </p>
-                      </div>
-                    </label>
-                  </div>
-                );
-              })}
-              <button
-                onClick={() => {
-                  navigate("/profile", { state: { address: true } });
-                }}
-                className="add-new-address w-100"
-              >
-                Manage Address
-              </button>
-            </div>
-          </div>
-          <div className="col-md-8 col-sm-12">
-            <div className="order-details custom-block">
-              <hr />
-              <p className="order-details-heading">Order Details</p>
-              <hr />
-              <div className="order-items">
-                {cartState.cart?.length > 0 ? (
-                  <div>
-                    <div className="flex-div">
-                      <p>Item</p>
-                      <p>Qty</p>
+      <div className="checkout-page">
+        <h2 className="page-heading">Checkout</h2>
+        <div className="checkout-wrapper">
+          <div
+            className="select-address"
+            onChange={(e) => setSelectedAddress(JSON.parse(e.target.value))}
+          >
+            {addresses.map((address) => {
+              const { addressOne, addressTwo, id, pincode, state, street } =
+                address;
+              return (
+                <div key={id} className="checkout-addresses custom-block">
+                  <label htmlFor={`radio-${id}`}>
+                    <input
+                      type="radio"
+                      id={`radio-${id}`}
+                      name="select-address"
+                      className="address-radio"
+                      value={JSON.stringify(address)}
+                    />
+                    <div className="address-details">
+                      <p>
+                        {addressOne}, {addressTwo}, {street}, {state}, {pincode}
+                      </p>
                     </div>
-                    <div className="items-in-cart">
-                      {cartState.cart?.map((item) => {
-                        return (
-                          <div className="checkout cart-item" key={item.id}>
-                            <p className="cart-item-name">{item.name}</p>
-                            <p className="cart-item-qty">{item.qty}</p>
-                          </div>
-                        );
-                      })}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </div>
-              <hr />
-              <div className="price-details">
-                <div className="checkout-cart">
-                  <p className="checkout-cart-title">Price Details</p>
-                  <p className="checkout-cart-price checkout-group">
-                    <span> Price ({cartState.cart?.length} item)</span>{" "}
-                    <span>₹{checkoutPrice.mrpPrice}</span>
-                  </p>
-                  <p className="checkout-cart-discount checkout-group">
-                    <span>Discount</span>{" "}
-                    <span>- ₹{checkoutPrice.discount}</span>
-                  </p>
-                  <p className="checkout-cart-delivery-charges checkout-group">
-                    <span>Delivery Charges</span> <span>FREE</span>
-                  </p>
-                  <p className="checkout-cart-discount-total-amount checkout-group">
-                    <span>TOTAL AMOUNT</span>{" "}
-                    <span>₹{checkoutPrice.actualPrice}</span>{" "}
-                  </p>
+                  </label>
                 </div>
-              </div>
-              <p className="delivery-title">Shipping Address</p>
-              <hr />
-              <div className="selected-address">
-                {selectedAddress.addressOne ? (
-                  <>
-                    <p className="username text-left mb-1">
-                      Ship to: {user.firstName} {user.lastName}
-                    </p>
-                    <p className="text-left">
-                      Address: {selectedAddress?.addressOne},{" "}
-                      {selectedAddress?.addressTwo}, {selectedAddress?.street},
-                      {selectedAddress?.state}, {selectedAddress?.pincode}
-                    </p>
-                  </>
-                ) : addresses.length > 0 ? (
-                  <p>No address selected</p>
-                ) : (
-                  <p>Please add delivery address</p>
-                )}
-              </div>
-              <button
-                className="button-85 mt-3 place-order-btn"
-                onClick={handlePlaceOrder}
-              >
-                Place Order
-              </button>
+              );
+            })}
+            <button
+              onClick={() => {
+                navigate("/profile", { state: { address: true } });
+              }}
+              className="add-new-address w-100"
+            >
+              Manage Address
+            </button>
+          </div>
+          <div className="order-details custom-block">
+            <hr />
+            <p className="order-details-heading">Order Details</p>
+            <hr />
+            <div className="order-items">
+              {cartState.cart?.length > 0 ? (
+                <div>
+                  <div className="flex-div">
+                    <p>Item</p>
+                    <p>Qty</p>
+                  </div>
+                  <div className="items-in-cart">
+                    {cartState.cart?.map((item) => {
+                      return (
+                        <div className="checkout cart-item" key={item.id}>
+                          <p className="cart-item-name">{item.name}</p>
+                          <p className="cart-item-qty">{item.qty}</p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
+            <hr />
+            <div className="price-details">
+              <div className="checkout-cart">
+                <p className="checkout-cart-title">Price Details</p>
+                <p className="checkout-cart-price checkout-group">
+                  <span> Price ({cartState.cart?.length} item)</span>{" "}
+                  <span>₹{checkoutPrice.mrpPrice}</span>
+                </p>
+                <p className="checkout-cart-discount checkout-group">
+                  <span>Discount</span> <span>- ₹{checkoutPrice.discount}</span>
+                </p>
+                <p className="checkout-cart-delivery-charges checkout-group">
+                  <span>Delivery Charges</span> <span>FREE</span>
+                </p>
+                <p className="checkout-cart-discount-total-amount checkout-group">
+                  <span>TOTAL AMOUNT</span>{" "}
+                  <span>₹{checkoutPrice.actualPrice}</span>{" "}
+                </p>
+              </div>
+            </div>
+            <p className="delivery-title">Shipping Address</p>
+            <hr />
+            <div className="selected-address">
+              {selectedAddress.addressOne ? (
+                <>
+                  <p className="username text-left mb-1">
+                    Ship to: {user.firstName} {user.lastName}
+                  </p>
+                  <p className="text-left">
+                    Address: {selectedAddress?.addressOne},{" "}
+                    {selectedAddress?.addressTwo}, {selectedAddress?.street},
+                    {selectedAddress?.state}, {selectedAddress?.pincode}
+                  </p>
+                </>
+              ) : addresses.length > 0 ? (
+                <p>No address selected</p>
+              ) : (
+                <p>Please add delivery address</p>
+              )}
+            </div>
+            <button
+              className="button-85 mt-3 place-order-btn"
+              onClick={handlePlaceOrder}
+            >
+              Place Order
+            </button>
           </div>
         </div>
       </div>

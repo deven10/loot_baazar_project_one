@@ -47,6 +47,7 @@
   padding: 2rem 2.5rem;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
     rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+  width: 70%;
 }
 
 .order-details hr {
@@ -164,4 +165,10 @@
 .select-address {
   position: sticky;
   top: 24px;
+  width: 30%;
+}
+
+.checkout-wrapper {
+  display: flex;
+  gap: 16px;
 }

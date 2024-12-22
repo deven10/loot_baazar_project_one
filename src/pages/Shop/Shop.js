@@ -5,6 +5,7 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { FaFilter } from "react-icons/fa";
 
 // components, utility functions
 import { ContextSearch } from "../../context/SearchContext";
@@ -15,10 +16,12 @@ import {
   fetchWishlist,
   removeFromWishlist,
 } from "../../Store/Features/WishlistSlice";
+import { categories, stripProductName } from "../../utility/utils";
 
 // styling
 import "./Shop.css";
-import { categories } from "../../utility/utils";
+import { FiltersModal } from "./FiltersModal";
+import { useMediaQuery } from "@mui/material";
 
 export const Shop = () => {
   const { search } = useContext(ContextSearch);
@@ -28,6 +31,8 @@ export const Shop = () => {
   const cartState = useSelector((state) => state.cart);
   const wishlistState = useSelector((state) => state.wishlist);
 
+  const lessThan575 = useMediaQuery("(max-width:575px)");
+
   // states
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +40,7 @@ export const Shop = () => {
   const [sortBy, setSortBy] = useState("");
   const [rating, setRating] = useState("");
   const [category, setCategory] = useState([]);
+  const [open, setOpen] = useState(false);
 
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
@@ -167,266 +173,269 @@ export const Shop = () => {
 
   return (
     <div className="main-shop default-bg-color">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3 filters custom-block">
-            <div className="filter-group filters-heading p-styling">
-              <p>Filters</p>
-              <p>
-                <button className="remove-filters-button" onClick={handleClear}>
-                  Clear
-                </button>
-              </p>
-            </div>
-            <div className="filter-group filters-price-range p-styling">
-              <p>Price</p>
-              <Box className="price-range">
-                <Slider
-                  aria-label="Price"
-                  value={priceRange}
-                  onChange={(e) => setPriceRange(e.target.value)}
-                  getAriaValueText={valuetext}
-                  valueLabelDisplay="auto"
-                  marks
-                  step={10000}
-                  min={10000}
-                  max={500000}
+      <div className="filters custom-block">
+        <div className="filter-group filters-heading p-styling">
+          <p>Filters</p>
+          <p>
+            <button className="remove-filters-button" onClick={handleClear}>
+              Clear
+            </button>
+          </p>
+        </div>
+        <div className="filter-group filters-price-range p-styling">
+          <p>Price</p>
+          <Box className="price-range">
+            <Slider
+              aria-label="Price"
+              value={priceRange}
+              onChange={(e) => setPriceRange(e.target.value)}
+              getAriaValueText={valuetext}
+              valueLabelDisplay="auto"
+              marks
+              step={10000}
+              min={10000}
+              max={500000}
+            />
+          </Box>
+        </div>
+        <div className="filter-group filters-category p-styling">
+          <p>Category</p>
+          {categories.map((singleCategory) => (
+            <div className="checkbox-group" key={singleCategory}>
+              <label
+                htmlFor={singleCategory}
+                className="uppercase tracking-wide"
+              >
+                <input
+                  type="checkbox"
+                  value={singleCategory}
+                  onChange={(e) => handleCategory(e)}
+                  checked={category.includes(singleCategory)}
+                  name={singleCategory}
+                  id={singleCategory}
+                  className="mr-2"
                 />
-              </Box>
+                {singleCategory}
+              </label>
             </div>
-            <div className="filter-group filters-category p-styling">
-              <p>Category</p>
-              {categories.map((singleCategory) => (
-                <div className="checkbox-group" key={singleCategory}>
-                  <label
-                    htmlFor={singleCategory}
-                    className="uppercase tracking-wide"
-                  >
-                    <input
-                      type="checkbox"
-                      value={singleCategory}
-                      onChange={(e) => handleCategory(e)}
-                      checked={category.includes(singleCategory)}
-                      name={singleCategory}
-                      id={singleCategory}
-                      className="mr-2"
-                    />
-                    {singleCategory}
-                  </label>
-                </div>
-              ))}
+          ))}
+        </div>
+        <div className="filter-group p-styling">
+          <p>Rating</p>
+          <div className="rating-filter">
+            <div className="radio-rating-group">
+              <label htmlFor="rating-4">
+                <input
+                  type="radio"
+                  name="rating"
+                  id="rating-4"
+                  value="4"
+                  onChange={(e) => handleRating(e)}
+                  checked={rating === "4" ? true : false}
+                />
+                4 stars & above
+              </label>
             </div>
-            <div className="filter-group p-styling">
-              <p>Rating</p>
-              <div className="rating-filter">
-                <div className="radio-rating-group">
-                  <label htmlFor="rating-4">
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="rating-4"
-                      value="4"
-                      onChange={(e) => handleRating(e)}
-                      checked={rating === "4" ? true : false}
-                    />
-                    4 stars & above
-                  </label>
-                </div>
-                <div className="radio-rating-group">
-                  <label htmlFor="rating-3">
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="rating-3"
-                      value="3"
-                      onChange={(e) => handleRating(e)}
-                      checked={rating === "3" ? true : false}
-                    />
-                    3 stars & above
-                  </label>
-                </div>
-                <div className="radio-rating-group">
-                  <label htmlFor="rating-2">
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="rating-2"
-                      value="2"
-                      onChange={(e) => handleRating(e)}
-                      checked={rating === "2" ? true : false}
-                    />
-                    2 stars & above
-                  </label>
-                </div>
-                <div className="radio-rating-group">
-                  <label htmlFor="rating-1">
-                    <input
-                      type="radio"
-                      name="rating"
-                      id="rating-1"
-                      value="1"
-                      onChange={(e) => handleRating(e)}
-                      checked={rating === "1" ? true : false}
-                    />
-                    1 star & above
-                  </label>
-                </div>
-              </div>
+            <div className="radio-rating-group">
+              <label htmlFor="rating-3">
+                <input
+                  type="radio"
+                  name="rating"
+                  id="rating-3"
+                  value="3"
+                  onChange={(e) => handleRating(e)}
+                  checked={rating === "3" ? true : false}
+                />
+                3 stars & above
+              </label>
             </div>
-            <div className="filter-group p-styling">
-              <p>Sort by</p>
-              <div className="sortBy-filter">
-                <div className="radio-sortby-group">
-                  <label htmlFor="sortby-low">
-                    <input
-                      type="radio"
-                      value="Low"
-                      onChange={(e) => setSortBy(e.target.value)}
-                      checked={sortBy === "Low" ? true : false}
-                      name="sortby"
-                      id="sortby-low"
-                    />
-                    Price - Low to High
-                  </label>
-                </div>
-                <div className="radio-sortby-group">
-                  <label htmlFor="sortby-high">
-                    <input
-                      type="radio"
-                      value="High"
-                      onChange={(e) => setSortBy(e.target.value)}
-                      name="sortby"
-                      id="sortby-high"
-                      checked={sortBy === "High" ? true : false}
-                    />
-                    Price - High to Low
-                  </label>
-                </div>
-              </div>
+            <div className="radio-rating-group">
+              <label htmlFor="rating-2">
+                <input
+                  type="radio"
+                  name="rating"
+                  id="rating-2"
+                  value="2"
+                  onChange={(e) => handleRating(e)}
+                  checked={rating === "2" ? true : false}
+                />
+                2 stars & above
+              </label>
+            </div>
+            <div className="radio-rating-group">
+              <label htmlFor="rating-1">
+                <input
+                  type="radio"
+                  name="rating"
+                  id="rating-1"
+                  value="1"
+                  onChange={(e) => handleRating(e)}
+                  checked={rating === "1" ? true : false}
+                />
+                1 star & above
+              </label>
             </div>
           </div>
-          <div className="col-md-9 all-products pr-0">
-            {loading ? null : (
-              <div className="custom-block mb-3 block-border-radius">
-                <h2 className="page-heading">
-                  All Products{" "}
-                  <span className="products-count">
-                    ({productsArray.length})
-                  </span>
-                </h2>
-              </div>
-            )}
-            <div className="products">
-              {loading ? (
-                <TailSpin
-                  height="50"
-                  width="50"
-                  color="#333"
-                  ariaLabel="tail-spin-loading"
-                  radius="1"
-                  wrapperStyle={{
-                    height: "15vh",
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                  wrapperClass="loader"
-                  visible={true}
+        </div>
+        <div className="filter-group p-styling">
+          <p>Sort by</p>
+          <div className="sortBy-filter">
+            <div className="radio-sortby-group">
+              <label htmlFor="sortby-low">
+                <input
+                  type="radio"
+                  value="Low"
+                  onChange={(e) => setSortBy(e.target.value)}
+                  checked={sortBy === "Low" ? true : false}
+                  name="sortby"
+                  id="sortby-low"
                 />
-              ) : (
-                productsArray.map((product) => {
-                  const { _id, name, image, price, mrp, productRating } =
-                    product;
-                  return (
-                    <div
-                      className="product-item custom-block block-border-radius flex gap-4"
-                      key={_id}
-                    >
-                      <div className="relative-position product-img">
-                        <Link
-                          to={`/shop/${_id}`}
-                          className="w-[250px] h-[250px] block"
-                        >
-                          <img
-                            className="product-item-image"
-                            src={image}
-                            alt={name}
-                          />
-                        </Link>
-                        <span className="like-icon">
-                          {wishlistState.wishlist?.find(
-                            (product) => product._id === _id
-                          ) ? (
-                            <i
-                              className="fa-solid fa-heart color-red heart"
-                              onClick={() => {
-                                dispatch(
-                                  removeFromWishlist({ productId: _id, token })
-                                );
-                              }}
-                            ></i>
-                          ) : (
-                            <i
-                              className="fa-regular fa-heart heart"
-                              onClick={() => {
-                                !token
-                                  ? navigate("/login")
-                                  : dispatch(addToWishlist({ token, product }));
-                              }}
-                            ></i>
-                          )}
-                        </span>
-                      </div>
-                      <div className="product-details">
-                        <p className="product-item-name mb-2">
-                          <Link className="product-link" to={`/shop/${_id}`}>
-                            {name}
-                          </Link>
-                        </p>
-                        <p className="product-item-price mb-1">
-                          <span className="selling-price">
-                            <sup>₹</sup>
-                            {price}/-
-                          </span>
-                          <span className="mrp-price">
-                            <span>M.R.P</span>
-                            <span className="line-through">₹{mrp}/- </span>
-                          </span>
-                        </p>
-                        <p className="product-rating mb-3">
-                          Product Rating: {productRating}{" "}
-                          <i className="fa-solid fa-star star-icon"></i>
-                        </p>
-                        {cartState.cart?.find(
-                          (product) => product._id === _id
-                        ) ? (
-                          <Link className="add-to-cart-link" to="/cart">
-                            Go to Cart
-                          </Link>
-                        ) : (
-                          <button
-                            className="add-to-cart-btn"
-                            onClick={() => {
-                              dispatch(
-                                addToCart({
-                                  product,
-                                  token,
-                                })
-                              );
-                            }}
-                          >
-                            Add to Cart
-                          </button>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })
-              )}
+                Price - Low to High
+              </label>
+            </div>
+            <div className="radio-sortby-group">
+              <label htmlFor="sortby-high">
+                <input
+                  type="radio"
+                  value="High"
+                  onChange={(e) => setSortBy(e.target.value)}
+                  name="sortby"
+                  id="sortby-high"
+                  checked={sortBy === "High" ? true : false}
+                />
+                Price - High to Low
+              </label>
             </div>
           </div>
         </div>
       </div>
+      <div className="all-products">
+        {loading ? null : (
+          <div className="flex gap-3 mb-3">
+            <button
+              onClick={() => setOpen(true)}
+              className="custom-block block-border-radius mobile-filters gap-2 px-3 items-center cursor-pointer"
+            >
+              <p>Filters</p>
+              <span>
+                <FaFilter />
+              </span>
+            </button>
+            <div className="custom-block w-100 block-border-radius">
+              <h2 className="page-heading px-3">
+                All Products{" "}
+                <span className="products-count">({productsArray.length})</span>
+              </h2>
+            </div>
+          </div>
+        )}
+        <div className="products">
+          {loading ? (
+            <TailSpin
+              height="50"
+              width="50"
+              color="#333"
+              ariaLabel="tail-spin-loading"
+              radius="1"
+              wrapperStyle={{
+                height: "15vh",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              wrapperClass="loader"
+              visible={true}
+            />
+          ) : (
+            productsArray.map((product) => {
+              const { _id, name, image, price, mrp, productRating } = product;
+              return (
+                <div
+                  className="product-item custom-block block-border-radius flex"
+                  key={_id}
+                >
+                  <div className="relative-position product-img">
+                    <Link
+                      to={`/shop/${_id}`}
+                      className="block product-img-wrapper"
+                    >
+                      <img
+                        className="product-item-image"
+                        src={image}
+                        alt={name}
+                      />
+                    </Link>
+                    <span className="like-icon">
+                      {wishlistState.wishlist?.find(
+                        (product) => product._id === _id
+                      ) ? (
+                        <i
+                          className="fa-solid fa-heart color-red heart"
+                          onClick={() => {
+                            dispatch(
+                              removeFromWishlist({ productId: _id, token })
+                            );
+                          }}
+                        ></i>
+                      ) : (
+                        <i
+                          className="fa-regular fa-heart heart"
+                          onClick={() => {
+                            !token
+                              ? navigate("/login")
+                              : dispatch(addToWishlist({ token, product }));
+                          }}
+                        ></i>
+                      )}
+                    </span>
+                  </div>
+                  <div className="product-details">
+                    <p className="product-item-name mb-2">
+                      <Link className="product-link" to={`/shop/${_id}`}>
+                        {lessThan575 ? stripProductName(name) : name}
+                      </Link>
+                    </p>
+                    <p className="product-item-price mb-1">
+                      <span className="selling-price">
+                        <sup>₹</sup>
+                        {price}/-
+                      </span>
+                      <span className="mrp-price">
+                        <span>M.R.P</span>
+                        <span className="line-through">₹{mrp}/- </span>
+                      </span>
+                    </p>
+                    <p className="product-rating mb-3">
+                      Product Rating: {productRating}{" "}
+                      <i className="fa-solid fa-star star-icon"></i>
+                    </p>
+                    {cartState.cart?.find((product) => product._id === _id) ? (
+                      <Link className="add-to-cart-link" to="/cart">
+                        Go to Cart
+                      </Link>
+                    ) : (
+                      <button
+                        className="add-to-cart-btn"
+                        onClick={() => {
+                          dispatch(
+                            addToCart({
+                              product,
+                              token,
+                            })
+                          );
+                        }}
+                      >
+                        Add to Cart
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })
+          )}
+        </div>
+      </div>
+      <FiltersModal open={open} setOpen={setOpen} />
     </div>
   );
 };

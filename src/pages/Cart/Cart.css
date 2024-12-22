@@ -72,6 +72,8 @@
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  font-weight: 500;
+  line-height: 1.3em;
 }
 
 .cart-item-name {

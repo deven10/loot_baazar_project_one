@@ -30,16 +30,19 @@ export const NewFooter = () => {
         <QuickLinks />
 
         {/* address, phone, email */}
-        <div className="flex flex-1 flex-col gap-3 contact-details">
-          <p className="flex items-center gap-2 text-[15px]">
-            <FaLocationDot /> Borivali E, Mumbai - 66
-          </p>
-          <p className="flex items-center gap-2 text-[15px]">
-            <FaPhoneAlt /> +91 8355916480
-          </p>
-          <p className="flex items-center gap-2 text-[15px]">
-            <IoMail /> umraniadeven10@gmail.com
-          </p>
+        <div className="flex flex-1 flex-col gap-2 contact-details">
+          <p className="font-medium">Contact</p>
+          <div className="flex flex-1 flex-col gap-3 ">
+            <p className="flex items-center gap-2 text-[15px]">
+              <FaLocationDot /> Borivali E, Mumbai - 66
+            </p>
+            <p className="flex items-center gap-2 text-[15px]">
+              <FaPhoneAlt /> +91 8355916480
+            </p>
+            <p className="flex items-center gap-2 text-[15px]">
+              <IoMail /> umraniadeven10@gmail.com
+            </p>
+          </div>
         </div>
 
         {/* categories tags */}

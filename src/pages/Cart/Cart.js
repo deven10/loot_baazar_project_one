@@ -59,7 +59,7 @@ export const Cart = () => {
   }, [cartState.cart]);
 
   return (
-    <div className="cart-container default-bg-color">
+    <div className="cart-container">
       <h2 className="page-heading">My Cart ({cartState.cart.length})</h2>
       <section className="cart-main">
         {cartState.loading ? (
