@@ -1,55 +1,61 @@
 // libraries
 import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 
 // components, utility functions
 import { ContextSearch } from "../../context/SearchContext";
-import { ContextCategories } from "../../context/CategoriesContext";
 import { addToCart, fetchCart } from "../../Store/Features/CartSlice";
 import {
   addToWishlist,
   fetchWishlist,
   removeFromWishlist,
 } from "../../Store/Features/WishlistSlice";
-import { categories, stripProductName } from "../../utility/utils";
+import { stripProductName } from "../../utility/utils";
 
 // styling
 import "./Shop.css";
 import { FiltersModal } from "./FiltersModal";
 import { useMediaQuery } from "@mui/material";
+import { Filters } from "./Filters";
+import { ContextCategories } from "../../context/CategoriesContext";
 
 export const Shop = () => {
   const { search } = useContext(ContextSearch);
-  const { selectedCategory, setSelectedCategory } =
-    useContext(ContextCategories);
 
   const cartState = useSelector((state) => state.cart);
   const wishlistState = useSelector((state) => state.wishlist);
 
   const lessThan575 = useMediaQuery("(max-width:575px)");
+  const location = useLocation();
 
   // states
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [priceRange, setPriceRange] = useState(500000);
-  const [sortBy, setSortBy] = useState("");
-  const [rating, setRating] = useState("");
-  const [category, setCategory] = useState([]);
   const [open, setOpen] = useState(false);
+  const [productsArray, setProductsArray] = useState([]);
+  const [category, setCategory] = useState([]);
 
   const token = localStorage.getItem("token");
   const dispatch = useDispatch();
-  const location = useLocation();
   const navigate = useNavigate();
 
-  function valuetext(value) {
-    return `${value}`;
-  }
+  const { selectedCategory } = useContext(ContextCategories);
+
+  // for checking user has selected any category from homepage
+  useEffect(() => {
+    if (selectedCategory !== "") {
+      setCategory((prev) => [...prev, selectedCategory]);
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (location.state === null) {
+      setCategory([]);
+    }
+  }, [location]);
 
   const getProducts = async () => {
     try {
@@ -74,244 +80,20 @@ export const Shop = () => {
     dispatch(fetchWishlist(token));
   }, []);
 
-  const handleClear = () => {
-    setSortBy("");
-    setRating("");
-    setPriceRange(500000);
-    setCategory([]);
-  };
-
-  const handleRating = (e) => {
-    setRating(e.target.value);
-  };
-
-  const handleCategory = (e) => {
-    if (e.target.checked) {
-      setCategory((prev) => [...prev, e.target.value]);
-    } else {
-      setSelectedCategory("");
-      setCategory((prev) => prev.filter((item) => item !== e.target.value));
-    }
-  };
-
-  const priceFilter = (dataset) => {
-    return dataset.filter(
-      (product) => Number(product.price) <= Number(priceRange)
-    );
-  };
-
-  const sortByFilter = (dataset) => {
-    if (sortBy === "High") {
-      return dataset.sort((a, b) => parseFloat(b.price) - parseFloat(a.price));
-    } else if (sortBy === "Low") {
-      return dataset.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-    } else {
-      return dataset;
-    }
-  };
-
-  const ratingFilter = (dataset) => {
-    if (rating === "4") {
-      return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
-      );
-    } else if (rating === "3") {
-      return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
-      );
-    } else if (rating === "2") {
-      return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
-      );
-    } else if (rating === "1") {
-      return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
-      );
-    } else {
-      return dataset;
-    }
-  };
-
-  const categoryFilter = (dataset) => {
-    if (category.length <= 0) {
-      return dataset;
-    } else {
-      return dataset.filter((product) =>
-        category.includes(product.categoryName)
-      );
-    }
-  };
-
-  const sortBySearch = (dataset) => {
-    if (search) {
-      return dataset.filter((product) =>
-        product.name.toLowerCase().includes(search.toLowerCase())
-      );
-    } else {
-      return dataset;
-    }
-  };
-
-  // for checking user has selected any category from homepage
-  useEffect(() => {
-    if (selectedCategory !== "") {
-      setCategory((prev) => [...prev, selectedCategory]);
-    }
-  }, [selectedCategory]);
-
-  useEffect(() => {
-    if (location.state === null) {
-      setCategory([]);
-    }
-  }, [location]);
-
-  const filterByPrice = priceFilter(products);
-  const filterByCategory = categoryFilter(filterByPrice);
-  const filterByRating = ratingFilter(filterByCategory);
-  const filterBySearch = sortByFilter(filterByRating);
-  const productsArray = sortBySearch(filterBySearch);
-
   return (
     <div className="main-shop default-bg-color">
       <div className="filters custom-block">
-        <div className="filter-group filters-heading p-styling">
-          <p>Filters</p>
-          <p>
-            <button className="remove-filters-button" onClick={handleClear}>
-              Clear
-            </button>
-          </p>
-        </div>
-        <div className="filter-group filters-price-range p-styling">
-          <p>Price</p>
-          <Box className="price-range">
-            <Slider
-              aria-label="Price"
-              value={priceRange}
-              onChange={(e) => setPriceRange(e.target.value)}
-              getAriaValueText={valuetext}
-              valueLabelDisplay="auto"
-              marks
-              step={10000}
-              min={10000}
-              max={500000}
-            />
-          </Box>
-        </div>
-        <div className="filter-group filters-category p-styling">
-          <p>Category</p>
-          {categories.map((singleCategory) => (
-            <div className="checkbox-group" key={singleCategory}>
-              <label
-                htmlFor={singleCategory}
-                className="uppercase tracking-wide"
-              >
-                <input
-                  type="checkbox"
-                  value={singleCategory}
-                  onChange={(e) => handleCategory(e)}
-                  checked={category.includes(singleCategory)}
-                  name={singleCategory}
-                  id={singleCategory}
-                  className="mr-2"
-                />
-                {singleCategory}
-              </label>
-            </div>
-          ))}
-        </div>
-        <div className="filter-group p-styling">
-          <p>Rating</p>
-          <div className="rating-filter">
-            <div className="radio-rating-group">
-              <label htmlFor="rating-4">
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-4"
-                  value="4"
-                  onChange={(e) => handleRating(e)}
-                  checked={rating === "4" ? true : false}
-                />
-                4 stars & above
-              </label>
-            </div>
-            <div className="radio-rating-group">
-              <label htmlFor="rating-3">
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-3"
-                  value="3"
-                  onChange={(e) => handleRating(e)}
-                  checked={rating === "3" ? true : false}
-                />
-                3 stars & above
-              </label>
-            </div>
-            <div className="radio-rating-group">
-              <label htmlFor="rating-2">
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-2"
-                  value="2"
-                  onChange={(e) => handleRating(e)}
-                  checked={rating === "2" ? true : false}
-                />
-                2 stars & above
-              </label>
-            </div>
-            <div className="radio-rating-group">
-              <label htmlFor="rating-1">
-                <input
-                  type="radio"
-                  name="rating"
-                  id="rating-1"
-                  value="1"
-                  onChange={(e) => handleRating(e)}
-                  checked={rating === "1" ? true : false}
-                />
-                1 star & above
-              </label>
-            </div>
-          </div>
-        </div>
-        <div className="filter-group p-styling">
-          <p>Sort by</p>
-          <div className="sortBy-filter">
-            <div className="radio-sortby-group">
-              <label htmlFor="sortby-low">
-                <input
-                  type="radio"
-                  value="Low"
-                  onChange={(e) => setSortBy(e.target.value)}
-                  checked={sortBy === "Low" ? true : false}
-                  name="sortby"
-                  id="sortby-low"
-                />
-                Price - Low to High
-              </label>
-            </div>
-            <div className="radio-sortby-group">
-              <label htmlFor="sortby-high">
-                <input
-                  type="radio"
-                  value="High"
-                  onChange={(e) => setSortBy(e.target.value)}
-                  name="sortby"
-                  id="sortby-high"
-                  checked={sortBy === "High" ? true : false}
-                />
-                Price - High to Low
-              </label>
-            </div>
-          </div>
-        </div>
+        <Filters
+          search={search}
+          products={products}
+          setProductsArray={setProductsArray}
+          category={category}
+          setCategory={setCategory}
+        />
       </div>
       <div className="all-products">
         {loading ? null : (
-          <div className="flex gap-3 mb-3">
+          <div className="flex gap-3 mb-3 sm:sticky top-[0px] bg-[#f3f3fa] z-10 mobile-filter-wrapper">
             <button
               onClick={() => setOpen(true)}
               className="custom-block block-border-radius mobile-filters gap-2 px-3 items-center cursor-pointer"
@@ -435,7 +217,15 @@ export const Shop = () => {
           )}
         </div>
       </div>
-      <FiltersModal open={open} setOpen={setOpen} />
+      <FiltersModal
+        open={open}
+        setOpen={setOpen}
+        search={search}
+        products={products}
+        setProductsArray={setProductsArray}
+        category={category}
+        setCategory={setCategory}
+      />
     </div>
   );
 };

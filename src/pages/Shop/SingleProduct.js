@@ -70,16 +70,16 @@ export const SingleProduct = () => {
           visible={true}
         />
       ) : (
-        <div className="single-product-item gap-2">
-          <div className="flex gap-2">
+        <div className="single-product-item gap-3">
+          <div className="product-images-parent-wrapper gap-3">
             {product?.images?.length > 0 ? (
-              <div className="flex flex-col gap-2 product-images-wrapper">
+              <div className="product-images-wrapper gap-2">
                 {product?.images?.map((img) => (
                   <div
                     key={img}
                     className={`${
                       img === productImage ? "active-image" : ""
-                    } custom-block cursor-pointer block-border-radius flex justify-center items-center h-[100px] w-[100px]`}
+                    } custom-block cursor-pointer block-border-radius flex justify-center items-center product-mini-images`}
                     onClick={() => setProductImage(img)}
                   >
                     <img
@@ -92,7 +92,7 @@ export const SingleProduct = () => {
               </div>
             ) : null}
 
-            <div className="custom-block main-product-image flex items-center w-[400px] block-border-radius">
+            <div className="custom-block main-product-image flex items-center block-border-radius">
               <img
                 className="product-image"
                 src={productImage ? productImage : product?.image}
@@ -102,7 +102,7 @@ export const SingleProduct = () => {
           </div>
 
           <div className="single-product-details custom-block block-border-radius p-[20px]">
-            <p className="product-item-name leading-normal text-[16px] mb-3">
+            <p className="single-product-item-name leading-normal text-[16px] mb-3">
               {product?.name}
             </p>
             <p className="product-item-price">
@@ -123,8 +123,8 @@ export const SingleProduct = () => {
             <p className="text-[14px] leading-normal mb-3">
               {product?.description}
             </p>
-            <div className="flex gap-2">
-              {cartState.cart.find((product) => product._id === productId) ? (
+            <div className="flex flex-wrap gap-2">
+              {cartState.cart.find((product) => product._id === +productId) ? (
                 <Link className="add-to-cart-link" to="/cart">
                   Go to Cart
                 </Link>
@@ -145,10 +145,10 @@ export const SingleProduct = () => {
               )}
 
               {wishlistState.wishlist?.find(
-                (product) => product._id === productId
+                (product) => product._id === +productId
               ) ? (
                 <button
-                  className="add-to-cart-btn"
+                  className="add-to-cart-link"
                   onClick={() => {
                     dispatch(removeFromWishlist({ productId, token }));
                   }}
