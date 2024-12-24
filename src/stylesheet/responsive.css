@@ -237,6 +237,23 @@
   .single-product-item {
     flex-direction: column;
   }
+  .order-item-name,
+  .order-item-price .mrp-price,
+  .other-details,
+  .delivery-address {
+    font-size: 15px;
+  }
+  .og-price,
+  .final-amount {
+    font-size: 18px;
+  }
+  .order-item img {
+    width: 125px;
+    height: 125px;
+  }
+  .empty-order-summary {
+    font-size: 20px;
+  }
 }
 
 @media (max-width: 575px) {
@@ -330,6 +347,32 @@
   }
   .product-images-wrapper {
     flex-direction: row;
+  }
+
+  .order-item img {
+    height: 100px;
+    width: 100px;
+  }
+  .order-item-name,
+  .order-item-price .mrp-price,
+  .other-details,
+  .delivery-address {
+    font-size: 14px;
+  }
+  .thankyou-note {
+    font-size: 16px;
+  }
+  .og-price,
+  .final-amount {
+    font-size: 15px;
+  }
+  .order-item {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .hr-line {
+    display: block;
   }
 }
 

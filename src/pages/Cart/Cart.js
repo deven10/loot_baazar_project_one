@@ -28,7 +28,10 @@ const EmptyCart = () => {
           Shop Now!
         </Link>
       </h3>
-      <Lottie loop animationData={EmptyLoader} />
+
+      <div className="animation">
+        <Lottie loop animationData={EmptyLoader} />
+      </div>
     </div>
   );
 };

@@ -38,12 +38,14 @@
   /* border-radius: var(--block-border); */
   gap: 25px;
   /* box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px; */
-  padding: 10px 30px;
+  padding: 10px 0px;
   /* font-family: "Roboto", sans-serif; */
 }
 
 .order-item img {
   width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 .order-item-details {
@@ -116,4 +118,9 @@
   font-weight: 500;
   margin: 25px 0px;
   align-self: center;
+  text-align: center;
+}
+
+.hr-line {
+  display: none;
 }
