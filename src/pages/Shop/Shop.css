@@ -200,3 +200,7 @@ p.product-rating {
 .filters-modal {
   display: none;
 }
+
+.mobile-filter-wrapper {
+  position: relative;
+}

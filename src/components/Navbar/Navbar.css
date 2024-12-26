@@ -9,6 +9,8 @@
   background-color: #ebebf1;
   padding: 10px 50px;
   margin-bottom: 16px;
+  position: relative;
+  z-index: 99;
 }
 /* End Main Navbar */
 

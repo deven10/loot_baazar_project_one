@@ -93,7 +93,7 @@ export const Shop = () => {
       </div>
       <div className="all-products">
         {loading ? null : (
-          <div className="flex gap-3 mb-3 sm:sticky top-[0px] bg-[#f3f3fa] z-10 mobile-filter-wrapper">
+          <div className="flex gap-3 mb-3 bg-[#f3f3fa] z-10 mobile-filter-wrapper">
             <button
               onClick={() => setOpen(true)}
               className="custom-block block-border-radius mobile-filters gap-2 px-3 items-center cursor-pointer"
