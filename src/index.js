@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { makeServer } from "./server";
+// import { makeServer } from "./server";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { LoginTokenProvider, ContextToken } from "./context/LoginTokenProvider";
@@ -11,7 +11,7 @@ import { Provider } from "react-redux";
 import store from "./Store/store";
 import "./index.css";
 
-makeServer();
+// makeServer();
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

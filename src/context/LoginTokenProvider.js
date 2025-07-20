@@ -23,63 +23,38 @@ export const LoginTokenProvider = ({ children }) => {
     }
   }, []);
 
-  const checkUser = async () => {
+  const checkUser = async (type) => {
     if (isSubmitting) {
       return;
     }
     setIsSubmitting(true);
     try {
-      const data = {
-        email: user.email,
-        password: user.password,
-      };
-
-      const response = await axios.post("/api/auth/login", data);
-      const result = response.data;
-
-      if (response.status === 200) {
-        localStorage.setItem("token", result.encodedToken);
-        localStorage.setItem("user", JSON.stringify(result.foundUser));
-        setToken(result.encodedToken);
-        ReactToastify("Logged in Successfully", "success");
-        clearState();
-        navigate("/");
-      } else {
-        if (result.errors) {
-          result.errors.map((e) => ReactToastify(e, "error"));
-        } else {
-          ReactToastify(
-            "Something went wrong, please try again later!",
-            "error"
-          );
-        }
+      if (
+        type === "not guest" &&
+        (user.email.trim() === "" || user.password.trim() === "")
+      ) {
+        ReactToastify("Please enter your Login Email & Password", "error");
+        return;
       }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
-  const loginAsGuest = async () => {
-    if (isSubmitting) {
-      return;
-    }
-    setIsSubmitting(true);
-    try {
       const data = {
-        email: "adarshbalika@gmail.com",
-        password: "adarshbalika",
+        email: type === "guest" ? "adarshbalika@gmail.com" : user.email,
+        password: type === "guest" ? "adarshbalika" : user.password,
       };
 
-      const response = await axios.post("/api/auth/login", data);
+      // const response = await axios.post("/api/auth/login", data);
+      const response = await axios.post(
+        "http://localhost:5000/api/auth/",
+        data
+      );
+      console.log("login response: ", response);
       const result = response.data;
 
       if (response.status === 200) {
-        localStorage.setItem("token", result.encodedToken);
-        localStorage.setItem("user", JSON.stringify(result.foundUser));
-        setToken(result.encodedToken);
-        ReactToastify("Logged in Successfully as Guest", "success");
+        localStorage.setItem("token", result.user.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
+        setToken(result.user.token);
+        ReactToastify("Logged in Successfully", "success");
         clearState();
         navigate("/");
       } else {
@@ -102,9 +77,7 @@ export const LoginTokenProvider = ({ children }) => {
   const clearState = () => setUser({ email: "", password: "" });
 
   return (
-    <ContextToken.Provider
-      value={{ user, setUser, checkUser, loginAsGuest, token }}
-    >
+    <ContextToken.Provider value={{ user, setUser, checkUser, token }}>
       {children}
     </ContextToken.Provider>
   );

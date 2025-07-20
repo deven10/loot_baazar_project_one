@@ -1,5 +1,5 @@
 // libraries
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
@@ -71,7 +71,12 @@ export const Register = () => {
         password: user?.password,
       };
 
-      const response = await axios.post("/api/auth/signup", data);
+      // const response = await axios.post("/api/auth/signup", data);
+      const response = await axios.post(
+        "http://localhost:5000/api/user/",
+        data
+      );
+      console.log("response: ", response);
       const result = response.data;
 
       if (response.errors) {
@@ -79,12 +84,13 @@ export const Register = () => {
       } else {
         ReactToastify("User Created 🚀", "success");
         clearState();
-        localStorage.setItem("token", result.encodedToken);
-        localStorage.setItem("user", JSON.stringify(result.createdUser));
+        localStorage.setItem("token", result.token);
+        localStorage.setItem("user", JSON.stringify(result.user));
         navigate("/");
       }
     } catch (error) {
       console.log(error);
+      ReactToastify(error?.response?.data?.message, "error");
     } finally {
       setIsSubmitting(false);
     }
@@ -180,7 +186,7 @@ export const Register = () => {
         </div>
         <div className="form-group">
           <label htmlFor="confirmPassword" className="form-label">
-            Password
+            Confirm Password
           </label>
           <div className="password-field">
             <input

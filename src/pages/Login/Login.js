@@ -1,9 +1,8 @@
 // libraries
-import React, { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 // components
-import { ReactToastify } from "../../utility/ReactToastify";
 import { ContextToken } from "../../context/LoginTokenProvider";
 
 // styling
@@ -11,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../stylesheet/FormStyling.css";
 
 export const Login = () => {
-  const { user, setUser, checkUser, loginAsGuest } = useContext(ContextToken);
+  const { user, setUser, checkUser } = useContext(ContextToken);
   const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate();
@@ -24,15 +23,7 @@ export const Login = () => {
   }, []);
 
   const handleSubmit = (type) => {
-    if (type === "not guest") {
-      if (user.email !== "" && user.password !== "") {
-        checkUser();
-      } else {
-        ReactToastify("Please enter your Login Email & Password", "error");
-      }
-    } else if (type === "guest") {
-      loginAsGuest();
-    }
+    checkUser(type);
   };
 
   const handleChange = (e) => {
