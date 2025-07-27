@@ -30,34 +30,6 @@ export const Home = () => {
           categoriesState={categoriesState}
           setSelectedCategory={setSelectedCategory}
         />
-        {/* <h2>Shop by Category</h2>
-        <div className="categories-parent">
-          {categoriesState.loading ? (
-            <>
-              <Skeleton height={250} width={350} />
-              <Skeleton height={250} width={350} />
-              <Skeleton height={250} width={350} />
-            </>
-          ) : (
-            categoriesState.categories?.map((category) => {
-              const { image, description, categoryName, _id } = category;
-              return (
-                <div
-                  onClick={() => {
-                    navigate("/shop", { state: { location: "Home" } });
-                    setSelectedCategory(() => category.categoryName);
-                  }}
-                  className="category"
-                  key={_id}
-                >
-                  <img src={image} alt={description} loading="lazy" />
-                  <p>{categoryName}</p>
-                  
-                </div>
-              );
-            })
-          )}
-        </div> */}
       </section>
     </div>
   );

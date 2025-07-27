@@ -62,16 +62,16 @@ function CategorySlider({ categoriesState, setSelectedCategory }) {
                 className="cursor-pointer block-border-radius category bg-[#fff]"
                 onClick={() => {
                   navigate("/shop", { state: { location: "Home" } });
-                  setSelectedCategory(() => category.categoryName);
+                  setSelectedCategory(() => category.name);
                 }}
               >
                 <img
-                  src={category.image}
-                  alt={category.categoryName}
+                  src={category.imageUrl}
+                  alt={category.name}
                   loading="lazy"
                 />
                 <p className="m-0 text-[15px] font-medium tracking-wide text-center mt-3 select-none">
-                  {category.categoryName}
+                  {category.name}
                 </p>
               </SwiperSlide>
             ))}

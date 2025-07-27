@@ -12,9 +12,9 @@ export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async (args, { rejectWithValue }) => {
     try {
-      const result = await axios.get("/api/categories");
+      const result = await axios.get("http://localhost:5000/api/category");
       if (result.status === 200) {
-        return result.data.categories;
+        return result.data.filter(({ isPrimary }) => isPrimary);
       } else {
         return [];
       }

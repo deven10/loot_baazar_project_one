@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { Logo } from "../Logo";
@@ -10,13 +10,15 @@ import { IoMail } from "react-icons/io5";
 
 import "./Footer.css";
 import { ContextCategories } from "../../context/CategoriesContext";
-import { categories } from "../../utility/utils";
+import { useSelector } from "react-redux";
+import Skeleton from "react-loading-skeleton";
 
 export const NewFooter = () => {
   const { setSelectedCategory } = useContext(ContextCategories);
   const navigate = useNavigate();
   const currentYear = new Date().getFullYear();
 
+  const categoriesState = useSelector((state) => state.categories);
   return (
     <div className="custom-block block-border-radius new-footer flex flex-col">
       <div className="flex justify-between items-center mb-3 footer-logo-and-socials">
@@ -49,18 +51,28 @@ export const NewFooter = () => {
         <div className="flex flex-1 flex-col gap-2 categories-tags">
           <p className="font-medium">Categories</p>
           <div className="flex flex-wrap gap-x-4 gap-y-3 items-center">
-            {categories.map((category) => (
-              <span
-                key={category}
-                onClick={() => {
-                  navigate("/shop", { state: { location: "Home" } });
-                  setSelectedCategory(() => category);
-                }}
-                className="px-3 cursor-pointer py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius"
-              >
-                {category}
-              </span>
-            ))}
+            {categoriesState.loading ? (
+              [1, 2, 3, 4].map((category) => (
+                <span key={category}>
+                  <Skeleton height={25} width={100} />
+                </span>
+              ))
+            ) : categoriesState?.categories?.length > 0 ? (
+              categoriesState?.categories?.map((category) => (
+                <span
+                  key={category?._id}
+                  onClick={() => {
+                    navigate("/shop", { state: { location: "Home" } });
+                    setSelectedCategory(() => category?.name);
+                  }}
+                  className="px-3 cursor-pointer py-1 tracking-wide text-[14px] bg-[#dfdfdf] block-border-radius"
+                >
+                  {category?.name}
+                </span>
+              ))
+            ) : (
+              <p>No Categories found!</p>
+            )}
           </div>
         </div>
       </div>
