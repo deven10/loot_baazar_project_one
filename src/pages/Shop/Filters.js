@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-import { categories } from "../../utility/utils";
 import { ContextCategories } from "../../context/CategoriesContext";
+import Skeleton from "react-loading-skeleton";
 
 export const Filters = ({
   search,
@@ -10,14 +10,13 @@ export const Filters = ({
   setProductsArray,
   category,
   setCategory,
+  categories,
 }) => {
   const [priceRange, setPriceRange] = useState(500000);
   const [sortBy, setSortBy] = useState("");
   const [rating, setRating] = useState("");
-  //   const [category, setCategory] = useState([]);
 
-  const { selectedCategory, setSelectedCategory } =
-    useContext(ContextCategories);
+  const { setSelectedCategory } = useContext(ContextCategories);
 
   const handleClear = () => {
     setSortBy("");
@@ -62,19 +61,19 @@ export const Filters = ({
   const ratingFilter = (dataset) => {
     if (rating === "4") {
       return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
+        (product) => Number(product.rating) >= Number(rating)
       );
     } else if (rating === "3") {
       return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
+        (product) => Number(product.rating) >= Number(rating)
       );
     } else if (rating === "2") {
       return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
+        (product) => Number(product.rating) >= Number(rating)
       );
     } else if (rating === "1") {
       return dataset.filter(
-        (product) => Number(product.productRating) >= Number(rating)
+        (product) => Number(product.rating) >= Number(rating)
       );
     } else {
       return dataset;
@@ -82,11 +81,11 @@ export const Filters = ({
   };
 
   const categoryFilter = (dataset) => {
-    if (category.length <= 0) {
+    if (category?.length <= 0) {
       return dataset;
     } else {
       return dataset.filter((product) =>
-        category.includes(product.categoryName)
+        category.some((item) => product?.category.includes(item))
       );
     }
   };
@@ -108,14 +107,7 @@ export const Filters = ({
     const filterBySearch = sortByFilter(filterByRating);
     const productsToShow = sortBySearch(filterBySearch);
     setProductsArray(() => productsToShow);
-
-    console.log("-----------");
-    console.log("filterByPrice: ", filterByPrice);
-    console.log("filterByCategory: ", filterByCategory);
-    console.log("filterByRating: ", filterByRating);
-    console.log("filterBySearch: ", filterBySearch);
-    console.log("productsToShow: ", productsToShow);
-  }, [products, category, priceRange, sortBy, search]);
+  }, [products, category, priceRange, sortBy, search, rating]);
 
   return (
     <div>
@@ -143,25 +135,39 @@ export const Filters = ({
           />
         </Box>
       </div>
-      <div className="filter-group filters-category p-styling">
-        <p>Category</p>
-        {categories.map((singleCategory) => (
-          <div className="checkbox-group" key={singleCategory}>
-            <label htmlFor={singleCategory} className="uppercase tracking-wide">
-              <input
-                type="checkbox"
-                value={singleCategory}
-                onChange={(e) => handleCategory(e)}
-                checked={category.includes(singleCategory)}
-                name={singleCategory}
-                id={singleCategory}
-                className="mr-2"
-              />
-              {singleCategory}
-            </label>
-          </div>
-        ))}
-      </div>
+
+      {categories.loading || categories?.categories?.length > 0 ? (
+        <div className="filter-group filters-category p-styling">
+          <p>Category</p>
+
+          {categories.loading
+            ? [1, 2, 3, 4].map((category) => (
+                <span key={category}>
+                  <Skeleton height={25} width={100} />
+                </span>
+              ))
+            : categories?.categories?.map((singleCategory) => (
+                <div className="checkbox-group" key={singleCategory._id}>
+                  <label
+                    htmlFor={singleCategory._id}
+                    className="uppercase tracking-wide"
+                  >
+                    <input
+                      type="checkbox"
+                      value={singleCategory.name}
+                      onChange={(e) => handleCategory(e)}
+                      checked={category.includes(singleCategory.name)}
+                      name={singleCategory.name}
+                      id={singleCategory._id}
+                      className="mr-2"
+                    />
+                    {singleCategory.name}
+                  </label>
+                </div>
+              ))}
+        </div>
+      ) : null}
+
       <div className="filter-group p-styling">
         <p>Rating</p>
         <div className="rating-filter">

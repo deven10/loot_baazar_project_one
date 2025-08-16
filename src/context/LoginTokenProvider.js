@@ -2,6 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import { ReactToastify } from "../utility/ReactToastify";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { BASE_URL } from "../config";
 
 export const ContextToken = createContext();
 
@@ -43,10 +44,7 @@ export const LoginTokenProvider = ({ children }) => {
       };
 
       // const response = await axios.post("/api/auth/login", data);
-      const response = await axios.post(
-        "http://localhost:5000/api/auth/",
-        data
-      );
+      const response = await axios.post(`${BASE_URL}/auth`, data);
       console.log("login response: ", response);
       const result = response.data;
 

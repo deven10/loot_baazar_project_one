@@ -1,7 +1,6 @@
-import React from "react";
 import Skeleton from "react-loading-skeleton";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Navigation, Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { useNavigate } from "react-router-dom";
 
 import "swiper/css/pagination";

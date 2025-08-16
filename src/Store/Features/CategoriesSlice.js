@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { BASE_URL } from "../../config";
 
 const initialState = {
   categories: [],
@@ -12,7 +13,7 @@ export const fetchCategories = createAsyncThunk(
   "categories/fetchCategories",
   async (args, { rejectWithValue }) => {
     try {
-      const result = await axios.get("http://localhost:5000/api/category");
+      const result = await axios.get(`${BASE_URL}/category`);
       if (result.status === 200) {
         return result.data.filter(({ isPrimary }) => isPrimary);
       } else {

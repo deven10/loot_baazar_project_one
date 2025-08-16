@@ -21,12 +21,16 @@ import { FiltersModal } from "./FiltersModal";
 import { useMediaQuery } from "@mui/material";
 import { Filters } from "./Filters";
 import { ContextCategories } from "../../context/CategoriesContext";
+import axios from "axios";
+import { fetchCategories } from "../../Store/Features/CategoriesSlice";
+import { BASE_URL } from "../../config";
 
 export const Shop = () => {
   const { search } = useContext(ContextSearch);
 
   const cartState = useSelector((state) => state.cart);
   const wishlistState = useSelector((state) => state.wishlist);
+  const categoriesState = useSelector((state) => state.categories);
 
   const lessThan575 = useMediaQuery("(max-width:575px)");
   const location = useLocation();
@@ -59,13 +63,9 @@ export const Shop = () => {
 
   const getProducts = async () => {
     try {
-      const response = await fetch("/api/products", {
-        method: "GET",
-      });
-
+      const response = await axios.get(`${BASE_URL}/product`);
       if (response.status === 200) {
-        const result = await response.json();
-        setProducts(result.products);
+        setProducts(response.data);
       }
     } catch (error) {
       console.log(error);
@@ -80,6 +80,12 @@ export const Shop = () => {
     dispatch(fetchWishlist(token));
   }, []);
 
+  useEffect(() => {
+    if (categoriesState?.categories?.length <= 0) {
+      dispatch(fetchCategories());
+    }
+  }, [categoriesState]);
+
   return (
     <div className="main-shop default-bg-color">
       <div className="filters custom-block">
@@ -89,6 +95,7 @@ export const Shop = () => {
           setProductsArray={setProductsArray}
           category={category}
           setCategory={setCategory}
+          categories={categoriesState}
         />
       </div>
       <div className="all-products">
@@ -130,7 +137,7 @@ export const Shop = () => {
             />
           ) : (
             productsArray.map((product) => {
-              const { _id, name, image, price, mrp, productRating } = product;
+              const { _id, name, images, price, mrp, rating } = product;
               return (
                 <div
                   className="product-item custom-block block-border-radius flex"
@@ -143,7 +150,7 @@ export const Shop = () => {
                     >
                       <img
                         className="product-item-image"
-                        src={image}
+                        src={images[0]}
                         alt={name}
                       />
                     </Link>
@@ -188,7 +195,7 @@ export const Shop = () => {
                       </span>
                     </p>
                     <p className="product-rating mb-3">
-                      Product Rating: {productRating}{" "}
+                      Product Rating: {rating}{" "}
                       <i className="fa-solid fa-star star-icon"></i>
                     </p>
                     {cartState.cart?.find((product) => product._id === _id) ? (
@@ -225,6 +232,7 @@ export const Shop = () => {
         setProductsArray={setProductsArray}
         category={category}
         setCategory={setCategory}
+        categories={categoriesState}
       />
     </div>
   );

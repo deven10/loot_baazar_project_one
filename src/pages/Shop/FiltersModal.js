@@ -1,11 +1,7 @@
-import React, { useState } from "react";
 import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import Fade from "@mui/material/Fade";
-import Typography from "@mui/material/Typography";
-import Slider from "@mui/material/Slider";
-import { categories } from "../../utility/utils";
 import { Filters } from "./Filters";
 
 const style = {
@@ -14,10 +10,6 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "90%",
-  // bgcolor: "background.paper",
-  // border: '2px solid #000',
-  // boxShadow: 24,
-  //   p: 4,
 };
 
 export const FiltersModal = ({
@@ -28,6 +20,7 @@ export const FiltersModal = ({
   setProductsArray,
   category,
   setCategory,
+  categories,
 }) => {
   const handleClose = () => setOpen(false);
 
@@ -57,6 +50,7 @@ export const FiltersModal = ({
               setProductsArray={setProductsArray}
               category={category}
               setCategory={setCategory}
+              categories={categories}
             />
             <button
               onClick={handleClose}

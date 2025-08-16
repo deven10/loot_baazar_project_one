@@ -8,6 +8,7 @@ import { ReactToastify } from "../../utility/ReactToastify";
 
 // styling
 import "../../stylesheet/FormStyling.css";
+import { BASE_URL } from "../../config";
 
 const HidePasswordIcon = ({ togglePassword }) => {
   return (
@@ -72,10 +73,7 @@ export const Register = () => {
       };
 
       // const response = await axios.post("/api/auth/signup", data);
-      const response = await axios.post(
-        "http://localhost:5000/api/user/",
-        data
-      );
+      const response = await axios.post(`${BASE_URL}/user`, data);
       console.log("response: ", response);
       const result = response.data;
 
