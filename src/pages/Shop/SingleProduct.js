@@ -12,6 +12,8 @@ import {
   removeFromWishlist,
 } from "../../Store/Features/WishlistSlice";
 import { ContextToken } from "../../context/LoginTokenProvider";
+import { BASE_URL } from "../../config";
+import axios from "axios";
 
 export const SingleProduct = () => {
   const dispatch = useDispatch();
@@ -29,14 +31,10 @@ export const SingleProduct = () => {
 
   const getProduct = async () => {
     try {
-      const response = await fetch(`/api/products/${productId}`, {
-        method: "GET",
-      });
-
+      const response = await axios.get(`${BASE_URL}/product/${productId}`);
       if (response.status === 200) {
-        const result = await response.json();
-        setProduct(result.product);
-        setProductImage(result.product.image);
+        setProduct(response.data.product || {});
+        setProductImage(response?.data?.product?.images[0] || "");
       }
     } catch (error) {
       console.log(error);

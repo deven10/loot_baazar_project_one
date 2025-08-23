@@ -15,7 +15,7 @@ export const fetchCategories = createAsyncThunk(
     try {
       const result = await axios.get(`${BASE_URL}/category`);
       if (result.status === 200) {
-        return result.data.filter(({ isPrimary }) => isPrimary);
+        return result.data?.categories?.filter(({ isPrimary }) => isPrimary);
       } else {
         return [];
       }

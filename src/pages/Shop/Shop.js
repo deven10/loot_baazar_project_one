@@ -65,7 +65,7 @@ export const Shop = () => {
     try {
       const response = await axios.get(`${BASE_URL}/product`);
       if (response.status === 200) {
-        setProducts(response.data);
+        setProducts(response.data.products || []);
       }
     } catch (error) {
       console.log(error);
@@ -84,7 +84,7 @@ export const Shop = () => {
     if (categoriesState?.categories?.length <= 0) {
       dispatch(fetchCategories());
     }
-  }, [categoriesState]);
+  }, []);
 
   return (
     <div className="main-shop default-bg-color">
