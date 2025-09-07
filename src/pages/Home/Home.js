@@ -6,14 +6,21 @@ import CategorySlider from "./CategorySlider";
 
 import "./Home.css";
 import { BannerSlider } from "./BannerSlider";
+import { fetchCart } from "../../Store/Features/CartSlice";
 
 export const Home = () => {
   const dispatch = useDispatch();
   const categoriesState = useSelector((state) => state.categories);
   const { setSelectedCategory } = useContext(ContextCategories);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
   useEffect(() => {
     dispatch(fetchCategories());
+    if (user && user?._id && token) {
+      dispatch(fetchCart({ userId: user?._id, token }));
+    }
   }, []);
 
   return (

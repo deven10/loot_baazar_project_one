@@ -1,6 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { ReactToastify } from "../../utility/ReactToastify";
+import { BASE_URL } from "../../config";
+import api from "../../utility/api";
 
 const initialState = {
   cart: [],
@@ -11,15 +13,15 @@ const initialState = {
 // read all cart
 export const fetchCart = createAsyncThunk(
   "cart/fetchCart",
-  async (token, { rejectWithValue }) => {
+  async (data, { rejectWithValue }) => {
     try {
-      const result = await axios.get("/api/user/cart", {
+      const result = await api.get(`${BASE_URL}/cart/${data.userId}`, {
         headers: {
-          authorization: `${token}`,
+          authorization: `Bearer ${data.token}`,
         },
       });
       if (result.status === 200) {
-        return result.data.cart;
+        return result.data.products;
       } else {
         return [];
       }
@@ -38,19 +40,21 @@ export const addToCart = createAsyncThunk(
       }
 
       const body = {
-        product: data.product,
+        productId: data.productId,
+        quantity: data.quantity,
+        userId: data.userId,
       };
 
-      const result = await axios.post("/api/user/cart", body, {
+      const result = await axios.post(`${BASE_URL}/cart`, body, {
         headers: {
           "Content-Type": "application/json",
-          authorization: `${data.token}`,
+          authorization: `Bearer ${data.token}`,
         },
       });
 
-      if (result.status === 201) {
+      if (result.status === 200) {
         ReactToastify("Product Added to Cart", "success");
-        return result.data.cart;
+        return result.data.cart.products || [];
       } else if (result.status === 500) {
         return [];
       }
@@ -66,14 +70,16 @@ export const removeFromCart = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       if (initialState.loading) return;
-      const result = await axios.delete(`/api/user/cart/${data.productId}`, {
+      const result = await axios.post(`${BASE_URL}/cart/remove`, data.body, {
         headers: {
-          authorization: `${data.token}`,
+          "Content-Type": "application/json",
+          authorization: `Bearer ${data.token}`,
         },
       });
+
       if (result.status === 200) {
-        ReactToastify("Product Removed from Cart", "warn");
-        return result.data.cart;
+        ReactToastify("Product Removed from Cart", "success");
+        return result?.data?.cart?.products || [];
       } else if (result.status === 500) {
         ReactToastify("Please Login first", "error");
       }
@@ -89,23 +95,16 @@ export const updateCart = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       if (initialState.loading) return;
-      const body = {
-        action: {
-          type: data.action.type,
-        },
-      };
-      const result = await axios.post(
-        `/api/user/cart/${data.productId}`,
-        body,
-        {
-          headers: {
-            authorization: `${data.token}`,
-          },
-        }
-      );
 
-      if (result.status === 200) {
-        return result.data.cart;
+      const result = await axios.post(`${BASE_URL}/cart/update`, data.body, {
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${data.token}`,
+        },
+      });
+
+      if (result.status === 201) {
+        return result.data.cart.products || [];
       } else if (result.status === 500) {
         ReactToastify("Please Login first", "error");
       }

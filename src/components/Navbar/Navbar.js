@@ -1,5 +1,5 @@
 // libraries
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
 import IconButton from "@mui/material/IconButton";
@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 // components
 import { ContextSearch } from "../../context/SearchContext";
 import { clearWishlist } from "../../Store/Features/WishlistSlice";
-import { clearCart } from "../../Store/Features/CartSlice";
+import { clearCart, fetchCart } from "../../Store/Features/CartSlice";
 
 // styling
 import "./Navbar.css";
@@ -170,6 +170,17 @@ const Nav = () => {
 };
 
 export const Navbar = () => {
+  const dispatch = useDispatch();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
+
+  useEffect(() => {
+    if (user && user?._id && token) {
+      dispatch(fetchCart({ userId: user?._id, token }));
+    }
+  }, []);
+
   return (
     <div className="nav-parent">
       <nav className="nav custom-block block-border-radius">

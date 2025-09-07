@@ -21,7 +21,9 @@ export const Checkout = () => {
   const [selectedAddress, setSelectedAddress] = useState({});
 
   useEffect(() => {
-    dispatch(fetchCart(token));
+    if (user && user?._id && token) {
+      dispatch(fetchCart({ userId: user?._id, token }));
+    }
   }, []);
 
   const checkoutPrice = cartState.cart?.reduce(

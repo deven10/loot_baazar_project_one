@@ -38,12 +38,13 @@ export const Wishlist = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useContext(ContextToken);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const cartState = useSelector((state) => state.cart);
   const wishlistState = useSelector((state) => state.wishlist);
 
   useEffect(() => {
-    dispatch(fetchCart(token));
+    // dispatch(fetchCart({ userId: user?._id, token }));
     dispatch(fetchWishlist(token));
   }, []);
 

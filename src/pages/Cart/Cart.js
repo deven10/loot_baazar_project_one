@@ -40,18 +40,19 @@ export const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { token } = useContext(ContextToken);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const cartState = useSelector((state) => state.cart);
   const wishlistState = useSelector((state) => state.wishlist);
 
   useEffect(() => {
-    dispatch(fetchCart(token));
+    dispatch(fetchCart({ userId: user?._id, token }));
     dispatch(fetchWishlist(token));
   }, []);
 
   const checkoutPrice = useMemo(() => {
     return cartState.cart.reduce(
-      (acc, { mrp, price, qty }) => ({
+      (acc, { productId: { mrp, price }, quantity: qty }) => ({
         ...acc,
         mrpPrice: acc.mrpPrice + mrp * qty,
         actualPrice: acc.actualPrice + price * qty,
@@ -86,14 +87,14 @@ export const Cart = () => {
             <div className="cart-items">
               {cartState.cart.length > 0 ? (
                 cartState.cart.map((product) => {
-                  const { image, mrp, name, price, qty, _id } = product;
+                  const { images, mrp, name, price, _id } = product.productId;
                   const discountOnProduct = Math.round(
                     100 - (price / mrp) * 100
                   );
                   return (
                     <div key={_id} className="cart-item custom-block">
                       <div className="cart-item-image">
-                        <img src={image} alt={name} />
+                        <img src={images[0]} alt={name} />
                       </div>
                       <div className="cart-item-details">
                         <p className="cart-item-name">{name}</p>
@@ -111,22 +112,26 @@ export const Cart = () => {
                             <button
                               onClick={() => {
                                 const productData = cartState.cart.filter(
-                                  (prod) => _id === prod._id
+                                  (prod) => _id === prod.productId._id
                                 );
-                                if (productData[0].qty === 1) {
+                                if (productData[0].quantity === 1) {
                                   dispatch(
                                     removeFromCart({
                                       token,
-                                      productId: _id,
+                                      body: {
+                                        userId: user?._id,
+                                        productId: _id,
+                                      },
                                     })
                                   );
                                 } else {
                                   dispatch(
                                     updateCart({
                                       token,
-                                      productId: _id,
-                                      action: {
-                                        type: "decrement",
+                                      body: {
+                                        productId: _id,
+                                        userId: user?._id,
+                                        quantity: +product.quantity - 1,
                                       },
                                     })
                                   );
@@ -136,15 +141,18 @@ export const Cart = () => {
                             >
                               -
                             </button>
-                            <label className="quantity-label">{qty}</label>
+                            <label className="quantity-label">
+                              {product.quantity}
+                            </label>
                             <button
                               onClick={() => {
                                 dispatch(
                                   updateCart({
                                     token,
-                                    productId: _id,
-                                    action: {
-                                      type: "increment",
+                                    body: {
+                                      productId: _id,
+                                      userId: user?._id,
+                                      quantity: +product.quantity + 1,
                                     },
                                   })
                                 );
@@ -161,7 +169,10 @@ export const Cart = () => {
                               dispatch(
                                 removeFromCart({
                                   token,
-                                  productId: _id,
+                                  body: {
+                                    userId: user?._id,
+                                    productId: _id,
+                                  },
                                 })
                               );
                             }}
@@ -180,7 +191,10 @@ export const Cart = () => {
                                 dispatch(
                                   removeFromCart({
                                     token,
-                                    productId: _id,
+                                    body: {
+                                      userId: user?._id,
+                                      productId: _id,
+                                    },
                                   })
                                 );
                               }}

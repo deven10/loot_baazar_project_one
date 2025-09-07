@@ -20,8 +20,10 @@ export const SingleProduct = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
   const { token } = useContext(ContextToken);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const cartState = useSelector((state) => state.cart);
+
   const wishlistState = useSelector((state) => state.wishlist);
 
   const [product, setProduct] = useState({});
@@ -44,7 +46,6 @@ export const SingleProduct = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchCart(token));
     dispatch(fetchWishlist(token));
     getProduct();
   }, []);
@@ -122,7 +123,9 @@ export const SingleProduct = () => {
               {product?.description}
             </p>
             <div className="flex flex-wrap gap-2">
-              {cartState.cart.find((product) => product._id === +productId) ? (
+              {cartState.cart.find(
+                (product) => product?.productId?._id == productId
+              ) ? (
                 <Link className="add-to-cart-link" to="/cart">
                   Go to Cart
                 </Link>
@@ -132,8 +135,10 @@ export const SingleProduct = () => {
                   onClick={() => {
                     dispatch(
                       addToCart({
-                        product,
+                        productId: productId,
                         token,
+                        quantity: 1,
+                        userId: user?._id,
                       })
                     );
                   }}

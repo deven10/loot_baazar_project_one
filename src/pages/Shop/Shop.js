@@ -1,39 +1,29 @@
 // libraries
 import React, { useEffect, useState, useContext } from "react";
 import { TailSpin } from "react-loader-spinner";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaFilter } from "react-icons/fa";
 
 // components, utility functions
 import { ContextSearch } from "../../context/SearchContext";
-import { addToCart, fetchCart } from "../../Store/Features/CartSlice";
-import {
-  addToWishlist,
-  fetchWishlist,
-  removeFromWishlist,
-} from "../../Store/Features/WishlistSlice";
-import { stripProductName } from "../../utility/utils";
+import { fetchWishlist } from "../../Store/Features/WishlistSlice";
 
 // styling
 import "./Shop.css";
 import { FiltersModal } from "./FiltersModal";
-import { useMediaQuery } from "@mui/material";
 import { Filters } from "./Filters";
 import { ContextCategories } from "../../context/CategoriesContext";
 import axios from "axios";
 import { fetchCategories } from "../../Store/Features/CategoriesSlice";
 import { BASE_URL } from "../../config";
+import { ProductCard } from "./ProductCard";
 
 export const Shop = () => {
-  const { search } = useContext(ContextSearch);
-
-  const cartState = useSelector((state) => state.cart);
-  const wishlistState = useSelector((state) => state.wishlist);
-  const categoriesState = useSelector((state) => state.categories);
-
-  const lessThan575 = useMediaQuery("(max-width:575px)");
   const location = useLocation();
+  const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("user"));
+  const token = localStorage.getItem("token");
 
   // states
   const [products, setProducts] = useState([]);
@@ -42,11 +32,9 @@ export const Shop = () => {
   const [productsArray, setProductsArray] = useState([]);
   const [category, setCategory] = useState([]);
 
-  const token = localStorage.getItem("token");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
+  const { search } = useContext(ContextSearch);
   const { selectedCategory } = useContext(ContextCategories);
+  const categoriesState = useSelector((state) => state.categories);
 
   // for checking user has selected any category from homepage
   useEffect(() => {
@@ -76,8 +64,9 @@ export const Shop = () => {
 
   useEffect(() => {
     getProducts();
-    dispatch(fetchCart(token));
-    dispatch(fetchWishlist(token));
+    if (user && user?._id) {
+      dispatch(fetchWishlist(token));
+    }
   }, []);
 
   useEffect(() => {
@@ -137,88 +126,14 @@ export const Shop = () => {
             />
           ) : (
             productsArray.map((product) => {
-              const { _id, name, images, price, mrp, rating } = product;
               return (
-                <div
-                  className="product-item custom-block block-border-radius flex"
-                  key={_id}
-                >
-                  <div className="relative-position product-img">
-                    <Link
-                      to={`/shop/${_id}`}
-                      className="block product-img-wrapper"
-                    >
-                      <img
-                        className="product-item-image"
-                        src={images[0]}
-                        alt={name}
-                      />
-                    </Link>
-                    <span className="like-icon">
-                      {wishlistState.wishlist?.find(
-                        (product) => product._id === _id
-                      ) ? (
-                        <i
-                          className="fa-solid fa-heart color-red heart"
-                          onClick={() => {
-                            dispatch(
-                              removeFromWishlist({ productId: _id, token })
-                            );
-                          }}
-                        ></i>
-                      ) : (
-                        <i
-                          className="fa-regular fa-heart heart"
-                          onClick={() => {
-                            !token
-                              ? navigate("/login")
-                              : dispatch(addToWishlist({ token, product }));
-                          }}
-                        ></i>
-                      )}
-                    </span>
-                  </div>
-                  <div className="product-details">
-                    <p className="product-item-name mb-2">
-                      <Link className="product-link" to={`/shop/${_id}`}>
-                        {lessThan575 ? stripProductName(name) : name}
-                      </Link>
-                    </p>
-                    <p className="product-item-price mb-1">
-                      <span className="selling-price">
-                        <sup>₹</sup>
-                        {price}/-
-                      </span>
-                      <span className="mrp-price">
-                        <span>M.R.P</span>
-                        <span className="line-through">₹{mrp}/- </span>
-                      </span>
-                    </p>
-                    <p className="product-rating mb-3">
-                      Product Rating: {rating}{" "}
-                      <i className="fa-solid fa-star star-icon"></i>
-                    </p>
-                    {cartState.cart?.find((product) => product._id === _id) ? (
-                      <Link className="add-to-cart-link" to="/cart">
-                        Go to Cart
-                      </Link>
-                    ) : (
-                      <button
-                        className="add-to-cart-btn"
-                        onClick={() => {
-                          dispatch(
-                            addToCart({
-                              product,
-                              token,
-                            })
-                          );
-                        }}
-                      >
-                        Add to Cart
-                      </button>
-                    )}
-                  </div>
-                </div>
+                <React.Fragment key={product._id}>
+                  <ProductCard
+                    product={product}
+                    userId={user?._id}
+                    token={user?.token}
+                  />
+                </React.Fragment>
               );
             })
           )}
